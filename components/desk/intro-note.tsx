@@ -10,56 +10,125 @@ interface IntroNoteProps {
 export function IntroNote({ name, tagline }: IntroNoteProps) {
   return (
     <motion.div
-      className="relative bg-paper-light p-6 md:p-8 max-w-xs"
-      style={{
-        transform: "rotate(-1.5deg)",
-        boxShadow: "6px 6px 20px rgba(44, 36, 22, 0.2), 2px 2px 8px rgba(44, 36, 22, 0.1)",
-        // Hand-torn paper effect on edges
-        clipPath: `polygon(
-          0% 3%, 2% 0%, 5% 2%, 8% 0%, 12% 1%, 15% 0%, 20% 2%, 
-          25% 0%, 30% 1%, 35% 0%, 40% 2%, 45% 0%, 50% 1%, 
-          55% 0%, 60% 2%, 65% 0%, 70% 1%, 75% 0%, 80% 2%, 
-          85% 0%, 90% 1%, 95% 0%, 98% 2%, 100% 0%, 
-          100% 97%, 98% 100%, 95% 98%, 90% 100%, 85% 99%, 
-          80% 100%, 75% 98%, 70% 100%, 65% 99%, 60% 100%, 
-          55% 98%, 50% 100%, 45% 99%, 40% 100%, 35% 98%, 
-          30% 100%, 25% 99%, 20% 100%, 15% 98%, 10% 100%, 
-          5% 99%, 2% 100%, 0% 98%
-        )`,
-      }}
-      initial={{ opacity: 0, y: 30, rotate: -5 }}
+      className="relative"
+      initial={{ opacity: 0, y: 30, rotate: -3 }}
       animate={{ opacity: 1, y: 0, rotate: -1.5 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Paper texture overlay */}
+      {/* Shadow layer */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-30"
+        className="absolute inset-0 translate-x-2 translate-y-2 bg-ink/10 blur-sm"
         style={{
-          backgroundImage: "url('/textures/paper-texture.jpg')",
-          backgroundSize: "200px",
-          mixBlendMode: "multiply"
+          clipPath: `polygon(
+            0% 3%, 2% 0%, 5% 2%, 8% 0%, 12% 1%, 15% 0%, 20% 2%, 
+            25% 0%, 30% 1%, 35% 0%, 40% 2%, 45% 0%, 50% 1%, 
+            55% 0%, 60% 2%, 65% 0%, 70% 1%, 75% 0%, 80% 2%, 
+            85% 0%, 90% 1%, 95% 0%, 98% 2%, 100% 0%, 
+            100% 97%, 98% 100%, 95% 98%, 90% 100%, 85% 99%, 
+            80% 100%, 75% 98%, 70% 100%, 65% 99%, 60% 100%, 
+            55% 98%, 50% 100%, 45% 99%, 40% 100%, 35% 98%, 
+            30% 100%, 25% 99%, 20% 100%, 15% 98%, 10% 100%, 
+            5% 99%, 2% 100%, 0% 98%
+          )`,
         }}
       />
       
-      {/* Content */}
-      <div className="relative z-10">
-        <h1 className="font-serif text-3xl md:text-4xl text-ink tracking-tight">
-          {name}
-        </h1>
-        <p className="font-handwriting text-xl md:text-2xl text-sepia mt-2 leading-snug">
-          {tagline}
-        </p>
+      {/* Main note */}
+      <div
+        className="relative bg-paper-light p-7 md:p-9 max-w-[280px]"
+        style={{
+          transform: "rotate(-1.5deg)",
+          boxShadow: "0 4px 20px rgba(44, 36, 22, 0.12), 0 2px 8px rgba(44, 36, 22, 0.08)",
+          clipPath: `polygon(
+            0% 3%, 2% 0%, 5% 2%, 8% 0%, 12% 1%, 15% 0%, 20% 2%, 
+            25% 0%, 30% 1%, 35% 0%, 40% 2%, 45% 0%, 50% 1%, 
+            55% 0%, 60% 2%, 65% 0%, 70% 1%, 75% 0%, 80% 2%, 
+            85% 0%, 90% 1%, 95% 0%, 98% 2%, 100% 0%, 
+            100% 97%, 98% 100%, 95% 98%, 90% 100%, 85% 99%, 
+            80% 100%, 75% 98%, 70% 100%, 65% 99%, 60% 100%, 
+            55% 98%, 50% 100%, 45% 99%, 40% 100%, 35% 98%, 
+            30% 100%, 25% 99%, 20% 100%, 15% 98%, 10% 100%, 
+            5% 99%, 2% 100%, 0% 98%
+          )`,
+        }}
+      >
+        {/* Paper texture overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: "url('/textures/paper-texture.jpg')",
+            backgroundSize: "200px",
+            mixBlendMode: "multiply"
+          }}
+        />
+        
+        {/* Subtle ruled lines */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-[0.07]"
+          style={{
+            backgroundImage: "repeating-linear-gradient(transparent, transparent 27px, #3d5675 27px, #3d5675 28px)",
+            backgroundPosition: "0 20px"
+          }}
+        />
+        
+        {/* Red margin line */}
+        <div 
+          className="absolute top-0 bottom-0 left-8 w-[1px] bg-stamp-red/20 pointer-events-none"
+        />
+        
+        {/* Content */}
+        <div className="relative z-10">
+          {/* Small decorative date */}
+          <motion.span 
+            className="font-handwriting text-xs text-sepia/50 block mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            April 2026
+          </motion.span>
+          
+          <h1 className="font-serif text-3xl md:text-4xl text-ink tracking-tight leading-tight">
+            {name}
+          </h1>
+          
+          <div className="w-12 h-[2px] bg-brass/60 my-3" />
+          
+          <p className="font-handwriting text-xl md:text-2xl text-sepia leading-snug">
+            {tagline}
+          </p>
+          
+          {/* Decorative flourish */}
+          <motion.div 
+            className="mt-4 flex items-center gap-2 opacity-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.4 }}
+            transition={{ delay: 0.7 }}
+          >
+            <div className="w-2 h-2 rounded-full bg-sepia/50" />
+            <div className="w-8 h-[1px] bg-sepia/40" />
+            <div className="w-1.5 h-1.5 rounded-full bg-sepia/40" />
+          </motion.div>
+        </div>
+        
+        {/* Decorative tape strips */}
+        <div 
+          className="absolute -top-3 left-8 w-14 h-5 z-20"
+          style={{
+            background: "linear-gradient(180deg, rgba(255, 248, 220, 0.9) 0%, rgba(245, 235, 200, 0.85) 100%)",
+            transform: "rotate(3deg)",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.06)"
+          }}
+        />
+        <div 
+          className="absolute -top-2 right-6 w-12 h-4 z-20"
+          style={{
+            background: "linear-gradient(180deg, rgba(255, 248, 220, 0.85) 0%, rgba(245, 235, 200, 0.8) 100%)",
+            transform: "rotate(-5deg)",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)"
+          }}
+        />
       </div>
-      
-      {/* Decorative tape strip */}
-      <div 
-        className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6"
-        style={{
-          background: "linear-gradient(180deg, rgba(255, 248, 220, 0.85) 0%, rgba(245, 235, 200, 0.85) 100%)",
-          transform: "translateX(-50%) rotate(2deg)",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.08)"
-        }}
-      />
     </motion.div>
   )
 }
