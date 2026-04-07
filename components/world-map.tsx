@@ -6,11 +6,19 @@ import { CompassRose } from "./compass-rose"
 import { IntroCard } from "./intro-card"
 import { mapPins } from "@/lib/journal-data"
 
-export function WorldMap() {
+interface WorldMapProps {
+  compact?: boolean
+}
+
+export function WorldMap({ compact = false }: WorldMapProps) {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-paper-dark">
+    <div className={`relative overflow-hidden bg-paper-dark rounded-lg shadow-2xl ${
+      compact ? "h-[60vh] w-full" : "min-h-screen w-full"
+    }`}>
       {/* Decorative border */}
-      <div className="absolute inset-4 md:inset-8 border-2 border-sepia/30 pointer-events-none z-30">
+      <div className={`absolute border-2 border-sepia/30 pointer-events-none z-30 ${
+        compact ? "inset-2 md:inset-4" : "inset-4 md:inset-8"
+      }`}>
         {/* Corner ornaments */}
         <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-sepia/50" />
         <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-sepia/50" />
@@ -20,26 +28,32 @@ export function WorldMap() {
 
       {/* Map title - decorative */}
       <motion.div
-        className="absolute top-4 md:top-8 left-1/2 -translate-x-1/2 z-20 text-center"
+        className={`absolute left-1/2 -translate-x-1/2 z-20 text-center ${
+          compact ? "top-2 md:top-4" : "top-4 md:top-8"
+        }`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <h2 className="font-typewriter text-xs md:text-sm text-sepia/60 tracking-[0.3em] uppercase">
+        <h2 className={`font-typewriter text-sepia/60 tracking-[0.3em] uppercase ${
+          compact ? "text-[10px] md:text-xs" : "text-xs md:text-sm"
+        }`}>
           A Chronicle of Wanderings
         </h2>
       </motion.div>
 
-      {/* Intro card */}
-      <IntroCard />
+      {/* Intro card - hide in compact mode */}
+      {!compact && <IntroCard />}
 
-      {/* Compass Rose */}
-      <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-20">
-        <CompassRose />
-      </div>
+      {/* Compass Rose - hide in compact mode */}
+      {!compact && (
+        <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-20">
+          <CompassRose />
+        </div>
+      )}
 
       {/* Map container */}
-      <div className="relative w-full h-screen">
+      <div className={`relative w-full ${compact ? "h-full" : "h-screen"}`}>
         {/* SVG World Map - simplified vintage style */}
         <motion.svg
           viewBox="0 0 1000 500"
@@ -224,31 +238,37 @@ export function WorldMap() {
         ))}
       </div>
 
-      {/* Scale bar */}
-      <motion.div
-        className="absolute bottom-8 left-8 md:bottom-12 md:left-12 z-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1 }}
-      >
-        <div className="flex items-center gap-2">
-          <div className="w-20 h-2 bg-sepia/60 relative">
-            <div className="absolute left-0 top-0 w-1/2 h-full bg-sepia" />
+      {/* Scale bar - hide in compact mode */}
+      {!compact && (
+        <motion.div
+          className="absolute bottom-8 left-8 md:bottom-12 md:left-12 z-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-20 h-2 bg-sepia/60 relative">
+              <div className="absolute left-0 top-0 w-1/2 h-full bg-sepia" />
+            </div>
+            <span className="font-typewriter text-[10px] text-sepia/80">
+              1000 km
+            </span>
           </div>
-          <span className="font-typewriter text-[10px] text-sepia/80">
-            1000 km
-          </span>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Navigation hint */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-center"
+        className={`absolute left-1/2 -translate-x-1/2 z-20 text-center ${
+          compact ? "bottom-3" : "bottom-8"
+        }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.5 }}
       >
-        <p className="font-handwriting text-lg text-sepia/70">
+        <p className={`font-handwriting text-sepia/70 ${
+          compact ? "text-sm" : "text-lg"
+        }`}>
           Click a pin to read the story
         </p>
       </motion.div>
