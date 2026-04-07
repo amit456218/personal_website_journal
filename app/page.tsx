@@ -1,9 +1,9 @@
-import { WorldMap } from "@/components/world-map"
+import { Desk } from "@/components/desk"
 
 export default function Home() {
   return (
     <main className="relative">
-      <WorldMap />
+      <Desk />
     </main>
   )
 }

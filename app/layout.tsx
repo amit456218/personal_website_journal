@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Caveat, Special_Elite } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { AtlasTransition } from '@/components/atlas-transition'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({ 
@@ -56,7 +57,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${cormorant.variable} ${caveat.variable} ${specialElite.variable} font-serif antialiased`}>
-        {children}
+        <AtlasTransition>
+          {children}
+        </AtlasTransition>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
