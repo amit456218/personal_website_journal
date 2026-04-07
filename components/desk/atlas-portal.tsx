@@ -1,48 +1,34 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import Link from "next/link"
 
 interface AtlasPortalProps {
   onNavigate?: () => void
 }
 
 export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
-  const router = useRouter()
-  const [isAnimating, setIsAnimating] = useState(false)
-
   const handleClick = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    
     // Set transition flag for the cinematic animation
     sessionStorage.setItem("atlas-transition", "to-atlas")
-    
     onNavigate?.()
-    
-    // Navigate after a brief delay to let the exit animation start
-    setTimeout(() => {
-      router.push("/atlas")
-    }, 50)
   }
 
   return (
-    <motion.button
-      onClick={handleClick}
-      className="relative cursor-pointer group focus:outline-none"
-      style={{ transform: "rotate(5deg)" }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ 
-        scale: 1.05,
-        rotate: 3,
-        transition: { duration: 0.2 }
-      }}
-      whileTap={{ scale: 0.98 }}
-      disabled={isAnimating}
-    >
+    <Link href="/atlas" onClick={handleClick}>
+      <motion.div
+        className="relative cursor-pointer group focus:outline-none"
+        style={{ transform: "rotate(5deg)" }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ 
+          scale: 1.05,
+          rotate: 3,
+          transition: { duration: 0.2 }
+        }}
+        whileTap={{ scale: 0.98 }}
+      >
       {/* Folded map */}
       <div 
         className="relative w-24 h-20 md:w-28 md:h-24"
@@ -123,6 +109,7 @@ export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
       <div 
         className="absolute -top-4 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border border-sepia/50 bg-paper-light"
       />
-    </motion.button>
+    </motion.div>
+    </Link>
   )
 }
