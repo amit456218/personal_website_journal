@@ -16,8 +16,12 @@ interface MapPinProps {
   index: number
 }
 
+// Deterministic rotation based on index to avoid hydration mismatch
+const FIXED_ROTATIONS = [0.5, -0.3, 0.7, -0.6, 0.2, -0.8, 0.4, -0.5, 0.1, -0.4]
+
 export function MapPin({ id, location, country, date, coordinates, index }: MapPinProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const tooltipRotation = FIXED_ROTATIONS[index % FIXED_ROTATIONS.length]
   
   return (
     <motion.div
@@ -114,7 +118,7 @@ export function MapPin({ id, location, country, date, coordinates, index }: MapP
           <div 
             className="bg-paper-light px-4 py-3 rounded shadow-lg border border-border whitespace-nowrap"
             style={{ 
-              transform: `rotate(${Math.random() * 2 - 1}deg)`,
+              transform: `rotate(${tooltipRotation}deg)`,
               boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.2)"
             }}
           >

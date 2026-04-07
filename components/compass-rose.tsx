@@ -2,6 +2,20 @@
 
 import { motion } from "framer-motion"
 
+// Pre-computed degree markers to avoid hydration mismatch from floating point calculations
+const DEGREE_MARKERS = Array.from({ length: 36 }).map((_, i) => {
+  const angle = i * 10 * (Math.PI / 180)
+  const innerR = i % 9 === 0 ? 75 : 80
+  const outerR = 85
+  return {
+    x1: Math.round((100 + innerR * Math.sin(angle)) * 100) / 100,
+    y1: Math.round((100 - innerR * Math.cos(angle)) * 100) / 100,
+    x2: Math.round((100 + outerR * Math.sin(angle)) * 100) / 100,
+    y2: Math.round((100 - outerR * Math.cos(angle)) * 100) / 100,
+    isCardinal: i % 9 === 0
+  }
+})
+
 export function CompassRose() {
   return (
     <motion.svg
@@ -32,23 +46,18 @@ export function CompassRose() {
       />
       
       {/* Degree markers */}
-      {Array.from({ length: 36 }).map((_, i) => {
-        const angle = i * 10 * (Math.PI / 180)
-        const innerR = i % 9 === 0 ? 75 : 80
-        const outerR = 85
-        return (
-          <line
-            key={i}
-            x1={100 + innerR * Math.sin(angle)}
-            y1={100 - innerR * Math.cos(angle)}
-            x2={100 + outerR * Math.sin(angle)}
-            y2={100 - outerR * Math.cos(angle)}
-            stroke="#5c4a32"
-            strokeWidth={i % 9 === 0 ? "1.5" : "0.5"}
-            opacity={i % 9 === 0 ? "0.8" : "0.4"}
-          />
-        )
-      })}
+      {DEGREE_MARKERS.map((marker, i) => (
+        <line
+          key={i}
+          x1={marker.x1}
+          y1={marker.y1}
+          x2={marker.x2}
+          y2={marker.y2}
+          stroke="#5c4a32"
+          strokeWidth={marker.isCardinal ? "1.5" : "0.5"}
+          opacity={marker.isCardinal ? "0.8" : "0.4"}
+        />
+      ))}
       
       {/* Main compass star - 8 points */}
       <g>
