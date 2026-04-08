@@ -85,7 +85,7 @@ export function Desk() {
 
         {/* LEFT: Featured Project Card - angled for bulletin board feel */}
         <motion.div 
-          className="absolute left-[3%] top-[55%] -translate-y-1/2 z-10"
+          className="absolute left-[3%] top-[58%] -translate-y-1/2 z-10"
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -109,7 +109,7 @@ export function Desk() {
 
         {/* BOTTOM LEFT: Accent Polaroid - moved more right */}
         <motion.div 
-          className="absolute left-[22%] bottom-[8%] z-20 scale-[0.8]"
+          className="absolute left-[22%] bottom-[5%] z-20 scale-[0.8]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}

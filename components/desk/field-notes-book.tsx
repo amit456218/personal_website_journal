@@ -66,6 +66,16 @@ export function FieldNotesBook() {
           className="absolute -right-0.5 top-2 bottom-2 w-1 rounded-r-sm"
           style={{ background: "linear-gradient(90deg, #e8dcc8 0%, #f4ecd8 100%)" }}
         />
+        
+        {/* Tap to explore label */}
+        <motion.p
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/50 whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          tap to explore
+        </motion.p>
       </motion.div>
     </Link>
   )
