@@ -8,84 +8,62 @@ export function CassetteTape() {
     <Link href="/music" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, rotate: -8 }}
-        animate={{ opacity: 1, rotate: -5 }}
+        initial={{ opacity: 0, rotate: 8 }}
+        animate={{ opacity: 1, rotate: 5 }}
         transition={{ duration: 0.6, delay: 0.4 }}
         whileHover={{ 
           scale: 1.05,
-          rotate: -2,
+          rotate: 2,
           transition: { duration: 0.2 }
         }}
       >
-        {/* Cassette body */}
+        {/* Vinyl sleeve / Hotel lounge setlist card */}
         <div 
-          className="relative w-32 h-20 rounded-sm overflow-hidden"
+          className="relative w-24 h-24 rounded-sm overflow-hidden"
           style={{
-            background: "linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 50%, #252525 100%)",
-            boxShadow: "3px 3px 8px rgba(0,0,0,0.4), inset 1px 1px 2px rgba(255,255,255,0.05)"
+            background: "linear-gradient(145deg, #e8dcc8 0%, #d8c8b0 100%)",
+            boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.25), 1px 1px 3px rgba(44, 36, 22, 0.15)"
           }}
         >
-          {/* Top edge detail */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-b from-zinc-600/30 to-transparent" />
-          
-          {/* Label area */}
+          {/* Paper texture */}
           <div 
-            className="absolute top-2 left-2 right-2 bottom-6 rounded-sm"
+            className="absolute inset-0 opacity-40"
             style={{
-              background: "linear-gradient(180deg, #f4e4c4 0%, #e8d4b0 100%)",
-              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.1)"
+              backgroundImage: "url('/textures/paper-texture.jpg')",
+              backgroundSize: "200px",
+              mixBlendMode: "multiply"
             }}
-          >
-            {/* Label lines */}
-            <div className="absolute top-2 left-2 right-2 space-y-1.5">
-              <div className="h-px bg-sepia/20" />
-              <div className="h-px bg-sepia/20" />
-              <div className="h-px bg-sepia/20" />
-            </div>
-            
-            {/* Label text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-typewriter text-[7px] text-sepia/60 tracking-wider uppercase">
-                Side A
-              </span>
-              <span className="font-handwriting text-xs text-ink mt-0.5">
-                Favorites
-              </span>
-            </div>
-            
-            {/* Corner decoration */}
-            <div className="absolute bottom-1 right-1">
-              <span className="font-typewriter text-[5px] text-sepia/40">90</span>
-            </div>
-          </div>
+          />
           
-          {/* Tape reels */}
-          <div className="absolute bottom-1.5 left-0 right-0 flex justify-center gap-6">
-            <div 
-              className="w-4 h-4 rounded-full border-2 border-zinc-700"
-              style={{ background: "linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-zinc-800 mx-auto mt-1" />
-            </div>
-            <div 
-              className="w-4 h-4 rounded-full border-2 border-zinc-700"
-              style={{ background: "linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-zinc-800 mx-auto mt-1" />
-            </div>
-          </div>
+          {/* Decorative border */}
+          <div className="absolute inset-1.5 border border-sepia/30 rounded-sm" />
           
-          {/* Tape window */}
+          {/* Inner vinyl circle hint */}
           <div 
-            className="absolute bottom-1 left-1/2 -translate-x-1/2 w-14 h-2.5 rounded-sm"
-            style={{ background: "linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%)" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-sepia/20"
+            style={{ background: "radial-gradient(circle, #2c2420 0%, #1a1815 60%, #2c2420 100%)" }}
           >
-            <div className="absolute inset-0.5 rounded-sm bg-gradient-to-r from-amber-900/30 via-amber-800/20 to-amber-900/30" />
+            {/* Label center */}
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full"
+              style={{ background: "linear-gradient(135deg, #c9a86c 0%, #a68c5b 100%)" }}
+            >
+              <div className="absolute inset-1 rounded-full bg-sepia/30" />
+            </div>
+            {/* Grooves hint */}
+            <div className="absolute inset-2 rounded-full border border-sepia/10" />
+            <div className="absolute inset-3 rounded-full border border-sepia/10" />
           </div>
           
-          {/* Screw holes */}
-          <div className="absolute top-1 left-1 w-1 h-1 rounded-full bg-zinc-800 border border-zinc-600/30" />
-          <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-zinc-800 border border-zinc-600/30" />
+          {/* Corner text */}
+          <div className="absolute top-2 left-2">
+            <span className="font-typewriter text-[6px] text-sepia/50 tracking-wider">VOL. 1</span>
+          </div>
+          
+          {/* Title */}
+          <div className="absolute bottom-2 left-0 right-0 text-center">
+            <span className="font-handwriting text-xs text-sepia/80">Music</span>
+          </div>
         </div>
         
         {/* Tap to explore */}

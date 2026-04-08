@@ -130,9 +130,9 @@ export function Desk() {
           <ResumeDocument />
         </motion.div>
 
-        {/* RIGHT MIDDLE: Cassette Tape (Music) */}
+        {/* RIGHT SIDE: Vinyl Sleeve (Music) - below name on right */}
         <motion.div 
-          className="absolute right-[5%] top-[45%] z-15"
+          className="absolute right-[25%] top-[42%] z-15"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -140,11 +140,11 @@ export function Desk() {
           <CassetteTape />
         </motion.div>
 
-        {/* BOTTOM CENTER-RIGHT: Film Strip (Gallery) */}
+        {/* RIGHT SIDE LOWER: Polaroid Stack (Gallery) */}
         <motion.div 
-          className="absolute right-[38%] bottom-[8%] z-15"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="absolute right-[8%] top-[55%] z-15"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
         >
           <FilmStrip />
