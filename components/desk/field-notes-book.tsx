@@ -69,7 +69,7 @@ export function FieldNotesBook() {
         
         {/* Tap to explore label */}
         <motion.p
-          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/50 whitespace-nowrap"
+          className="absolute -bottom-7 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/60 whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
