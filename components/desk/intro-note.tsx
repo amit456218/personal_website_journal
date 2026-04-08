@@ -35,7 +35,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
       
       {/* Main note */}
       <div
-        className="relative bg-paper-light p-7 md:p-9 max-w-[280px]"
+        className="relative bg-paper-light p-5 md:p-6 max-w-[220px]"
         style={{
           transform: "rotate(-1.5deg)",
           boxShadow: "0 4px 20px rgba(44, 36, 22, 0.12), 0 2px 8px rgba(44, 36, 22, 0.08)",
@@ -80,7 +80,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
         <div className="relative z-10">
           {/* Small decorative date */}
           <motion.span 
-            className="font-handwriting text-xs text-sepia/50 block mb-2"
+            className="font-handwriting text-[10px] text-sepia/50 block mb-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -88,19 +88,19 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
             April 2026
           </motion.span>
           
-          <h1 className="font-serif text-3xl md:text-4xl text-ink tracking-tight leading-tight">
+          <h1 className="font-serif text-xl md:text-2xl text-ink tracking-tight leading-tight">
             {name}
           </h1>
           
-          <div className="w-12 h-[2px] bg-brass/60 my-3" />
+          <div className="w-8 h-[1.5px] bg-brass/60 my-2" />
           
-          <p className="font-handwriting text-xl md:text-2xl text-sepia leading-snug">
+          <p className="font-handwriting text-base md:text-lg text-sepia leading-snug">
             {tagline}
           </p>
           
           {/* Decorative flourish */}
           <motion.div 
-            className="mt-4 flex items-center gap-2 opacity-40"
+            className="mt-3 flex items-center gap-1.5 opacity-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.4 }}
             transition={{ delay: 0.7 }}
@@ -113,7 +113,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
         
         {/* Decorative tape strips */}
         <div 
-          className="absolute -top-3 left-8 w-14 h-5 z-20"
+          className="absolute -top-2 left-6 w-10 h-4 z-20"
           style={{
             background: "linear-gradient(180deg, rgba(255, 248, 220, 0.9) 0%, rgba(245, 235, 200, 0.85) 100%)",
             transform: "rotate(3deg)",
@@ -121,7 +121,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
           }}
         />
         <div 
-          className="absolute -top-2 right-6 w-12 h-4 z-20"
+          className="absolute -top-1.5 right-5 w-9 h-3 z-20"
           style={{
             background: "linear-gradient(180deg, rgba(255, 248, 220, 0.85) 0%, rgba(245, 235, 200, 0.8) 100%)",
             transform: "rotate(-5deg)",
