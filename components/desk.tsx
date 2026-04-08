@@ -8,6 +8,9 @@ import { FeaturedProjectCard } from "./desk/featured-project-card"
 import { FieldNotesBook } from "./desk/field-notes-book"
 import { ResumeDocument } from "./desk/resume-document"
 import { AccentPolaroid } from "./desk/accent-polaroid"
+import { CassetteTape } from "./desk/cassette-tape"
+import { FilmStrip } from "./desk/film-strip"
+import { DeskDecorations } from "./desk/desk-decorations"
 import { deskData } from "@/lib/desk-data"
 
 export function Desk() {
@@ -126,6 +129,29 @@ export function Desk() {
         >
           <ResumeDocument />
         </motion.div>
+
+        {/* RIGHT MIDDLE: Cassette Tape (Music) */}
+        <motion.div 
+          className="absolute right-[5%] top-[45%] z-15"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <CassetteTape />
+        </motion.div>
+
+        {/* BOTTOM CENTER-RIGHT: Film Strip (Gallery) */}
+        <motion.div 
+          className="absolute right-[38%] bottom-[8%] z-15"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+        >
+          <FilmStrip />
+        </motion.div>
+
+        {/* Decorative elements */}
+        <DeskDecorations />
 
       </div>
 
