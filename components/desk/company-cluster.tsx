@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 interface Company {
   name: string
@@ -26,21 +27,33 @@ const OFFSETS = [
 
 export function CompanyCluster({ companies }: CompanyClusterProps) {
   return (
-    <motion.div
-      className="relative w-64 h-56"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-    >
-      {/* Decorative label */}
+    <Link href="/work" className="block">
       <motion.div
-        className="absolute -top-6 left-0 font-handwriting text-sm text-sepia/60 italic"
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.6 }}
+        className="relative w-64 h-56 cursor-pointer"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        whileHover={{ scale: 1.02 }}
       >
-        places I&apos;ve called work
-      </motion.div>
+        {/* Decorative label */}
+        <motion.div
+          className="absolute -top-6 left-0 font-handwriting text-sm text-sepia/60 italic"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          places I&apos;ve called work
+        </motion.div>
+        
+        {/* Tap/click hint */}
+        <motion.div
+          className="absolute -bottom-2 right-0 font-handwriting text-xs text-sepia/40 italic"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          tap to explore →
+        </motion.div>
 
       {companies.map((company, i) => {
         const rotation = ROTATIONS[i % ROTATIONS.length]
@@ -217,6 +230,7 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
           </motion.div>
         )
       })}
-    </motion.div>
+      </motion.div>
+    </Link>
   )
 }
