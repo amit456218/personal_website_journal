@@ -65,7 +65,7 @@ export function Desk() {
 
         {/* TOP LEFT: Field Notes Book */}
         <motion.div 
-          className="absolute left-[8%] top-[10%] z-20 scale-90"
+          className="absolute left-[6%] top-[8%] z-20"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -83,9 +83,9 @@ export function Desk() {
           <AtlasPortal />
         </motion.div>
 
-        {/* LEFT: Featured Project Card */}
+        {/* LEFT: Featured Project Card - angled for bulletin board feel */}
         <motion.div 
-          className="absolute left-[5%] top-[45%] -translate-y-1/2 z-10 scale-[0.8]"
+          className="absolute left-[3%] top-[55%] -translate-y-1/2 z-10"
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
