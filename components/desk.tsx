@@ -2,17 +2,21 @@
 
 import { motion } from "framer-motion"
 import { IntroNote } from "./desk/intro-note"
-import { FeaturedProjectCard } from "./desk/featured-project-card"
 import { CompanyCluster } from "./desk/company-cluster"
+import { AtlasPortal } from "./desk/atlas-portal"
+import { FeaturedProjectCard } from "./desk/featured-project-card"
 import { FieldNotesBook } from "./desk/field-notes-book"
 import { ResumeDocument } from "./desk/resume-document"
-import { AtlasPortal } from "./desk/atlas-portal"
 import { AccentPolaroid } from "./desk/accent-polaroid"
+import { CassetteTape } from "./desk/cassette-tape"
+import { FilmStrip } from "./desk/film-strip"
+import { DeskDecorations } from "./desk/desk-decorations"
+import { AboutMeToken } from "./desk/about-me-token"
 import { deskData } from "@/lib/desk-data"
 
 export function Desk() {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-paper-dark">
+    <div className="relative h-screen w-full overflow-hidden bg-paper-dark">
       {/* Wood grain desk texture base */}
       <div 
         className="absolute inset-0 pointer-events-none"
@@ -45,196 +49,121 @@ export function Desk() {
         }}
       />
 
-      {/* Desktop Layout */}
-      <div className="hidden lg:flex min-h-screen items-center justify-center p-8 xl:p-16">
-        <div className="relative w-full max-w-5xl h-[700px]">
-          
-          {/* Intro Note - main focal point, center-left */}
-          <motion.div 
-            className="absolute left-[3%] top-[15%] z-30"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+      {/* All desk elements with absolute positioning */}
+      <div className="relative h-full w-full">
+        
+        {/* CENTER: Intro Note - main focal point */}
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="pointer-events-auto">
             <IntroNote 
               name={deskData.intro.name} 
               tagline={deskData.intro.tagline} 
             />
-          </motion.div>
-
-          {/* Featured Project Card - overlapping intro note */}
-          <motion.div 
-            className="absolute left-[32%] top-[5%] z-20"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <FeaturedProjectCard 
-              title={deskData.featuredProject.title}
-              description={deskData.featuredProject.description}
-              slug={deskData.featuredProject.slug}
-            />
-          </motion.div>
-
-          {/* Company Cluster - vintage stamps collection, bottom left */}
-          <motion.div 
-            className="absolute left-[0%] top-[52%] z-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <CompanyCluster companies={deskData.companies} />
-          </motion.div>
-
-          {/* Field Notes Book - center, tucked under items */}
-          <motion.div 
-            className="absolute left-[28%] top-[48%] z-10"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <FieldNotesBook />
-          </motion.div>
-
-          {/* Resume Document - lower center-right */}
-          <motion.div 
-            className="absolute left-[52%] top-[58%] z-15"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-          >
-            <ResumeDocument />
-          </motion.div>
-
-          {/* Atlas Portal - hero element, upper right */}
-          <motion.div 
-            className="absolute right-[5%] top-[8%] z-25"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <AtlasPortal />
-          </motion.div>
-
-          {/* Accent Polaroid - right side decoration */}
-          <motion.div 
-            className="absolute right-[8%] top-[52%] z-15"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <AccentPolaroid />
-          </motion.div>
-
-          {/* Decorative elements */}
-          {/* Paper clip */}
-          <motion.div
-            className="absolute left-[25%] top-[38%] z-5 pointer-events-none"
-            initial={{ opacity: 0, rotate: -20 }}
-            animate={{ opacity: 0.6, rotate: 15 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <svg width="24" height="48" viewBox="0 0 24 48" fill="none" className="text-sepia/50">
-              <path 
-                d="M12 4C7.58 4 4 7.58 4 12v24c0 4.42 3.58 8 8 8s8-3.58 8-8V8" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path 
-                d="M12 8c2.21 0 4 1.79 4 4v24c0 2.21-1.79 4-4 4" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                fill="none"
-                strokeLinecap="round"
-              />
-            </svg>
-          </motion.div>
-
-          {/* Coffee ring stain */}
-          <div 
-            className="absolute left-[58%] top-[35%] w-20 h-20 pointer-events-none opacity-15 z-0"
-            style={{
-              backgroundImage: "url('/textures/coffee-stain.jpg')",
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              transform: "rotate(15deg)"
-            }}
-          />
-
-          {/* Pencil decoration */}
-          <motion.div
-            className="absolute right-[28%] top-[75%] z-5 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            style={{ transform: "rotate(-25deg)" }}
-          >
-            <svg width="120" height="12" viewBox="0 0 120 12" fill="none">
-              <rect x="0" y="2" width="100" height="8" fill="#f4d03f" rx="1" />
-              <rect x="0" y="2" width="100" height="4" fill="#f5d76e" rx="1" />
-              <polygon points="100,2 100,10 112,6" fill="#e8c4a8" />
-              <polygon points="108,4 108,8 112,6" fill="#2c2416" />
-              <rect x="0" y="2" width="8" height="8" fill="#d4a5a5" rx="1" />
-            </svg>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Tablet Layout */}
-      <div className="hidden md:flex lg:hidden min-h-screen items-center justify-center p-6">
-        <div className="relative w-full max-w-2xl h-[600px]">
-          <motion.div className="absolute left-[5%] top-[10%] z-30">
-            <IntroNote name={deskData.intro.name} tagline={deskData.intro.tagline} />
-          </motion.div>
-          <motion.div className="absolute right-[5%] top-[5%] z-25">
-            <AtlasPortal />
-          </motion.div>
-          <motion.div className="absolute left-[5%] top-[45%] z-20">
-            <CompanyCluster companies={deskData.companies} />
-          </motion.div>
-          <motion.div className="absolute right-[10%] top-[50%] z-15">
-            <FieldNotesBook />
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Mobile Layout - elegant vertical stack */}
-      <div className="md:hidden min-h-screen py-12 px-5">
-        <div className="flex flex-col items-center gap-10">
-          {/* Intro Note */}
-          <IntroNote 
-            name={deskData.intro.name} 
-            tagline={deskData.intro.tagline} 
-          />
-
-          {/* Atlas Portal */}
-          <div className="relative">
-            <AtlasPortal />
           </div>
+        </motion.div>
 
-          {/* Company stamps with label */}
-          <div className="relative w-full max-w-xs">
-            <CompanyCluster companies={deskData.companies} />
-          </div>
+        {/* TOP LEFT: Field Notes Book */}
+        <motion.div 
+          className="absolute left-[6%] top-[8%] z-20"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <FieldNotesBook />
+        </motion.div>
 
-          {/* Featured Project */}
+        {/* TOP RIGHT: Atlas Portal */}
+        <motion.div 
+          className="absolute right-[8%] top-[8%] z-20 scale-[0.85]"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
+          <AtlasPortal />
+        </motion.div>
+
+        {/* LEFT: Featured Project Card - angled for bulletin board feel */}
+        <motion.div 
+          className="absolute left-[3%] top-[58%] -translate-y-1/2 z-10"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <FeaturedProjectCard 
             title={deskData.featuredProject.title}
             description={deskData.featuredProject.description}
             slug={deskData.featuredProject.slug}
           />
+        </motion.div>
 
-          {/* Field Notes */}
-          <FieldNotesBook />
+        {/* TOP LEFT MIDDLE: Company Passport - between field notes and name */}
+        <motion.div 
+          className="absolute left-[24%] top-[12%] z-15"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <CompanyCluster companies={deskData.companies} />
+        </motion.div>
 
-          {/* Resume */}
-          <ResumeDocument />
-
-          {/* Accent Polaroid */}
+        {/* BOTTOM LEFT: Accent Polaroid - moved more right */}
+        <motion.div 
+          className="absolute left-[22%] bottom-[5%] z-20 scale-[0.8]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <AccentPolaroid />
-        </div>
+        </motion.div>
+
+        {/* BOTTOM RIGHT: Resume Document */}
+        <motion.div 
+          className="absolute right-[15%] bottom-[10%] z-20 scale-90"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
+          <ResumeDocument />
+        </motion.div>
+
+        {/* RIGHT SIDE: Vinyl Sleeve (Music) - below name on right */}
+        <motion.div 
+          className="absolute right-[25%] top-[42%] z-15"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <CassetteTape />
+        </motion.div>
+
+        {/* RIGHT SIDE LOWER: Polaroid Stack (Gallery) */}
+        <motion.div 
+          className="absolute right-[8%] top-[55%] z-15"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+        >
+          <FilmStrip />
+        </motion.div>
+
+        {/* About Me Token - bottom center */}
+        <motion.div 
+          className="absolute left-[48%] bottom-[5%] z-15"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <AboutMeToken />
+        </motion.div>
+
+        {/* Decorative elements */}
+        <DeskDecorations />
+
       </div>
 
       {/* Atmospheric vignette */}
@@ -242,8 +171,8 @@ export function Desk() {
         className="fixed inset-0 pointer-events-none z-50"
         style={{
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(44, 36, 22, 0.06) 100%),
-            linear-gradient(to bottom, rgba(249, 244, 232, 0.03) 0%, transparent 10%, transparent 90%, rgba(44, 36, 22, 0.05) 100%)
+            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(44, 36, 22, 0.08) 100%),
+            linear-gradient(to bottom, rgba(249, 244, 232, 0.03) 0%, transparent 10%, transparent 90%, rgba(44, 36, 22, 0.06) 100%)
           `
         }}
       />

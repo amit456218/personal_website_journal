@@ -2,7 +2,7 @@
 
 export const deskData = {
   intro: {
-    name: "Alex Chen",
+    name: "Amitabh Gulati",
     tagline: "Designer, developer, and collector of stories",
   },
   featuredProject: {
