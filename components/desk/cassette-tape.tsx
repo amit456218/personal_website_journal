@@ -38,21 +38,76 @@ export function CassetteTape() {
           {/* Decorative border */}
           <div className="absolute inset-2.5 border border-sepia/30 rounded-sm" />
           
-          {/* Inner vinyl circle hint */}
-          <div 
+          {/* Spinning vinyl record */}
+          <motion.div 
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-sepia/20"
             style={{ background: "radial-gradient(circle, #2c2420 0%, #1a1815 60%, #2c2420 100%)" }}
+            animate={{ rotate: 360 }}
+            transition={{ 
+              duration: 4, 
+              repeat: Infinity, 
+              ease: "linear"
+            }}
           >
+            {/* Vinyl grooves - multiple rings */}
+            <div className="absolute inset-2 rounded-full border border-white/5" />
+            <div className="absolute inset-3 rounded-full border border-white/5" />
+            <div className="absolute inset-4 rounded-full border border-white/5" />
+            <div className="absolute inset-5 rounded-full border border-white/5" />
+            <div className="absolute inset-6 rounded-full border border-white/5" />
+            
+            {/* Shine reflection on vinyl */}
+            <div 
+              className="absolute inset-0 rounded-full opacity-20"
+              style={{
+                background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%)"
+              }}
+            />
+            
             {/* Label center */}
             <div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full"
               style={{ background: "linear-gradient(135deg, #c9a86c 0%, #a68c5b 100%)" }}
             >
-              <div className="absolute inset-1.5 rounded-full bg-sepia/30" />
+              {/* Label text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="font-typewriter text-[5px] text-ink/70 tracking-wider">RECORDS</span>
+                <span className="font-serif text-[7px] text-ink/80 font-medium">33 RPM</span>
+              </div>
+              {/* Center hole */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-ink/40" />
             </div>
-            {/* Grooves hint */}
-            <div className="absolute inset-3 rounded-full border border-sepia/10" />
-            <div className="absolute inset-5 rounded-full border border-sepia/10" />
+          </motion.div>
+          
+          {/* Tonearm */}
+          <div className="absolute top-3 right-3">
+            {/* Arm base */}
+            <div 
+              className="w-3 h-3 rounded-full"
+              style={{ 
+                background: "linear-gradient(135deg, #8b8b8b 0%, #5a5a5a 100%)",
+                boxShadow: "1px 1px 2px rgba(0,0,0,0.3)"
+              }}
+            />
+            {/* Arm */}
+            <div 
+              className="absolute top-1 left-1 w-12 h-1 origin-left"
+              style={{ 
+                background: "linear-gradient(180deg, #9a9a9a 0%, #6a6a6a 100%)",
+                transform: "rotate(35deg)",
+                borderRadius: "2px",
+                boxShadow: "1px 1px 2px rgba(0,0,0,0.2)"
+              }}
+            >
+              {/* Headshell */}
+              <div 
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2"
+                style={{
+                  background: "linear-gradient(180deg, #7a7a7a 0%, #4a4a4a 100%)",
+                  borderRadius: "1px"
+                }}
+              />
+            </div>
           </div>
           
           {/* Corner text */}
