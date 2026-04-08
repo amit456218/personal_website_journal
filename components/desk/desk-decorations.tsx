@@ -96,7 +96,7 @@ export function DeskDecorations() {
         </div>
       </motion.div>
 
-      {/* Wax seal - bottom right area */}
+      {/* Brass button / rivet decoration - bottom right area */}
       <motion.div
         className="absolute right-[6%] bottom-[32%] z-5 pointer-events-none"
         initial={{ opacity: 0, scale: 0.5 }}
@@ -104,15 +104,13 @@ export function DeskDecorations() {
         transition={{ duration: 0.4, delay: 1.2 }}
       >
         <div 
-          className="w-10 h-10 rounded-full relative"
+          className="w-6 h-6 rounded-full relative"
           style={{
-            background: "radial-gradient(circle at 35% 35%, #c94a4a 0%, #8b2020 60%, #6b1515 100%)",
-            boxShadow: "2px 2px 5px rgba(0,0,0,0.3), inset -1px -1px 2px rgba(0,0,0,0.2)"
+            background: "radial-gradient(circle at 35% 35%, #d4b068 0%, #a88c48 50%, #8b7030 100%)",
+            boxShadow: "1px 1px 3px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.2)"
           }}
         >
-          <div className="absolute inset-2 rounded-full border border-amber-200/20 flex items-center justify-center">
-            <span className="font-serif text-[10px] text-amber-100/70">AG</span>
-          </div>
+          <div className="absolute inset-1.5 rounded-full border border-amber-200/30" />
         </div>
       </motion.div>
 
