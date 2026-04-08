@@ -50,15 +50,17 @@ export function Desk() {
         
         {/* CENTER: Intro Note - main focal point */}
         <motion.div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+          className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <IntroNote 
-            name={deskData.intro.name} 
-            tagline={deskData.intro.tagline} 
-          />
+          <div className="pointer-events-auto">
+            <IntroNote 
+              name={deskData.intro.name} 
+              tagline={deskData.intro.tagline} 
+            />
+          </div>
         </motion.div>
 
         {/* TOP LEFT: Field Notes Book */}
