@@ -99,7 +99,7 @@ export function Desk() {
 
         {/* TOP LEFT MIDDLE: Company Passport - between field notes and name */}
         <motion.div 
-          className="absolute left-[18%] top-[22%] z-15"
+          className="absolute left-[18%] top-[12%] z-15"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
