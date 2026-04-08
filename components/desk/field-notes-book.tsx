@@ -7,14 +7,14 @@ export function FieldNotesBook() {
   return (
     <Link href="/projects">
       <motion.div
-        className="relative w-36 h-52 cursor-pointer group"
-        style={{ transform: "rotate(-4deg)" }}
+        className="relative w-24 h-36 cursor-pointer group"
+        style={{ transform: "rotate(-8deg)" }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ 
           y: -6, 
-          rotate: -2,
+          rotate: -5,
           transition: { duration: 0.2 }
         }}
       >
@@ -38,19 +38,19 @@ export function FieldNotesBook() {
           <div className="absolute inset-3 border border-brass/30" />
           
           {/* Title */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-2">
             <span 
-              className="font-typewriter text-xs text-brass/90 tracking-[0.15em] text-center leading-tight"
+              className="font-typewriter text-sm text-brass/90 tracking-[0.12em] text-center leading-tight"
             >
               FIELD
             </span>
             <span 
-              className="font-typewriter text-xs text-brass/90 tracking-[0.15em] text-center"
+              className="font-typewriter text-sm text-brass/90 tracking-[0.12em] text-center"
             >
               NOTES
             </span>
-            <div className="w-10 h-px bg-brass/40 mt-3 mb-2" />
-            <span className="font-handwriting text-sm text-brass/70">
+            <div className="w-8 h-px bg-brass/40 mt-2 mb-1" />
+            <span className="font-handwriting text-base text-brass/70">
               Projects
             </span>
           </div>
