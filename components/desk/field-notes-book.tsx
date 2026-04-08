@@ -8,9 +8,8 @@ export function FieldNotesBook() {
     <Link href="/projects">
       <motion.div
         className="relative w-24 h-36 cursor-pointer group"
-        style={{ transform: "rotate(-8deg)" }}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -20, rotate: -12 }}
+        animate={{ opacity: 1, x: 0, rotate: -8 }}
         transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ 
           y: -6, 
