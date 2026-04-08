@@ -14,222 +14,156 @@ interface CompanyClusterProps {
   companies: Company[]
 }
 
-// Fixed rotations to avoid hydration mismatch
-const ROTATIONS = [-12, 8, -5, 15, -8, 3]
-const OFFSETS = [
-  { x: 0, y: 0 },
-  { x: 85, y: -10 },
-  { x: 25, y: 75 },
-  { x: 110, y: 60 },
-  { x: -15, y: 140 },
-  { x: 75, y: 130 },
-]
-
 export function CompanyCluster({ companies }: CompanyClusterProps) {
   return (
     <Link href="/work" className="block">
       <motion.div
-        className="relative w-64 h-56 cursor-pointer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        whileHover={{ scale: 1.02 }}
+        className="relative cursor-pointer group"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0, rotate: 3 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        whileHover={{ 
+          scale: 1.03,
+          rotate: 1,
+          transition: { duration: 0.2 }
+        }}
       >
-        {/* Decorative label */}
-        <motion.div
-          className="absolute -top-6 left-0 font-handwriting text-sm text-sepia/60 italic"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
+        {/* Vintage Passport */}
+        <div 
+          className="relative w-36 h-48 rounded-sm overflow-hidden"
+          style={{
+            background: "linear-gradient(145deg, #1a3a52 0%, #0d2538 50%, #1a3a52 100%)",
+            boxShadow: "6px 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
+          }}
         >
-          places I&apos;ve called work
-        </motion.div>
-        
-        {/* Tap/click hint */}
-        <motion.div
-          className="absolute -bottom-2 right-0 font-handwriting text-xs text-sepia/40 italic"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          tap to explore →
-        </motion.div>
-
-      {companies.map((company, i) => {
-        const rotation = ROTATIONS[i % ROTATIONS.length]
-        const offset = OFFSETS[i % OFFSETS.length]
-        
-        if (company.type === "stamp") {
-          return (
+          {/* Leather texture overlay */}
+          <div 
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`,
+            }}
+          />
+          
+          {/* Gold embossed border */}
+          <div 
+            className="absolute inset-2 border border-brass/40 rounded-sm"
+          />
+          <div 
+            className="absolute inset-3 border border-brass/20 rounded-sm"
+          />
+          
+          {/* Inner content area */}
+          <div className="absolute inset-4 flex flex-col items-center justify-center text-center">
+            {/* Globe icon */}
             <motion.div
-              key={company.name}
-              className="absolute group cursor-default"
-              style={{ 
-                left: offset.x, 
-                top: offset.y,
-              }}
-              initial={{ scale: 1.4, opacity: 0, rotate: rotation - 15 }}
-              animate={{ scale: 1, opacity: 1, rotate: rotation }}
-              transition={{ 
-                duration: 0.5, 
-                delay: 0.5 + i * 0.12,
-                type: "spring",
-                stiffness: 200,
-                damping: 15
-              }}
-              whileHover={{ scale: 1.08, rotate: rotation + 2 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
             >
-              {/* Vintage postage stamp style */}
-              <div className="relative">
-                {/* Perforated edge border */}
-                <div 
-                  className="absolute -inset-1.5 opacity-80"
-                  style={{
-                    background: `radial-gradient(circle, transparent 40%, var(--paper-dark) 40%)`,
-                    backgroundSize: "6px 6px",
-                  }}
-                />
-                
-                {/* Main stamp body */}
-                <div 
-                  className="relative w-20 h-24 flex flex-col items-center justify-center border-2 border-stamp-red/70 overflow-hidden"
-                  style={{ 
-                    background: "linear-gradient(165deg, #f9f4e8 0%, #f0e8d4 50%, #e8dcc8 100%)",
-                  }}
-                >
-                  {/* Decorative frame line */}
-                  <div className="absolute inset-1.5 border border-stamp-red/30" />
-                  
-                  {/* Company icon - vintage building/office */}
-                  <svg viewBox="0 0 32 32" className="w-8 h-8 text-stamp-red/80 mb-1">
-                    <path 
-                      fill="currentColor" 
-                      d="M4 28V10l12-6 12 6v18H4zm2-2h8V16H6v10zm10 0h10V11.2L16 6.4 6 11.2V14h10v12zm2-10h6v2h-6v-2zm0 4h6v2h-6v-2z"
-                    />
-                  </svg>
-                  
-                  {/* Company name */}
-                  <span className="font-typewriter text-[9px] text-stamp-red text-center leading-tight px-2 font-medium tracking-wide">
-                    {company.name.toUpperCase()}
-                  </span>
-                  
-                  {/* Date as denomination */}
-                  <span className="font-serif text-[11px] text-stamp-red/90 mt-0.5 font-semibold">
-                    {company.date}
-                  </span>
-                  
-                  {/* Postmark overlay */}
-                  <div 
-                    className="absolute inset-0 opacity-20 pointer-events-none"
-                    style={{
-                      background: `repeating-linear-gradient(
-                        45deg,
-                        transparent,
-                        transparent 8px,
-                        rgba(168, 68, 68, 0.3) 8px,
-                        rgba(168, 68, 68, 0.3) 9px
-                      )`
-                    }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-          )
-        }
-        
-        // Passport stamp style (circular with ornate border)
-        return (
-          <motion.div
-            key={company.name}
-            className="absolute group cursor-default"
-            style={{ 
-              left: offset.x, 
-              top: offset.y,
-            }}
-            initial={{ scale: 1.5, opacity: 0, rotate: rotation }}
-            animate={{ scale: 1, opacity: 0.85, rotate: rotation }}
-            transition={{ 
-              duration: 0.4, 
-              delay: 0.5 + i * 0.12,
-              type: "spring",
-              stiffness: 250,
-              damping: 18
-            }}
-            whileHover={{ scale: 1.1, opacity: 1 }}
-          >
-            {/* Passport stamp - circular with double border */}
-            <div className="relative w-20 h-20">
-              <svg viewBox="0 0 80 80" className="w-full h-full">
-                {/* Outer decorative ring */}
+              <svg viewBox="0 0 48 48" className="w-12 h-12 mb-2">
+                {/* Globe outline */}
                 <circle 
-                  cx="40" cy="40" r="38" 
+                  cx="24" cy="24" r="18" 
                   fill="none" 
-                  stroke="#3d5675" 
-                  strokeWidth="2"
-                  strokeDasharray="4 2"
-                  opacity="0.7"
-                />
-                {/* Inner ring */}
-                <circle 
-                  cx="40" cy="40" r="32" 
-                  fill="none" 
-                  stroke="#3d5675" 
+                  stroke="#c9a962" 
                   strokeWidth="1.5"
                   opacity="0.8"
                 />
-                {/* Center fill */}
-                <circle 
-                  cx="40" cy="40" r="30" 
-                  fill="rgba(61, 86, 117, 0.08)"
+                {/* Latitude lines */}
+                <ellipse 
+                  cx="24" cy="24" rx="18" ry="7" 
+                  fill="none" 
+                  stroke="#c9a962" 
+                  strokeWidth="0.8"
+                  opacity="0.5"
                 />
-                
-                {/* Company name on arc */}
-                <defs>
-                  <path id={`arc-top-${i}`} d="M 12 40 A 28 28 0 0 1 68 40" fill="none" />
-                  <path id={`arc-bottom-${i}`} d="M 68 44 A 28 28 0 0 1 12 44" fill="none" />
-                </defs>
-                
-                <text className="font-typewriter" fontSize="7" fill="#3d5675" fontWeight="500">
-                  <textPath href={`#arc-top-${i}`} startOffset="50%" textAnchor="middle">
-                    {company.name.toUpperCase()}
-                  </textPath>
-                </text>
-                
-                {company.subtitle && (
-                  <text className="font-typewriter" fontSize="5" fill="#3d5675" opacity="0.7">
-                    <textPath href={`#arc-bottom-${i}`} startOffset="50%" textAnchor="middle">
-                      {company.subtitle.toUpperCase()}
-                    </textPath>
-                  </text>
-                )}
-                
-                {/* Center icon - briefcase/work */}
-                <g transform="translate(30, 28)">
-                  <rect x="2" y="4" width="16" height="12" rx="1" fill="none" stroke="#3d5675" strokeWidth="1.2" opacity="0.8" />
-                  <path d="M6 4V2a2 2 0 012-2h4a2 2 0 012 2v2" fill="none" stroke="#3d5675" strokeWidth="1" opacity="0.7" />
-                  <line x1="2" y1="8" x2="18" y2="8" stroke="#3d5675" strokeWidth="0.8" opacity="0.6" />
-                </g>
-                
-                {/* Date at bottom */}
-                <text 
-                  x="40" y="58" 
-                  textAnchor="middle" 
-                  className="font-handwriting" 
-                  fontSize="9" 
-                  fill="#3d5675"
-                  opacity="0.9"
-                >
-                  {company.date}
-                </text>
-                
-                {/* Star decorations */}
-                <text x="18" y="42" fontSize="6" fill="#3d5675" opacity="0.5">★</text>
-                <text x="58" y="42" fontSize="6" fill="#3d5675" opacity="0.5">★</text>
+                <ellipse 
+                  cx="24" cy="16" rx="14" ry="4" 
+                  fill="none" 
+                  stroke="#c9a962" 
+                  strokeWidth="0.6"
+                  opacity="0.4"
+                />
+                <ellipse 
+                  cx="24" cy="32" rx="14" ry="4" 
+                  fill="none" 
+                  stroke="#c9a962" 
+                  strokeWidth="0.6"
+                  opacity="0.4"
+                />
+                {/* Longitude line */}
+                <ellipse 
+                  cx="24" cy="24" rx="7" ry="18" 
+                  fill="none" 
+                  stroke="#c9a962" 
+                  strokeWidth="0.8"
+                  opacity="0.5"
+                />
+                {/* Center meridian */}
+                <line 
+                  x1="24" y1="6" x2="24" y2="42" 
+                  stroke="#c9a962" 
+                  strokeWidth="0.6"
+                  opacity="0.4"
+                />
               </svg>
-            </div>
-          </motion.div>
-        )
-      })}
+            </motion.div>
+            
+            {/* Title */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="space-y-1"
+            >
+              <p className="font-typewriter text-[8px] text-brass/70 tracking-[0.2em] uppercase">
+                Career
+              </p>
+              <h3 className="font-serif text-lg text-brass tracking-wide">
+                Passport
+              </h3>
+              <div className="w-8 h-px bg-brass/40 mx-auto my-1.5" />
+              <p className="font-handwriting text-xs text-brass/60">
+                {companies.length} destinations
+              </p>
+            </motion.div>
+          </div>
+          
+          {/* Spine effect on left edge */}
+          <div 
+            className="absolute left-0 top-0 bottom-0 w-3"
+            style={{
+              background: "linear-gradient(90deg, rgba(0,0,0,0.3) 0%, transparent 100%)",
+            }}
+          />
+          
+          {/* Page edge hint on right */}
+          <div 
+            className="absolute right-0 top-4 bottom-4 w-1"
+            style={{
+              background: "repeating-linear-gradient(180deg, #f5f0e1 0px, #f5f0e1 2px, #e8e0cc 2px, #e8e0cc 4px)",
+              opacity: 0.4,
+            }}
+          />
+          
+          {/* Corner wear */}
+          <div 
+            className="absolute bottom-0 right-0 w-4 h-4"
+            style={{
+              background: "linear-gradient(315deg, rgba(255,255,255,0.05) 0%, transparent 60%)",
+            }}
+          />
+        </div>
+        
+        {/* Handwritten label */}
+        <motion.p
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/50 whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          tap to explore
+        </motion.p>
       </motion.div>
     </Link>
   )
