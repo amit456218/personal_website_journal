@@ -4,6 +4,10 @@ import { motion } from "framer-motion"
 import { IntroNote } from "./desk/intro-note"
 import { CompanyCluster } from "./desk/company-cluster"
 import { AtlasPortal } from "./desk/atlas-portal"
+import { FeaturedProjectCard } from "./desk/featured-project-card"
+import { FieldNotesBook } from "./desk/field-notes-book"
+import { ResumeDocument } from "./desk/resume-document"
+import { AccentPolaroid } from "./desk/accent-polaroid"
 import { deskData } from "@/lib/desk-data"
 
 export function Desk() {
@@ -41,46 +45,86 @@ export function Desk() {
         }}
       />
 
-      {/* Main content - centered flexbox layout */}
-      <div className="relative h-full flex items-center justify-center p-6 md:p-10">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 max-w-5xl w-full">
-          
-          {/* Left side - Intro Note (main focal point) */}
-          <motion.div 
-            className="flex-shrink-0 z-20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <IntroNote 
-              name={deskData.intro.name} 
-              tagline={deskData.intro.tagline} 
-            />
-          </motion.div>
+      {/* All desk elements with absolute positioning */}
+      <div className="relative h-full w-full">
+        
+        {/* CENTER: Intro Note - main focal point */}
+        <motion.div 
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <IntroNote 
+            name={deskData.intro.name} 
+            tagline={deskData.intro.tagline} 
+          />
+        </motion.div>
 
-          {/* Right side - Atlas Portal and Company Cluster stacked */}
-          <div className="flex flex-col items-center gap-6 lg:gap-8">
-            {/* Atlas Portal */}
-            <motion.div 
-              className="flex-shrink-0 z-20"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              <AtlasPortal />
-            </motion.div>
+        {/* TOP LEFT: Field Notes Book */}
+        <motion.div 
+          className="absolute left-[8%] top-[10%] z-20 scale-90"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <FieldNotesBook />
+        </motion.div>
 
-            {/* Company Cluster */}
-            <motion.div 
-              className="flex-shrink-0 z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <CompanyCluster companies={deskData.companies} />
-            </motion.div>
-          </div>
-        </div>
+        {/* TOP RIGHT: Atlas Portal */}
+        <motion.div 
+          className="absolute right-[8%] top-[8%] z-20 scale-[0.85]"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
+          <AtlasPortal />
+        </motion.div>
+
+        {/* LEFT: Featured Project Card */}
+        <motion.div 
+          className="absolute left-[5%] top-[45%] -translate-y-1/2 z-10 scale-[0.8]"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <FeaturedProjectCard 
+            title={deskData.featuredProject.title}
+            description={deskData.featuredProject.description}
+            slug={deskData.featuredProject.slug}
+          />
+        </motion.div>
+
+        {/* RIGHT: Company Cluster */}
+        <motion.div 
+          className="absolute right-[5%] top-[50%] -translate-y-1/2 z-10 scale-[0.85]"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <CompanyCluster companies={deskData.companies} />
+        </motion.div>
+
+        {/* BOTTOM LEFT: Accent Polaroid */}
+        <motion.div 
+          className="absolute left-[12%] bottom-[8%] z-20 scale-[0.8]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <AccentPolaroid />
+        </motion.div>
+
+        {/* BOTTOM RIGHT: Resume Document */}
+        <motion.div 
+          className="absolute right-[15%] bottom-[10%] z-20 scale-90"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
+          <ResumeDocument />
+        </motion.div>
+
       </div>
 
       {/* Atmospheric vignette */}
@@ -88,8 +132,8 @@ export function Desk() {
         className="fixed inset-0 pointer-events-none z-50"
         style={{
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(44, 36, 22, 0.06) 100%),
-            linear-gradient(to bottom, rgba(249, 244, 232, 0.03) 0%, transparent 10%, transparent 90%, rgba(44, 36, 22, 0.05) 100%)
+            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(44, 36, 22, 0.08) 100%),
+            linear-gradient(to bottom, rgba(249, 244, 232, 0.03) 0%, transparent 10%, transparent 90%, rgba(44, 36, 22, 0.06) 100%)
           `
         }}
       />
