@@ -116,16 +116,16 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
               transition={{ delay: 0.6 }}
               className="space-y-0.5"
             >
-              <p className="font-typewriter text-xs text-brass/80 tracking-[0.15em] uppercase">
-                Work
+              <p className="font-typewriter text-[10px] text-brass/70 tracking-[0.2em] uppercase">
+                Passport
               </p>
-              <h3 className="font-serif text-2xl text-brass tracking-wide font-medium">
+              <div className="w-10 h-px bg-brass/50 mx-auto my-1.5" />
+              <h3 className="font-serif text-base text-brass tracking-wide font-medium leading-tight">
+                Companies &amp;
+              </h3>
+              <h3 className="font-serif text-base text-brass tracking-wide font-medium">
                 Experience
               </h3>
-              <div className="w-10 h-px bg-brass/50 mx-auto my-2" />
-              <p className="font-handwriting text-sm text-brass/70">
-                {companies.length} companies
-              </p>
             </motion.div>
           </div>
           
@@ -157,7 +157,7 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
         
         {/* Handwritten label */}
         <motion.p
-          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/50 whitespace-nowrap"
+          className="absolute -bottom-7 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/60 whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
