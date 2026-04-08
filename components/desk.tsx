@@ -107,9 +107,9 @@ export function Desk() {
           <CompanyCluster companies={deskData.companies} />
         </motion.div>
 
-        {/* BOTTOM LEFT: Accent Polaroid */}
+        {/* BOTTOM LEFT: Accent Polaroid - moved more right */}
         <motion.div 
-          className="absolute left-[12%] bottom-[8%] z-20 scale-[0.8]"
+          className="absolute left-[22%] bottom-[8%] z-20 scale-[0.8]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
