@@ -116,15 +116,15 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
               transition={{ delay: 0.6 }}
               className="space-y-0.5"
             >
-              <p className="font-typewriter text-[10px] text-brass/70 tracking-[0.2em] uppercase">
+              <p className="font-typewriter text-sm text-brass/80 tracking-[0.2em] uppercase">
                 Passport
               </p>
               <div className="w-10 h-px bg-brass/50 mx-auto my-1.5" />
-              <h3 className="font-serif text-base text-brass tracking-wide font-medium leading-tight">
+              <h3 className="font-serif text-[13px] text-brass tracking-wide font-medium leading-tight">
                 Companies &amp;
               </h3>
-              <h3 className="font-serif text-base text-brass tracking-wide font-medium">
-                Experience
+              <h3 className="font-serif text-[13px] text-brass tracking-wide font-medium">
+                Experiences
               </h3>
             </motion.div>
           </div>
