@@ -35,7 +35,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
       
       {/* Main note */}
       <div
-        className="relative bg-paper-light p-7 md:p-9 max-w-[280px]"
+        className="relative bg-paper-light p-5 md:p-7 max-w-[260px]"
         style={{
           transform: "rotate(-1.5deg)",
           boxShadow: "0 4px 20px rgba(44, 36, 22, 0.12), 0 2px 8px rgba(44, 36, 22, 0.08)",
@@ -88,13 +88,13 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
             April 2026
           </motion.span>
           
-          <h1 className="font-serif text-3xl md:text-4xl text-ink tracking-tight leading-tight">
+          <h1 className="font-serif text-2xl md:text-3xl text-ink tracking-tight leading-tight">
             {name}
           </h1>
           
-          <div className="w-12 h-[2px] bg-brass/60 my-3" />
+          <div className="w-10 h-[2px] bg-brass/60 my-2" />
           
-          <p className="font-handwriting text-xl md:text-2xl text-sepia leading-snug">
+          <p className="font-handwriting text-lg md:text-xl text-sepia leading-snug">
             {tagline}
           </p>
           

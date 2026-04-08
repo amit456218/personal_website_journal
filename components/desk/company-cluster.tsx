@@ -34,7 +34,7 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
   return (
     <Link href="/work" className="block">
       <motion.div
-        className="relative w-72 h-64 cursor-pointer"
+        className="relative w-64 h-56 cursor-pointer"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
