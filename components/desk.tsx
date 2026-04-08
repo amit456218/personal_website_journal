@@ -97,11 +97,11 @@ export function Desk() {
           />
         </motion.div>
 
-        {/* RIGHT: Company Cluster */}
+        {/* TOP LEFT MIDDLE: Company Passport - between field notes and name */}
         <motion.div 
-          className="absolute right-[5%] top-[50%] -translate-y-1/2 z-10 scale-[0.85]"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="absolute left-[18%] top-[22%] z-15"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
         >
           <CompanyCluster companies={deskData.companies} />

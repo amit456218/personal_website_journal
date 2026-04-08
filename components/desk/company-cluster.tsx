@@ -19,12 +19,12 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
     <Link href="/work" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0, rotate: 3 }}
+        initial={{ opacity: 0, y: 20, rotate: 12 }}
+        animate={{ opacity: 1, y: 0, rotate: 8 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         whileHover={{ 
           scale: 1.03,
-          rotate: 1,
+          rotate: 5,
           transition: { duration: 0.2 }
         }}
       >
@@ -114,17 +114,17 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="space-y-1"
+              className="space-y-0.5"
             >
-              <p className="font-typewriter text-[8px] text-brass/70 tracking-[0.2em] uppercase">
-                Career
+              <p className="font-typewriter text-xs text-brass/80 tracking-[0.15em] uppercase">
+                Work
               </p>
-              <h3 className="font-serif text-lg text-brass tracking-wide">
-                Passport
+              <h3 className="font-serif text-2xl text-brass tracking-wide font-medium">
+                Experience
               </h3>
-              <div className="w-8 h-px bg-brass/40 mx-auto my-1.5" />
-              <p className="font-handwriting text-xs text-brass/60">
-                {companies.length} destinations
+              <div className="w-10 h-px bg-brass/50 mx-auto my-2" />
+              <p className="font-handwriting text-sm text-brass/70">
+                {companies.length} companies
               </p>
             </motion.div>
           </div>
