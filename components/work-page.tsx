@@ -3,25 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { workExperiences } from "@/lib/work-data"
-import { PassportStamp } from "./work/passport-stamp"
-import { VisaPage } from "./work/visa-page"
-import { LuggageTag } from "./work/luggage-tag"
-import { BoardingPass } from "./work/boarding-pass"
-
-function WorkArtifact({ work, index }: { work: typeof workExperiences[0], index: number }) {
-  switch (work.artifactType) {
-    case "passport":
-      return <PassportStamp work={work} index={index} />
-    case "visa":
-      return <VisaPage work={work} index={index} />
-    case "luggage-tag":
-      return <LuggageTag work={work} index={index} />
-    case "boarding-pass":
-      return <BoardingPass work={work} index={index} />
-    default:
-      return <PassportStamp work={work} index={index} />
-  }
-}
+import { ArchiveCard } from "./work/archive-card"
 
 export function WorkPage() {
   return (
@@ -94,12 +76,14 @@ export function WorkPage() {
           </div>
         </header>
         
-        {/* Work entries */}
+        {/* Work entries - grid of archive cards */}
         <main className="px-6 md:px-12 pb-16">
-          <div className="max-w-4xl mx-auto space-y-8">
-            {workExperiences.map((work, index) => (
-              <WorkArtifact key={work.id} work={work} index={index} />
-            ))}
+          <div className="max-w-3xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {workExperiences.map((work, index) => (
+                <ArchiveCard key={work.id} work={work} index={index} />
+              ))}
+            </div>
           </div>
         </main>
         
