@@ -11,6 +11,7 @@ import { AccentPolaroid } from "./desk/accent-polaroid"
 import { CassetteTape } from "./desk/cassette-tape"
 import { FilmStrip } from "./desk/film-strip"
 import { DeskDecorations } from "./desk/desk-decorations"
+import { AboutMeToken } from "./desk/about-me-token"
 import { deskData } from "@/lib/desk-data"
 
 export function Desk() {
@@ -148,6 +149,16 @@ export function Desk() {
           transition={{ duration: 0.5, delay: 0.45 }}
         >
           <FilmStrip />
+        </motion.div>
+
+        {/* About Me Token - bottom center */}
+        <motion.div 
+          className="absolute left-[48%] bottom-[5%] z-15"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <AboutMeToken />
         </motion.div>
 
         {/* Decorative elements */}

@@ -19,7 +19,7 @@ export function CassetteTape() {
       >
         {/* Vinyl sleeve / Hotel lounge setlist card */}
         <div 
-          className="relative w-24 h-24 rounded-sm overflow-hidden"
+          className="relative w-40 h-40 rounded-sm overflow-hidden"
           style={{
             background: "linear-gradient(145deg, #e8dcc8 0%, #d8c8b0 100%)",
             boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.25), 1px 1px 3px rgba(44, 36, 22, 0.15)"
@@ -36,39 +36,39 @@ export function CassetteTape() {
           />
           
           {/* Decorative border */}
-          <div className="absolute inset-1.5 border border-sepia/30 rounded-sm" />
+          <div className="absolute inset-2.5 border border-sepia/30 rounded-sm" />
           
           {/* Inner vinyl circle hint */}
           <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-sepia/20"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-sepia/20"
             style={{ background: "radial-gradient(circle, #2c2420 0%, #1a1815 60%, #2c2420 100%)" }}
           >
             {/* Label center */}
             <div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
               style={{ background: "linear-gradient(135deg, #c9a86c 0%, #a68c5b 100%)" }}
             >
-              <div className="absolute inset-1 rounded-full bg-sepia/30" />
+              <div className="absolute inset-1.5 rounded-full bg-sepia/30" />
             </div>
             {/* Grooves hint */}
-            <div className="absolute inset-2 rounded-full border border-sepia/10" />
             <div className="absolute inset-3 rounded-full border border-sepia/10" />
+            <div className="absolute inset-5 rounded-full border border-sepia/10" />
           </div>
           
           {/* Corner text */}
-          <div className="absolute top-2 left-2">
-            <span className="font-typewriter text-[6px] text-sepia/50 tracking-wider">VOL. 1</span>
+          <div className="absolute top-3 left-3">
+            <span className="font-typewriter text-[9px] text-sepia/50 tracking-wider">VOL. 1</span>
           </div>
           
           {/* Title */}
-          <div className="absolute bottom-2 left-0 right-0 text-center">
-            <span className="font-handwriting text-xs text-sepia/80">Music</span>
+          <div className="absolute bottom-3 left-0 right-0 text-center">
+            <span className="font-handwriting text-base text-sepia/80">Music</span>
           </div>
         </div>
         
         {/* Tap to explore */}
         <motion.p
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/50 whitespace-nowrap"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/60 whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
