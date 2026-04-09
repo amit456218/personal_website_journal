@@ -21,11 +21,11 @@ export function FeaturedProjectCard({ title, description, slug }: FeaturedProjec
         initial={{ opacity: 0, y: 20, rotate: -8 }}
         animate={{ opacity: 1, y: 0, rotate: -6 }}
         transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ 
-          y: -4, 
-          rotate: -3,
+        whileHover={{
+          y: -4,
+          rotate: 0,
           boxShadow: "8px 8px 24px rgba(44, 36, 22, 0.22), 4px 4px 10px rgba(44, 36, 22, 0.12)",
-          transition: { duration: 0.2 }
+          transition: { duration: 0.3 }
         }}
       >
         {/* Index card lines */}

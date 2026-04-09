@@ -11,10 +11,10 @@ export function FieldNotesBook() {
         initial={{ opacity: 0, x: -20, rotate: -12 }}
         animate={{ opacity: 1, x: 0, rotate: -8 }}
         transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ 
-          y: -6, 
-          rotate: -5,
-          transition: { duration: 0.2 }
+        whileHover={{
+          y: -6,
+          rotate: 0,
+          transition: { duration: 0.3 }
         }}
       >
         {/* Notebook cover */}
@@ -69,7 +69,7 @@ export function FieldNotesBook() {
         
         {/* Tap to explore label */}
         <motion.p
-          className="absolute -bottom-7 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/60 whitespace-nowrap"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-base text-sepia/90 whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}

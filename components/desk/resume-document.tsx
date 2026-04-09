@@ -9,12 +9,13 @@ export function ResumeDocument() {
       <motion.div
         className="relative w-32 h-20 cursor-pointer group"
         style={{ transform: "rotate(3deg)" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, scale: 1.125 }}
+        animate={{ opacity: 1, y: 0, scale: 1.125 }}
         transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ 
-          y: -4, 
+        whileHover={{
+          y: -4,
           rotate: 1,
+          scale: 1.17,
           transition: { duration: 0.2 }
         }}
       >
@@ -35,17 +36,57 @@ export function ResumeDocument() {
           
           {/* Typewriter text preview */}
           <div className="p-3">
-            <div className="font-typewriter text-[8px] text-ink/80 leading-relaxed">
-              <p className="mb-1">CURRICULUM VITAE</p>
-              <div className="w-12 h-px bg-sepia/30 mb-1" />
-              <p className="text-[6px] text-sepia/60">Education...</p>
-              <p className="text-[6px] text-sepia/60">Experience...</p>
+            <div className="font-typewriter text-sm text-ink/80 leading-relaxed">
+              <p className="mb-1">ALMA MATER</p>
+              <div className="w-14 h-px bg-sepia/30 mb-1" />
+              <p className="text-xs text-sepia/60">Education...</p>
             </div>
           </div>
           
+          {/* Graduation cap - top right corner */}
+          <div
+            className="absolute -top-3 -right-4 z-10"
+            style={{ transform: "rotate(25deg)" }}
+          >
+            <svg viewBox="0 0 40 32" className="w-12 h-10 drop-shadow-sm">
+              {/* Mortarboard top (square, tilted) */}
+              <polygon
+                points="20,3 37,10 20,17 3,10"
+                fill="#1a1a1a"
+                stroke="#0a0a0a"
+                strokeWidth="0.5"
+              />
+              {/* Highlight on top */}
+              <polygon
+                points="20,3 37,10 20,11 3,10"
+                fill="#2a2a2a"
+              />
+              {/* Cap band */}
+              <path
+                d="M8 11 Q8 20 20 20 Q32 20 32 11 L30 10 Q30 17 20 17 Q10 17 10 10 Z"
+                fill="#1a1a1a"
+              />
+              {/* Button on top */}
+              <circle cx="20" cy="10" r="1.2" fill="#c9a04a" />
+              {/* Tassel cord */}
+              <path
+                d="M20 10 Q28 12 30 22"
+                fill="none"
+                stroke="#c9a04a"
+                strokeWidth="0.8"
+              />
+              {/* Tassel */}
+              <line x1="30" y1="22" x2="29" y2="27" stroke="#c9a04a" strokeWidth="0.8" />
+              <line x1="30" y1="22" x2="30" y2="27.5" stroke="#c9a04a" strokeWidth="0.8" />
+              <line x1="30" y1="22" x2="31" y2="27" stroke="#c9a04a" strokeWidth="0.8" />
+              <circle cx="30" cy="22" r="0.8" fill="#e0b858" />
+            </svg>
+          </div>
+
           {/* Paper clip */}
-          <div 
-            className="absolute -top-2 right-4 w-4 h-8"
+          <div
+            className="absolute -top-2 -left-1 w-4 h-8"
+            style={{ transform: "rotate(-12deg)" }}
           >
             <svg viewBox="0 0 16 32" className="w-full h-full">
               <path

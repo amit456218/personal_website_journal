@@ -11,8 +11,8 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, y: 30, rotate: -3 }}
-      animate={{ opacity: 1, y: 0, rotate: -1.5 }}
+      initial={{ opacity: 0, y: 30, rotate: -3, scale: 1.03 }}
+      animate={{ opacity: 1, y: 0, rotate: -1.5, scale: 1.03 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Shadow layer */}
@@ -60,7 +60,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
       
       {/* Main note */}
       <div
-        className="relative bg-paper-light p-6 md:p-8 w-[260px] aspect-square"
+        className="relative bg-paper-light p-6 md:p-8 w-[260px] h-[230px]"
         style={{
           transform: "rotate(-1.5deg)",
           boxShadow: "0 4px 20px rgba(44, 36, 22, 0.12), 0 2px 8px rgba(44, 36, 22, 0.08)",

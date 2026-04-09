@@ -5,65 +5,80 @@ import { motion } from "framer-motion"
 export function DeskDecorations() {
   return (
     <>
-      {/* BIGGER Admit One Ticket - underneath project of the day */}
+      {/* Admit One Ticket - under the Project of the Day */}
       <motion.div
-        className="absolute left-[3%] bottom-[18%] z-5 pointer-events-none"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 0.7, y: 0 }}
+        className="absolute left-[5%] bottom-[4%] z-5 pointer-events-none"
+        initial={{ opacity: 0, y: 10, rotate: 12, scale: 0.9 }}
+        animate={{ opacity: 0.85, y: 0, rotate: 12, scale: 0.9 }}
         transition={{ duration: 0.5, delay: 0.9 }}
-        style={{ transform: "rotate(-8deg)" }}
       >
-        <div 
-          className="w-14 h-28 bg-gradient-to-b from-paper-light to-[#e8dcc8] rounded-sm relative overflow-hidden"
-          style={{ boxShadow: "2px 2px 6px rgba(0,0,0,0.15)" }}
+        <div className="relative">
+        {/* Pushpin - classic red thumbtack */}
+        <div
+          className="absolute -top-2 left-1/2 -translate-x-1/2 z-20"
+          style={{ filter: "drop-shadow(1px 2px 3px rgba(0,0,0,0.45))" }}
+        >
+          <div
+            className="w-4 h-4 rounded-full"
+            style={{
+              background: "radial-gradient(circle at 30% 30%, #ff7070 0%, #c0392b 55%, #6b1818 100%)",
+              boxShadow: "inset -1px -1px 2px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.5)"
+            }}
+          />
+        </div>
+        <div
+          className="w-24 h-44 bg-gradient-to-b from-paper-light to-[#e8dcc8] rounded-sm relative overflow-hidden"
+          style={{ boxShadow: "3px 3px 8px rgba(0,0,0,0.18)" }}
         >
           {/* Perforated edge */}
-          <div className="absolute right-0 top-0 bottom-0 w-1 flex flex-col justify-around">
-            {[...Array(10)].map((_, i) => (
-              <div key={i} className="w-1 h-1 rounded-full bg-paper-dark" />
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 flex flex-col justify-around">
+            {[...Array(12)].map((_, i) => (
+              <div key={i} className="w-1.5 h-1.5 rounded-full bg-paper-dark" />
             ))}
           </div>
           {/* Ticket content */}
-          <div className="p-2 flex flex-col h-full justify-between">
+          <div className="p-3 flex flex-col h-full justify-between">
             <div>
-              <div className="font-typewriter text-[7px] text-sepia/60 tracking-wider">ADMIT</div>
-              <div className="font-serif text-lg text-sepia/80 font-bold leading-tight">ONE</div>
+              <div className="font-typewriter text-sm text-sepia/70 tracking-wider">ADMIT</div>
+              <div className="font-serif text-3xl text-sepia/90 font-bold leading-tight">ONE</div>
             </div>
-            <div className="w-8 h-px bg-sepia/30" />
+            <div className="w-10 h-px bg-sepia/30" />
             <div>
-              <div className="font-typewriter text-[5px] text-sepia/40">No. 0247</div>
-              <div className="font-typewriter text-[4px] text-sepia/30 mt-1">KEEP THIS STUB</div>
+              <div className="font-typewriter text-[11px] text-sepia/50">No. 0247</div>
+              <div className="font-typewriter text-[9px] text-sepia/40 mt-1">KEEP THIS STUB</div>
             </div>
           </div>
           {/* Decorative stripe */}
           <div className="absolute left-1 top-0 bottom-0 w-0.5 bg-stamp-red/30" />
         </div>
+        </div>
       </motion.div>
 
       {/* Vintage postcard corner - top right area */}
       <motion.div
-        className="absolute right-[32%] top-[5%] z-5 pointer-events-none"
+        className="absolute right-[32%] top-[7%] z-5 pointer-events-none"
         initial={{ opacity: 0, rotate: 15 }}
-        animate={{ opacity: 0.5, rotate: 12 }}
+        animate={{ opacity: 0.8, rotate: 12 }}
         transition={{ duration: 0.5, delay: 0.7 }}
       >
-        <div 
-          className="w-20 h-14 rounded-sm relative overflow-hidden"
-          style={{ 
+        <div
+          className="w-32 h-22 rounded-sm relative overflow-hidden"
+          style={{
             background: "linear-gradient(145deg, #f5ede0 0%, #e0d4c0 100%)",
-            boxShadow: "2px 2px 6px rgba(0,0,0,0.12)"
+            boxShadow: "3px 3px 8px rgba(0,0,0,0.14)",
+            height: "5.5rem"
           }}
         >
           {/* Postcard lines */}
-          <div className="absolute right-2 top-2 bottom-2 w-10">
+          <div className="absolute right-3 top-3 bottom-3 w-14">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="w-full h-px bg-sepia/20 mb-2" />
+              <div key={i} className="w-full h-px bg-sepia/20 mb-3" />
             ))}
           </div>
           {/* Stamp area hint */}
-          <div className="absolute right-1.5 top-1.5 w-5 h-6 border border-dashed border-sepia/30 rounded-[1px]" />
+          <div className="absolute right-2 top-2 w-7 h-9 border border-dashed border-sepia/30 rounded-[1px]" />
           {/* "POST CARD" text */}
-          <div className="absolute left-1.5 top-1.5 font-typewriter text-[5px] text-sepia/40 tracking-wider">
+          <div className="absolute left-2 top-2 font-typewriter text-[8px] text-sepia/40 tracking-wider">
             POST CARD
           </div>
           {/* Dividing line */}
@@ -71,34 +86,34 @@ export function DeskDecorations() {
         </div>
       </motion.div>
 
-      {/* Compass/navigation element - right side */}
+      {/* Compass/navigation element - under center post-it */}
       <motion.div
-        className="absolute right-[3%] top-[32%] z-5 pointer-events-none"
+        className="absolute left-[49%] top-[76%] -translate-x-1/2 z-5 pointer-events-none"
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.45, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 1 }}
       >
-        <div className="w-12 h-12 rounded-full border-2 border-sepia/30 relative">
+        <div className="w-20 h-20 rounded-full border-2 border-sepia/60 relative" style={{ background: "radial-gradient(circle, rgba(232, 220, 190, 0.35) 0%, transparent 70%)" }}>
           {/* Compass markings */}
-          <div className="absolute top-1 left-1/2 -translate-x-1/2 font-typewriter text-[6px] text-sepia/50">N</div>
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 font-typewriter text-[5px] text-sepia/40">S</div>
-          <div className="absolute left-1 top-1/2 -translate-y-1/2 font-typewriter text-[5px] text-sepia/40">W</div>
-          <div className="absolute right-1 top-1/2 -translate-y-1/2 font-typewriter text-[5px] text-sepia/40">E</div>
+          <div className="absolute top-1 left-1/2 -translate-x-1/2 font-typewriter text-[11px] text-sepia/90 font-bold">N</div>
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 font-typewriter text-[9px] text-sepia/75">S</div>
+          <div className="absolute left-1.5 top-1/2 -translate-y-1/2 font-typewriter text-[9px] text-sepia/75">W</div>
+          <div className="absolute right-1.5 top-1/2 -translate-y-1/2 font-typewriter text-[9px] text-sepia/75">E</div>
           {/* Needle */}
-          <div className="absolute inset-2 flex items-center justify-center">
-            <div 
-              className="w-0.5 h-6 bg-gradient-to-b from-stamp-red/60 to-sepia/40"
+          <div className="absolute inset-3 flex items-center justify-center">
+            <div
+              className="w-[3px] h-11 bg-gradient-to-b from-stamp-red/90 to-sepia/70"
               style={{ transform: "rotate(15deg)" }}
             />
           </div>
           {/* Center dot */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brass/60" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-brass/90" />
         </div>
       </motion.div>
 
       {/* Brass button / rivet decoration - bottom right area */}
       <motion.div
-        className="absolute right-[6%] bottom-[32%] z-5 pointer-events-none"
+        className="absolute right-[3%] bottom-[4%] z-5 pointer-events-none"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 0.6, scale: 1 }}
         transition={{ duration: 0.4, delay: 1.2 }}
@@ -129,12 +144,33 @@ export function DeskDecorations() {
         />
       </motion.div>
 
+      {/* Second route scribble - to the right of admit one */}
+      <motion.svg
+        className="absolute left-[11%] bottom-[10%] w-24 h-14 z-5 pointer-events-none"
+        viewBox="0 0 100 50"
+        initial={{ opacity: 0, rotate: 295 }}
+        animate={{ opacity: 0.7, rotate: 295 }}
+        transition={{ duration: 0.8, delay: 1.1 }}
+      >
+        <path
+          d="M8 40 C25 38, 30 10, 50 15 S75 42, 92 20"
+          fill="none"
+          stroke="#6b4a2b"
+          strokeWidth="1.3"
+          strokeDasharray="2,4"
+          strokeLinecap="round"
+        />
+        <circle cx="8" cy="40" r="2.5" fill="#b85450" opacity="0.7" />
+        <circle cx="92" cy="20" r="2.5" fill="#b85450" opacity="0.7" />
+        <circle cx="50" cy="15" r="1.8" fill="#6b4a2b" opacity="0.55" />
+      </motion.svg>
+
       {/* Route scribble - larger */}
       <motion.svg
-        className="absolute right-[18%] top-[18%] w-24 h-12 z-5 pointer-events-none"
+        className="absolute right-[18%] top-[18%] w-36 h-20 z-5 pointer-events-none"
         viewBox="0 0 100 50"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.35 }}
+        animate={{ opacity: 0.65 }}
         transition={{ duration: 0.8, delay: 1 }}
       >
         <path
@@ -152,7 +188,7 @@ export function DeskDecorations() {
 
       {/* Paper clip - near field notes */}
       <motion.div
-        className="absolute left-[14%] top-[4%] z-25 pointer-events-none"
+        className="absolute left-[18%] top-[4%] z-25 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.75 }}
         transition={{ duration: 0.5, delay: 0.6 }}
@@ -171,63 +207,35 @@ export function DeskDecorations() {
 
       {/* Handwritten annotation - near center bottom */}
       <motion.div
-        className="absolute left-[38%] bottom-[10%] z-5 pointer-events-none"
+        className="absolute left-[25%] bottom-[41%] z-5 pointer-events-none"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.45 }}
+        animate={{ opacity: 0.7 }}
         transition={{ duration: 0.6, delay: 1.3 }}
         style={{ transform: "rotate(-4deg)" }}
       >
-        <span className="font-handwriting text-sm text-sepia/50 italic">
+        <span className="font-handwriting text-lg text-sepia/80 italic">
           memories &amp; moments...
         </span>
       </motion.div>
 
       {/* Small passport stamp - top area */}
       <motion.div
-        className="absolute left-[48%] top-[5%] z-5 pointer-events-none"
+        className="absolute left-[16%] top-[14%] z-5 pointer-events-none"
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.45, scale: 1 }}
+        animate={{ opacity: 0.9, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.8 }}
       >
-        <div 
-          className="w-12 h-12 rounded-full border-2 border-stamp-red/50 flex items-center justify-center"
+        <div
+          className="w-14 h-14 rounded-full border-2 border-stamp-red/90 flex items-center justify-center"
           style={{ transform: "rotate(-15deg)" }}
         >
           <div className="text-center">
-            <div className="font-typewriter text-[6px] text-stamp-red/60 tracking-wider">APPROVED</div>
-            <div className="font-typewriter text-[5px] text-stamp-red/50">2024</div>
+            <div className="font-typewriter text-[6px] text-stamp-red tracking-wider font-bold">APPROVED</div>
+            <div className="font-typewriter text-[5px] text-stamp-red/90">2024</div>
           </div>
         </div>
       </motion.div>
 
-      {/* Torn map corner - bottom left */}
-      <motion.div
-        className="absolute left-[12%] bottom-[3%] z-5 pointer-events-none"
-        initial={{ opacity: 0, rotate: 20 }}
-        animate={{ opacity: 0.4, rotate: 15 }}
-        transition={{ duration: 0.5, delay: 1.4 }}
-      >
-        <div 
-          className="w-14 h-10 relative overflow-hidden"
-          style={{ 
-            background: "linear-gradient(135deg, #e8dcc8 0%, #d8ccb8 100%)",
-            boxShadow: "1px 1px 4px rgba(0,0,0,0.1)",
-            clipPath: "polygon(0 0, 100% 10%, 95% 100%, 5% 90%)"
-          }}
-        >
-          {/* Grid lines */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 56 40">
-            <line x1="0" y1="10" x2="56" y2="10" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            <line x1="0" y1="20" x2="56" y2="20" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            <line x1="0" y1="30" x2="56" y2="30" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            <line x1="14" y1="0" x2="14" y2="40" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            <line x1="28" y1="0" x2="28" y2="40" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            <line x1="42" y1="0" x2="42" y2="40" stroke="#8b7355" strokeWidth="0.3" opacity="0.3" />
-            {/* Route line */}
-            <path d="M8 30 Q20 15, 48 20" fill="none" stroke="#b85450" strokeWidth="1" opacity="0.5" />
-          </svg>
-        </div>
-      </motion.div>
     </>
   )
 }

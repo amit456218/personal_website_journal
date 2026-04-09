@@ -6,10 +6,10 @@ export function AccentPolaroid() {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, rotate: 12, y: 20 }}
-      animate={{ opacity: 1, rotate: 8, y: 0 }}
+      initial={{ opacity: 0, rotate: -6, y: 20 }}
+      animate={{ opacity: 1, rotate: -4, y: 0 }}
       transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ rotate: 5, scale: 1.05, y: -5 }}
+      whileHover={{ rotate: 0, scale: 1.05, y: -5 }}
     >
       {/* Polaroid frame */}
       <div 

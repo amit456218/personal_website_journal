@@ -19,13 +19,13 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
     <Link href="/work" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, y: 20, rotate: 12 }}
-        animate={{ opacity: 1, y: 0, rotate: 8 }}
+        initial={{ opacity: 0, y: 20, rotate: 12, scale: 1.1 }}
+        animate={{ opacity: 1, y: 0, rotate: 8, scale: 1.1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        whileHover={{ 
-          scale: 1.03,
-          rotate: 5,
-          transition: { duration: 0.2 }
+        whileHover={{
+          scale: 1.15,
+          rotate: 0,
+          transition: { duration: 0.3 }
         }}
       >
         {/* Vintage Passport */}
@@ -157,7 +157,7 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
         
         {/* Handwritten label */}
         <motion.p
-          className="absolute -bottom-7 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/60 whitespace-nowrap"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-handwriting text-base text-sepia/90 whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
