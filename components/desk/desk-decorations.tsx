@@ -56,9 +56,9 @@ export function DeskDecorations() {
 
       {/* Vintage postcard corner - top right area */}
       <motion.div
-        className="absolute right-[32%] top-[7%] z-5 pointer-events-none"
+        className="absolute right-[30%] top-[7%] z-5 pointer-events-none"
         initial={{ opacity: 0, rotate: 15 }}
-        animate={{ opacity: 0.8, rotate: 12 }}
+        animate={{ opacity: 0.92, rotate: 12 }}
         transition={{ duration: 0.5, delay: 0.7 }}
       >
         <div
@@ -81,6 +81,15 @@ export function DeskDecorations() {
           <div className="absolute left-2 top-2 font-typewriter text-[8px] text-sepia/40 tracking-wider">
             POST CARD
           </div>
+          {/* Small green tree illustration */}
+          <svg className="absolute left-2 bottom-2 w-11 h-14" viewBox="0 0 30 40" opacity="0.6">
+            {/* Trunk */}
+            <rect x="13" y="30" width="4" height="8" rx="0.5" fill="#4a3018" />
+            {/* Tree layers */}
+            <polygon points="15,4 6,18 24,18" fill="#1a3a14" />
+            <polygon points="15,10 4,24 26,24" fill="#122a0e" />
+            <polygon points="15,17 3,32 27,32" fill="#0a1e08" />
+          </svg>
           {/* Dividing line */}
           <div className="absolute left-1/2 top-2 bottom-2 w-px bg-sepia/20" />
         </div>
@@ -100,12 +109,15 @@ export function DeskDecorations() {
           <div className="absolute left-1.5 top-1/2 -translate-y-1/2 font-typewriter text-[9px] text-sepia/75">W</div>
           <div className="absolute right-1.5 top-1/2 -translate-y-1/2 font-typewriter text-[9px] text-sepia/75">E</div>
           {/* Needle */}
-          <div className="absolute inset-3 flex items-center justify-center">
+          <motion.div
+            className="absolute inset-3 flex items-center justify-center"
+            animate={{ rotate: [15, 25, 10, 20, 15] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
             <div
               className="w-[3px] h-11 bg-gradient-to-b from-stamp-red/90 to-sepia/70"
-              style={{ transform: "rotate(15deg)" }}
             />
-          </div>
+          </motion.div>
           {/* Center dot */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-brass/90" />
         </div>
@@ -152,16 +164,18 @@ export function DeskDecorations() {
         animate={{ opacity: 0.7, rotate: 295 }}
         transition={{ duration: 0.8, delay: 1.1 }}
       >
-        <path
+        <motion.path
           d="M8 40 C25 38, 30 10, 50 15 S75 42, 92 20"
           fill="none"
           stroke="#6b4a2b"
           strokeWidth="1.3"
           strokeDasharray="2,4"
           strokeLinecap="round"
+          animate={{ strokeDashoffset: [0, -24] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
         />
-        <circle cx="8" cy="40" r="2.5" fill="#b85450" opacity="0.7" />
-        <circle cx="92" cy="20" r="2.5" fill="#b85450" opacity="0.7" />
+        <motion.circle cx="8" cy="40" r="2.5" fill="#b85450" animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.circle cx="92" cy="20" r="2.5" fill="#b85450" animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }} />
         <circle cx="50" cy="15" r="1.8" fill="#6b4a2b" opacity="0.55" />
       </motion.svg>
 
@@ -173,16 +187,18 @@ export function DeskDecorations() {
         animate={{ opacity: 0.65 }}
         transition={{ duration: 0.8, delay: 1 }}
       >
-        <path
+        <motion.path
           d="M5 35 Q20 10, 40 25 T70 15 T95 30"
           fill="none"
           stroke="#8b7355"
           strokeWidth="1.5"
           strokeDasharray="3,3"
           strokeLinecap="round"
+          animate={{ strokeDashoffset: [0, -24] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         />
-        <circle cx="5" cy="35" r="3" fill="#b85450" opacity="0.6" />
-        <circle cx="95" cy="30" r="3" fill="#b85450" opacity="0.6" />
+        <motion.circle cx="5" cy="35" r="3" fill="#b85450" animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.circle cx="95" cy="30" r="3" fill="#b85450" animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }} />
         <circle cx="40" cy="25" r="2" fill="#8b7355" opacity="0.4" />
       </motion.svg>
 

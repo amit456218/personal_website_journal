@@ -12,7 +12,9 @@ import { AccentPolaroid } from "./desk/accent-polaroid"
 import { CassetteTape } from "./desk/cassette-tape"
 import { FilmStrip } from "./desk/film-strip"
 import { DeskDecorations } from "./desk/desk-decorations"
+import { VintageRadio } from "./desk/vintage-radio"
 import { AboutMeToken } from "./desk/about-me-token"
+import { AwardsSkillsToken } from "./desk/awards-skills-token"
 import { deskData } from "@/lib/desk-data"
 
 // Curated palette of rich, dark frame colors that complement the cork board
@@ -158,7 +160,7 @@ export function Desk() {
 
         {/* TOP RIGHT: Atlas Portal */}
         <motion.div 
-          className="absolute right-[8%] top-[8%] z-20 scale-[0.85]"
+          className="absolute right-[6%] top-[8%] z-20"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
@@ -212,8 +214,8 @@ export function Desk() {
 
         {/* RIGHT SIDE: Vinyl Sleeve (Music) - below name on right */}
         <motion.div
-          className="absolute right-[27%] top-[42%] z-15"
-          style={{ marginLeft: "-34px", marginTop: "129px" }}
+          className="absolute right-[24%] top-[37%] z-15"
+          style={{ marginLeft: "-34px" }}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -239,6 +241,26 @@ export function Desk() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <AboutMeToken />
+        </motion.div>
+
+        {/* Vintage Radio — Current Listens */}
+        <motion.div
+          className="absolute right-[30%] bottom-[8%] z-15"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.55 }}
+        >
+          <VintageRadio />
+        </motion.div>
+
+        {/* Awards & Skills Token — top center */}
+        <motion.div
+          className="absolute left-[46%] top-[4%] z-20"
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <AwardsSkillsToken />
         </motion.div>
 
         {/* Decorative elements */}

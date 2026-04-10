@@ -31,7 +31,7 @@ export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
       >
       {/* Folded map */}
       <div 
-        className="relative w-24 h-20 md:w-28 md:h-24"
+        className="relative w-32 h-26 md:w-36 md:h-30"
         style={{
           background: "#e8dcc8",
           boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.2), 2px 2px 6px rgba(44, 36, 22, 0.12)",
@@ -84,10 +84,10 @@ export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
         {/* Label */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <span className="font-typewriter text-[10px] md:text-xs text-sepia/80 tracking-wider block">
+            <span className="font-typewriter text-sm md:text-base text-sepia/80 tracking-wider block">
               THE ROUTES
             </span>
-            <span className="font-handwriting text-sm md:text-base text-sepia group-hover:text-brass transition-colors">
+            <span className="font-handwriting text-lg md:text-xl text-sepia group-hover:text-brass transition-colors">
               Open Atlas
             </span>
           </div>
@@ -95,7 +95,7 @@ export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
         
         {/* Worn corner */}
         <div 
-          className="absolute bottom-0 right-0 w-4 h-4"
+          className="absolute bottom-0 right-0 w-6 h-6"
           style={{
             background: "linear-gradient(135deg, transparent 50%, rgba(200, 185, 155, 0.4) 50%)",
           }}
