@@ -26,14 +26,14 @@ export function AwardsSkillsToken() {
             <path 
               d="M25 0 L20 45 L28 38 L36 48 L32 0" 
               fill="url(#ribbonLeft)" 
-              stroke="#6a1a1a" 
+              stroke="#a85050" 
               strokeWidth="0.5"
             />
             {/* Right ribbon tail */}
             <path 
               d="M48 0 L44 48 L52 38 L60 45 L55 0" 
               fill="url(#ribbonRight)" 
-              stroke="#6a1a1a" 
+              stroke="#a85050" 
               strokeWidth="0.5"
             />
             {/* Ribbon shine */}
@@ -42,14 +42,14 @@ export function AwardsSkillsToken() {
             
             <defs>
               <linearGradient id="ribbonLeft" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#8b2020" />
-                <stop offset="50%" stopColor="#c43030" />
-                <stop offset="100%" stopColor="#9a2525" />
+                <stop offset="0%" stopColor="#c45858" />
+                <stop offset="50%" stopColor="#e07070" />
+                <stop offset="100%" stopColor="#d06060" />
               </linearGradient>
               <linearGradient id="ribbonRight" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#9a2525" />
-                <stop offset="50%" stopColor="#c43030" />
-                <stop offset="100%" stopColor="#8b2020" />
+                <stop offset="0%" stopColor="#d06060" />
+                <stop offset="50%" stopColor="#e07070" />
+                <stop offset="100%" stopColor="#c45858" />
               </linearGradient>
             </defs>
           </svg>
@@ -69,8 +69,8 @@ export function AwardsSkillsToken() {
                 <path
                   key={i}
                   d={`M35,35 L${x1},${y1} L${x2},${y2} L${x3},${y3} Z`}
-                  fill={i % 2 === 0 ? "#b83030" : "#9a2525"}
-                  stroke="#7a1a1a"
+                  fill={i % 2 === 0 ? "#d86868" : "#c85858"}
+                  stroke="#b05050"
                   strokeWidth="0.3"
                 />
               )
