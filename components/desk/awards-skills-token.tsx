@@ -8,12 +8,12 @@ export function AwardsSkillsToken() {
     <Link href="/awards" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, rotate: -3, scale: 0.9 }}
-        animate={{ opacity: 1, rotate: -2, scale: 1 }}
+        initial={{ opacity: 0, rotate: 8, scale: 0.9 }}
+        animate={{ opacity: 1, rotate: 6, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         whileHover={{
           scale: 1.06,
-          rotate: 0,
+          rotate: 3,
           transition: { duration: 0.2 }
         }}
       >
@@ -26,14 +26,14 @@ export function AwardsSkillsToken() {
             <path 
               d="M25 0 L20 45 L28 38 L36 48 L32 0" 
               fill="url(#ribbonLeft)" 
-              stroke="#a85050" 
+              stroke="#903838" 
               strokeWidth="0.5"
             />
             {/* Right ribbon tail */}
             <path 
               d="M48 0 L44 48 L52 38 L60 45 L55 0" 
               fill="url(#ribbonRight)" 
-              stroke="#a85050" 
+              stroke="#903838" 
               strokeWidth="0.5"
             />
             {/* Ribbon shine */}
@@ -42,14 +42,14 @@ export function AwardsSkillsToken() {
             
             <defs>
               <linearGradient id="ribbonLeft" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#c45858" />
-                <stop offset="50%" stopColor="#e07070" />
-                <stop offset="100%" stopColor="#d06060" />
+                <stop offset="0%" stopColor="#b04848" />
+                <stop offset="50%" stopColor="#cc5858" />
+                <stop offset="100%" stopColor="#c05050" />
               </linearGradient>
               <linearGradient id="ribbonRight" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#d06060" />
-                <stop offset="50%" stopColor="#e07070" />
-                <stop offset="100%" stopColor="#c45858" />
+                <stop offset="0%" stopColor="#c05050" />
+                <stop offset="50%" stopColor="#cc5858" />
+                <stop offset="100%" stopColor="#b04848" />
               </linearGradient>
             </defs>
           </svg>
@@ -69,8 +69,8 @@ export function AwardsSkillsToken() {
                 <path
                   key={i}
                   d={`M35,35 L${x1},${y1} L${x2},${y2} L${x3},${y3} Z`}
-                  fill={i % 2 === 0 ? "#d86868" : "#c85858"}
-                  stroke="#b05050"
+                  fill={i % 2 === 0 ? "#c45858" : "#b44848"}
+                  stroke="#9a4040"
                   strokeWidth="0.3"
                 />
               )
