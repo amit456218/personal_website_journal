@@ -8,142 +8,139 @@ export function AwardsSkillsToken() {
     <Link href="/awards" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, rotate: 5, scale: 0.9 }}
-        animate={{ opacity: 1, rotate: 3, scale: 1 }}
+        initial={{ opacity: 0, rotate: -3, scale: 0.9 }}
+        animate={{ opacity: 1, rotate: -2, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         whileHover={{
-          scale: 1.08,
+          scale: 1.06,
           rotate: 0,
           transition: { duration: 0.2 }
         }}
       >
-        {/* Scout/merit badge patch on felt */}
-        <div
-          className="relative overflow-visible"
-          style={{
-            width: "90px",
-            height: "105px",
-          }}
-        >
-          {/* Felt backing — dark green swatch */}
-          <div
-            className="absolute inset-0 rounded-sm"
-            style={{
-              background: "linear-gradient(160deg, #2a4a28 0%, #1e3820 50%, #1a3018 100%)",
-              boxShadow: "3px 4px 10px rgba(0,0,0,0.35), inset 0 1px 3px rgba(255,255,255,0.05)",
-              border: "1px solid #14260f",
-            }}
-          />
-          {/* Felt texture */}
-          <div
-            className="absolute inset-0 rounded-sm opacity-20"
-            style={{
-              backgroundImage: `
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0.5px, transparent 1px),
-                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.06) 0.5px, transparent 1px),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.07) 0.5px, transparent 1px)
-              `,
-              backgroundSize: "8px 8px, 12px 12px, 6px 6px",
-            }}
-          />
-
-          {/* Stitching around edge */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 90 105">
-            <rect x="3" y="3" width="84" height="99" rx="2" fill="none" stroke="#4a7a40" strokeWidth="0.6" strokeDasharray="3,2" opacity="0.5" />
+        {/* Vintage certificate/diploma ribbon rosette */}
+        <div className="relative" style={{ width: "100px", height: "85px" }}>
+          
+          {/* Ribbon tails hanging down */}
+          <svg className="absolute top-[45px] left-1/2 -translate-x-1/2 w-20 h-12" viewBox="0 0 80 48">
+            {/* Left ribbon tail */}
+            <path 
+              d="M25 0 L20 45 L28 38 L36 48 L32 0" 
+              fill="url(#ribbonLeft)" 
+              stroke="#6a1a1a" 
+              strokeWidth="0.5"
+            />
+            {/* Right ribbon tail */}
+            <path 
+              d="M48 0 L44 48 L52 38 L60 45 L55 0" 
+              fill="url(#ribbonRight)" 
+              stroke="#6a1a1a" 
+              strokeWidth="0.5"
+            />
+            {/* Ribbon shine */}
+            <path d="M27 5 L24 35" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+            <path d="M51 5 L48 35" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+            
+            <defs>
+              <linearGradient id="ribbonLeft" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#8b2020" />
+                <stop offset="50%" stopColor="#c43030" />
+                <stop offset="100%" stopColor="#9a2525" />
+              </linearGradient>
+              <linearGradient id="ribbonRight" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#9a2525" />
+                <stop offset="50%" stopColor="#c43030" />
+                <stop offset="100%" stopColor="#8b2020" />
+              </linearGradient>
+            </defs>
           </svg>
-
-          {/* TOP: Gold medal with ribbon bar */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2">
-            <svg viewBox="0 0 50 52" className="w-12 h-13">
-              {/* Ribbon bar — striped */}
-              <rect x="10" y="0" width="30" height="10" rx="1" fill="url(#barGrad)" stroke="#6a4a20" strokeWidth="0.4" />
-              <rect x="14" y="1" width="3" height="8" fill="#c0392b" opacity="0.8" />
-              <rect x="19" y="1" width="2" height="8" fill="#f0d478" opacity="0.6" />
-              <rect x="23.5" y="1" width="3" height="8" fill="#1e3a6a" opacity="0.7" />
-              <rect x="29" y="1" width="2" height="8" fill="#f0d478" opacity="0.6" />
-              <rect x="33" y="1" width="3" height="8" fill="#c0392b" opacity="0.8" />
-
-              {/* V-ribbon connecting bar to medal */}
-              <path d="M18 10 L25 22 L32 10" fill="url(#vRibbon)" stroke="#8a2020" strokeWidth="0.3" />
-              <path d="M20 10 L25 20 L30 10" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-
-              {/* Medal — gold star */}
-              <circle cx="25" cy="34" r="14" fill="url(#medalGold)" stroke="#8a6c20" strokeWidth="0.6" />
-              <circle cx="25" cy="34" r="11.5" fill="none" stroke="#c9a04a" strokeWidth="0.4" opacity="0.5" />
-              <circle cx="25" cy="34" r="9.5" fill="none" stroke="#c9a04a" strokeWidth="0.3" opacity="0.3" />
-              {/* Star */}
-              <path d="M25 23 L27.8 30 L35.5 30 L29.2 34.5 L31.5 42 L25 37.5 L18.5 42 L20.8 34.5 L14.5 30 L22.2 30 Z" fill="url(#starG)" stroke="#8a6c20" strokeWidth="0.3" />
-              {/* Shine */}
-              <ellipse cx="21" cy="29" rx="5" ry="4" fill="rgba(255,255,255,0.12)" transform="rotate(-15 21 29)" />
-
-              <defs>
-                <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2a4a28" />
-                  <stop offset="100%" stopColor="#1e3820" />
-                </linearGradient>
-                <linearGradient id="vRibbon" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c0392b" />
-                  <stop offset="100%" stopColor="#922020" />
-                </linearGradient>
-                <radialGradient id="medalGold" cx="40%" cy="38%">
-                  <stop offset="0%" stopColor="#f5de6e" />
-                  <stop offset="40%" stopColor="#d4a838" />
-                  <stop offset="100%" stopColor="#a88020" />
-                </radialGradient>
-                <linearGradient id="starG" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f8e878" />
-                  <stop offset="50%" stopColor="#d4a838" />
-                  <stop offset="100%" stopColor="#c09028" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* BOTTOM: Enamel skill pins */}
-          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
-            {/* Pin 1 — code */}
-            <svg viewBox="0 0 22 22" className="w-5 h-5">
-              <circle cx="11" cy="11" r="10" fill="url(#pin1)" stroke="#333" strokeWidth="0.5" />
-              <circle cx="11" cy="11" r="8" fill="none" stroke="#555" strokeWidth="0.3" />
-              <text x="11" y="14" textAnchor="middle" fontSize="8" fill="#ffd700" fontFamily="monospace" fontWeight="bold">&lt;/&gt;</text>
-              <defs>
-                <radialGradient id="pin1" cx="40%" cy="35%">
-                  <stop offset="0%" stopColor="#3a3a3a" />
-                  <stop offset="100%" stopColor="#1a1a1a" />
-                </radialGradient>
-              </defs>
-            </svg>
-            {/* Pin 2 — star/design */}
-            <svg viewBox="0 0 22 22" className="w-5 h-5">
-              <circle cx="11" cy="11" r="10" fill="url(#pin2)" stroke="#1a3a6a" strokeWidth="0.5" />
-              <circle cx="11" cy="11" r="8" fill="none" stroke="#2a4a7a" strokeWidth="0.3" />
-              <path d="M11 5 L12.5 9 L17 9 L13.5 11.5 L14.8 16 L11 13 L7.2 16 L8.5 11.5 L5 9 L9.5 9 Z" fill="#ffd700" opacity="0.8" />
-              <defs>
-                <radialGradient id="pin2" cx="40%" cy="35%">
-                  <stop offset="0%" stopColor="#2a5090" />
-                  <stop offset="100%" stopColor="#1a3060" />
-                </radialGradient>
-              </defs>
-            </svg>
-            {/* Pin 3 — lightning/energy */}
-            <svg viewBox="0 0 22 22" className="w-5 h-5">
-              <circle cx="11" cy="11" r="10" fill="url(#pin3)" stroke="#5a1a1a" strokeWidth="0.5" />
-              <circle cx="11" cy="11" r="8" fill="none" stroke="#7a2a2a" strokeWidth="0.3" />
-              <path d="M13 4 L8 12 L11 12 L9 18 L15 10 L12 10 Z" fill="#ffd700" opacity="0.85" />
-              <defs>
-                <radialGradient id="pin3" cx="40%" cy="35%">
-                  <stop offset="0%" stopColor="#8a2020" />
-                  <stop offset="100%" stopColor="#5a1515" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Label */}
-          <div className="absolute bottom-[-18px] left-1/2 -translate-x-1/2 whitespace-nowrap">
-            <span className="font-handwriting text-xs text-sepia/80">awards &amp; skills</span>
-          </div>
+          
+          {/* Rosette layers */}
+          <svg className="absolute top-0 left-1/2 -translate-x-1/2 w-[70px] h-[70px]" viewBox="0 0 70 70">
+            {/* Outer pleated rosette */}
+            {Array.from({ length: 24 }).map((_, i) => {
+              const angle = (i * 15) * (Math.PI / 180)
+              const x1 = 35 + 28 * Math.cos(angle)
+              const y1 = 35 + 28 * Math.sin(angle)
+              const x2 = 35 + 34 * Math.cos(angle + 0.13)
+              const y2 = 35 + 34 * Math.sin(angle + 0.13)
+              const x3 = 35 + 28 * Math.cos(angle + 0.26)
+              const y3 = 35 + 28 * Math.sin(angle + 0.26)
+              return (
+                <path
+                  key={i}
+                  d={`M35,35 L${x1},${y1} L${x2},${y2} L${x3},${y3} Z`}
+                  fill={i % 2 === 0 ? "#b83030" : "#9a2525"}
+                  stroke="#7a1a1a"
+                  strokeWidth="0.3"
+                />
+              )
+            })}
+            
+            {/* Inner gold ring */}
+            <circle cx="35" cy="35" r="20" fill="url(#goldRing)" stroke="#8a6c20" strokeWidth="1" />
+            <circle cx="35" cy="35" r="17" fill="none" stroke="#c9a04a" strokeWidth="0.5" opacity="0.6" />
+            
+            {/* Center medallion */}
+            <circle cx="35" cy="35" r="15" fill="url(#centerGold)" stroke="#8a6c20" strokeWidth="0.5" />
+            
+            {/* Trophy/laurel icon */}
+            <g transform="translate(35, 35)">
+              {/* Left laurel */}
+              <path d="M-8,-6 Q-10,-3 -9,0 Q-11,2 -9,5 Q-10,7 -8,8" fill="none" stroke="#5a4a20" strokeWidth="1.2" strokeLinecap="round" />
+              <ellipse cx="-9" cy="-4" rx="2" ry="3" fill="#7a6a30" transform="rotate(-20 -9 -4)" />
+              <ellipse cx="-10" cy="1" rx="2" ry="3" fill="#7a6a30" transform="rotate(-10 -10 1)" />
+              <ellipse cx="-9" cy="6" rx="2" ry="3" fill="#7a6a30" transform="rotate(10 -9 6)" />
+              
+              {/* Right laurel */}
+              <path d="M8,-6 Q10,-3 9,0 Q11,2 9,5 Q10,7 8,8" fill="none" stroke="#5a4a20" strokeWidth="1.2" strokeLinecap="round" />
+              <ellipse cx="9" cy="-4" rx="2" ry="3" fill="#7a6a30" transform="rotate(20 9 -4)" />
+              <ellipse cx="10" cy="1" rx="2" ry="3" fill="#7a6a30" transform="rotate(10 10 1)" />
+              <ellipse cx="9" cy="6" rx="2" ry="3" fill="#7a6a30" transform="rotate(-10 9 6)" />
+              
+              {/* Star center */}
+              <path d="M0,-7 L1.8,-2 L7,-2 L2.8,1.5 L4.5,7 L0,4 L-4.5,7 L-2.8,1.5 L-7,-2 L-1.8,-2 Z" fill="url(#starGold)" stroke="#8a6c20" strokeWidth="0.3" />
+            </g>
+            
+            {/* Shine */}
+            <ellipse cx="28" cy="28" rx="6" ry="5" fill="rgba(255,255,255,0.15)" transform="rotate(-30 28 28)" />
+            
+            <defs>
+              <radialGradient id="goldRing" cx="40%" cy="35%">
+                <stop offset="0%" stopColor="#f5de6e" />
+                <stop offset="60%" stopColor="#d4a838" />
+                <stop offset="100%" stopColor="#a88020" />
+              </radialGradient>
+              <radialGradient id="centerGold" cx="35%" cy="30%">
+                <stop offset="0%" stopColor="#faf0c8" />
+                <stop offset="50%" stopColor="#e8c860" />
+                <stop offset="100%" stopColor="#c9a040" />
+              </radialGradient>
+              <linearGradient id="starGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#d4a020" />
+                <stop offset="100%" stopColor="#a07818" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          {/* Push pin at top */}
+          <div 
+            className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10"
+            style={{
+              background: "radial-gradient(circle at 35% 35%, #e8e8e8 0%, #b0b0b0 50%, #888 100%)",
+              boxShadow: "1px 1px 2px rgba(0,0,0,0.3)"
+            }}
+          />
         </div>
+        
+        {/* Label */}
+        <motion.p
+          className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-handwriting text-sm text-sepia/70 whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          awards & skills
+        </motion.p>
       </motion.div>
     </Link>
   )
