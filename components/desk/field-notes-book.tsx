@@ -21,8 +21,9 @@ export function FieldNotesBook() {
         <div 
           className="absolute inset-0 rounded-sm"
           style={{
-            background: "linear-gradient(145deg, #5c4a32 0%, #4a3b28 100%)",
-            boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.3), 2px 2px 6px rgba(44, 36, 22, 0.2)",
+            background: "linear-gradient(145deg, #6a5438 0%, #5c4a32 30%, #4a3b28 100%)",
+            boxShadow: "8px 10px 20px rgba(0, 0, 0, 0.4), 3px 4px 8px rgba(44, 36, 22, 0.3), inset 0 2px 1px rgba(255,255,255,0.08), inset 0 -2px 4px rgba(0,0,0,0.2)",
+            transform: "perspective(500px) rotateY(5deg) rotateX(-3deg)",
           }}
         >
           {/* Spine detail */}
@@ -61,10 +62,15 @@ export function FieldNotesBook() {
           />
         </div>
         
-        {/* Pages peeking out */}
-        <div 
-          className="absolute -right-0.5 top-2 bottom-2 w-1 rounded-r-sm"
-          style={{ background: "linear-gradient(90deg, #e8dcc8 0%, #f4ecd8 100%)" }}
+        {/* Pages peeking out — stacked for 3D depth */}
+        <div
+          className="absolute -right-0.5 top-2 bottom-2 w-1.5 rounded-r-sm"
+          style={{ background: "repeating-linear-gradient(180deg, #f4ecd8 0px, #f4ecd8 1.5px, #ddd4c0 1.5px, #ddd4c0 2px)", boxShadow: "1px 0 2px rgba(0,0,0,0.15)" }}
+        />
+        {/* Bottom edge — book thickness */}
+        <div
+          className="absolute -bottom-1 left-1 right-1 h-1.5 rounded-b-sm"
+          style={{ background: "linear-gradient(180deg, #3a2e1e 0%, #2a2015 100%)", boxShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
         />
         
         {/* Tap to explore label */}

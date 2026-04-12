@@ -180,6 +180,15 @@ export function VintageRadio() {
             </div>
           </div>
         </div>
+        {/* Click to view label */}
+        <motion.p
+          className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-handwriting text-xs text-sepia/90 whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          click to view
+        </motion.p>
       </motion.div>
     </Link>
   )

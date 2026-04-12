@@ -32,8 +32,9 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
         <div 
           className="relative w-36 h-48 rounded-sm overflow-hidden"
           style={{
-            background: "linear-gradient(145deg, #1a3a52 0%, #0d2538 50%, #1a3a52 100%)",
-            boxShadow: "6px 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
+            background: "linear-gradient(145deg, #1f4260 0%, #0d2538 50%, #1a3a52 100%)",
+            boxShadow: "10px 12px 24px rgba(0, 0, 0, 0.5), 4px 5px 8px rgba(0,0,0,0.35), inset 0 2px 1px rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.25)",
+            transform: "perspective(500px) rotateY(-5deg) rotateX(3deg)",
           }}
         >
           {/* Leather texture overlay */}
@@ -137,23 +138,30 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
             }}
           />
           
-          {/* Page edge hint on right */}
-          <div 
-            className="absolute right-0 top-4 bottom-4 w-1"
+          {/* Page edge hint on right — stacked pages */}
+          <div
+            className="absolute right-0 top-3 bottom-3 w-1.5"
             style={{
-              background: "repeating-linear-gradient(180deg, #f5f0e1 0px, #f5f0e1 2px, #e8e0cc 2px, #e8e0cc 4px)",
-              opacity: 0.4,
+              background: "repeating-linear-gradient(180deg, #f5f0e1 0px, #f5f0e1 1.5px, #ddd4c0 1.5px, #ddd4c0 2px)",
+              opacity: 0.5,
+              boxShadow: "1px 0 2px rgba(0,0,0,0.15)",
             }}
           />
-          
+
           {/* Corner wear */}
-          <div 
+          <div
             className="absolute bottom-0 right-0 w-4 h-4"
             style={{
               background: "linear-gradient(315deg, rgba(255,255,255,0.05) 0%, transparent 60%)",
             }}
           />
         </div>
+
+        {/* Bottom edge — passport thickness */}
+        <div
+          className="absolute -bottom-0.5 left-2 right-2 h-1 rounded-b-sm"
+          style={{ background: "linear-gradient(180deg, #0a1a28 0%, #061220 100%)", boxShadow: "0 2px 3px rgba(0,0,0,0.3)" }}
+        />
         
         {/* Handwritten label */}
         <motion.p

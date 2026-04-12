@@ -58,7 +58,7 @@ export function DeskDecorations() {
       <motion.div
         className="absolute right-[30%] top-[7%] z-5 pointer-events-none"
         initial={{ opacity: 0, rotate: 15 }}
-        animate={{ opacity: 0.92, rotate: 12 }}
+        animate={{ opacity: 1, rotate: 12 }}
         transition={{ duration: 0.5, delay: 0.7 }}
       >
         <div
@@ -86,9 +86,9 @@ export function DeskDecorations() {
             {/* Trunk */}
             <rect x="13" y="30" width="4" height="8" rx="0.5" fill="#4a3018" />
             {/* Tree layers */}
-            <polygon points="15,4 6,18 24,18" fill="#1a3a14" />
-            <polygon points="15,10 4,24 26,24" fill="#122a0e" />
-            <polygon points="15,17 3,32 27,32" fill="#0a1e08" />
+            <polygon points="15,4 6,18 24,18" fill="#0e2a0a" />
+            <polygon points="15,10 4,24 26,24" fill="#081e06" />
+            <polygon points="15,17 3,32 27,32" fill="#041404" />
           </svg>
           {/* Dividing line */}
           <div className="absolute left-1/2 top-2 bottom-2 w-px bg-sepia/20" />
