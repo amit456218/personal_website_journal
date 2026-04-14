@@ -58,13 +58,14 @@ export function AwardsSkillsToken() {
           <svg className="absolute top-0 left-1/2 -translate-x-1/2 w-[70px] h-[70px]" viewBox="0 0 70 70">
             {/* Outer pleated rosette */}
             {Array.from({ length: 24 }).map((_, i) => {
+              const r = (n: number) => n.toFixed(3)
               const angle = (i * 15) * (Math.PI / 180)
-              const x1 = 35 + 28 * Math.cos(angle)
-              const y1 = 35 + 28 * Math.sin(angle)
-              const x2 = 35 + 34 * Math.cos(angle + 0.13)
-              const y2 = 35 + 34 * Math.sin(angle + 0.13)
-              const x3 = 35 + 28 * Math.cos(angle + 0.26)
-              const y3 = 35 + 28 * Math.sin(angle + 0.26)
+              const x1 = r(35 + 28 * Math.cos(angle))
+              const y1 = r(35 + 28 * Math.sin(angle))
+              const x2 = r(35 + 34 * Math.cos(angle + 0.13))
+              const y2 = r(35 + 34 * Math.sin(angle + 0.13))
+              const x3 = r(35 + 28 * Math.cos(angle + 0.26))
+              const y3 = r(35 + 28 * Math.sin(angle + 0.26))
               return (
                 <path
                   key={i}

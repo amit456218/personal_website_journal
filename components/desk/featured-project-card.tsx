@@ -24,6 +24,7 @@ export function FeaturedProjectCard({ title, description, slug }: FeaturedProjec
         whileHover={{
           y: -4,
           rotate: 0,
+          scale: 1.05,
           boxShadow: "8px 8px 24px rgba(44, 36, 22, 0.22), 4px 4px 10px rgba(44, 36, 22, 0.12)",
           transition: { duration: 0.3 }
         }}

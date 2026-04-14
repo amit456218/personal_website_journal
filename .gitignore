@@ -14,3 +14,9 @@ next.user-config.*
 node_modules
 .next/
 .DS_Store
+
+# Local Claude Code settings
+.claude/
+
+# Use pnpm-lock.yaml; ignore npm's lockfile
+package-lock.json

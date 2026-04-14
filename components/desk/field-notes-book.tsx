@@ -14,6 +14,7 @@ export function FieldNotesBook() {
         whileHover={{
           y: -6,
           rotate: 0,
+          scale: 1.05,
           transition: { duration: 0.3 }
         }}
       >
