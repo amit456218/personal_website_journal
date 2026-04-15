@@ -25,21 +25,21 @@ export const workExperiences: WorkExperience[] = [
     ],
     artifactType: "passport"
   },
-  {
-    id: "google-rfn",
-    company: "Google",
-    subtitle: "RFN Tech",
-    role: "UX Engineer",
-    period: "2023",
-    location: "Mountain View, CA",
-    description: "Built interactive prototypes and design tools for Google's internal teams, bridging design and engineering.",
-    highlights: [
-      "Developed 5 internal design tools",
-      "Collaborated with 20+ product teams",
-      "Pioneered new prototyping workflows"
-    ],
-    artifactType: "visa"
-  },
+  // {
+  //   id: "google-rfn",
+  //   company: "Google",
+  //   subtitle: "RFN Tech",
+  //   role: "UX Engineer",
+  //   period: "2023",
+  //   location: "Mountain View, CA",
+  //   description: "Built interactive prototypes and design tools for Google's internal teams, bridging design and engineering.",
+  //   highlights: [
+  //     "Developed 5 internal design tools",
+  //     "Collaborated with 20+ product teams",
+  //     "Pioneered new prototyping workflows"
+  //   ],
+  //   artifactType: "visa"
+  // },
   {
     id: "butterflo",
     company: "Butterflo",

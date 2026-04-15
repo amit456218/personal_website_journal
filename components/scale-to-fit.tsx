@@ -14,19 +14,29 @@ export function ScaleToFit({
   children,
 }: ScaleToFitProps) {
   const [scale, setScale] = useState(1)
+  const [fill, setFill] = useState(true)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const compute = () => {
       const w = window.innerWidth
       const h = window.innerHeight
-      const next = Math.min(w / designWidth, h / designHeight, 1)
-      setScale(next)
+      if (w >= 768) {
+        setFill(true)
+        setScale(1)
+      } else {
+        setFill(false)
+        setScale(Math.min(w / designWidth, h / designHeight))
+      }
     }
     compute()
     window.addEventListener("resize", compute)
     return () => window.removeEventListener("resize", compute)
   }, [designWidth, designHeight])
+
+  if (fill) {
+    return <div className="fixed inset-0">{children}</div>
+  }
 
   return (
     <div
