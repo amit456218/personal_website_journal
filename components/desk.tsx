@@ -53,7 +53,7 @@ export function Desk() {
   }, [])
 
   return (
-    <div className="relative h-screen w-full overflow-hidden" style={{ background: "#dcc8a0" }}>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: "#dcc8a0" }}>
       {/*
         ORIGINAL DESK BACKGROUND (called "v1" — the plain paper desk) — uncomment this block and remove the cork block below to revert.
         Also change the outer div back to: className="... bg-paper-dark" (no inline style).
