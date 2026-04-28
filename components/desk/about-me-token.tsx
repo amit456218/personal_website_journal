@@ -8,11 +8,11 @@ export function AboutMeToken() {
     <Link href="/about" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, rotate: 7, scale: 1.1 }}
-        animate={{ opacity: 1, rotate: 9, scale: 1.1 }}
+        initial={{ opacity: 0, rotate: 7, scale: 1.664 }}
+        animate={{ opacity: 1, rotate: 9, scale: 1.664 }}
         transition={{ duration: 0.6, delay: 0.5 }}
         whileHover={{
-          scale: 1.15,
+          scale: 1.67,
           rotate: 0,
           transition: { duration: 0.2 }
         }}

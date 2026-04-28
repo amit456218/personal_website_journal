@@ -19,11 +19,11 @@ export function CompanyCluster({ companies }: CompanyClusterProps) {
     <Link href="/work" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, y: 20, rotate: 12, scale: 1.1 }}
-        animate={{ opacity: 1, y: 0, rotate: 8, scale: 1.1 }}
+        initial={{ opacity: 0, y: 20, rotate: 12, scale: 1.35 }}
+        animate={{ opacity: 1, y: 0, rotate: 8, scale: 1.35 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         whileHover={{
-          scale: 1.15,
+          scale: 1.42,
           rotate: 0,
           transition: { duration: 0.3 }
         }}

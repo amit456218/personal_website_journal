@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Aged paper background -->
+  <rect width="32" height="32" rx="5" fill="#f4ecd8"/>
+  <!-- Outer brass border -->
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#b8965c" stroke-width="1.5"/>
+  <!-- Inner thin border -->
+  <rect x="3.5" y="3.5" width="25" height="25" rx="2.5" fill="none" stroke="#b8965c" stroke-width="0.5"/>
+  <!-- Corner ornaments -->
+  <rect x="3.5" y="3.5" width="4" height="1" fill="#b8965c" opacity="0.7"/>
+  <rect x="3.5" y="3.5" width="1" height="4" fill="#b8965c" opacity="0.7"/>
+  <rect x="24.5" y="3.5" width="4" height="1" fill="#b8965c" opacity="0.7"/>
+  <rect x="27.5" y="3.5" width="1" height="4" fill="#b8965c" opacity="0.7"/>
+  <rect x="3.5" y="27.5" width="4" height="1" fill="#b8965c" opacity="0.7"/>
+  <rect x="3.5" y="24.5" width="1" height="4" fill="#b8965c" opacity="0.7"/>
+  <rect x="24.5" y="27.5" width="4" height="1" fill="#b8965c" opacity="0.7"/>
+  <rect x="27.5" y="24.5" width="1" height="4" fill="#b8965c" opacity="0.7"/>
+  <!-- AG monogram -->
+  <text
+    x="16"
+    y="22"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="15"
+    font-weight="700"
+    letter-spacing="0"
+    fill="#2c2416"
+  >AG</text>
+</svg>

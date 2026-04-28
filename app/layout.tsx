@@ -25,17 +25,8 @@ const specialElite = Special_Elite({
 export const metadata: Metadata = {
   title: 'Travel Journal | A Personal Portfolio',
   description: 'A personal portfolio designed as a worn vintage travel journal — documenting journeys, projects, and stories from around the world.',
-  generator: 'v0.app',
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
       {
         url: '/icon.svg',
         type: 'image/svg+xml',

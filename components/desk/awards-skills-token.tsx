@@ -8,11 +8,11 @@ export function AwardsSkillsToken() {
     <Link href="/awards" className="block">
       <motion.div
         className="relative cursor-pointer group"
-        initial={{ opacity: 0, rotate: 8, scale: 0.9 }}
-        animate={{ opacity: 1, rotate: 6, scale: 1 }}
+        initial={{ opacity: 0, rotate: 8, scale: 1.3 }}
+        animate={{ opacity: 1, rotate: 6, scale: 1.3 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         whileHover={{
-          scale: 1.06,
+          scale: 1.37,
           rotate: 3,
           transition: { duration: 0.2 }
         }}

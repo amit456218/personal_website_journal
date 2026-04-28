@@ -8,9 +8,8 @@ export function ResumeDocument() {
     <Link href="/resume">
       <motion.div
         className="relative w-32 h-20 cursor-pointer group"
-        style={{ transform: "rotate(3deg)" }}
-        initial={{ opacity: 0, y: 20, scale: 1.125 }}
-        animate={{ opacity: 1, y: 0, scale: 1.125 }}
+        initial={{ opacity: 0, y: 20, scale: 1.125, rotate: -4 }}
+        animate={{ opacity: 1, y: 0, scale: 1.125, rotate: -4 }}
         transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{
           y: -4,

@@ -7,9 +7,9 @@ export function DeskDecorations() {
     <>
       {/* Admit One Ticket - under the Project of the Day */}
       <motion.div
-        className="absolute left-[5%] bottom-[4%] z-5 pointer-events-none"
-        initial={{ opacity: 0, y: 10, rotate: 12, scale: 0.9 }}
-        animate={{ opacity: 0.85, y: 0, rotate: 12, scale: 0.9 }}
+        className="absolute left-[5%] bottom-[9%] z-5 pointer-events-none"
+        initial={{ opacity: 0, y: 10, rotate: 12, scale: 1.05 }}
+        animate={{ opacity: 0.85, y: 0, rotate: 12, scale: 1.05 }}
         transition={{ duration: 0.5, delay: 0.9 }}
       >
         <div className="relative">
@@ -223,7 +223,7 @@ export function DeskDecorations() {
 
       {/* Handwritten annotation - near center bottom */}
       <motion.div
-        className="absolute left-[25%] bottom-[41%] z-5 pointer-events-none"
+        className="absolute left-[25%] bottom-[46%] z-5 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.7 }}
         transition={{ duration: 0.6, delay: 1.3 }}
