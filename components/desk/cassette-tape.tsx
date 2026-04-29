@@ -37,7 +37,7 @@ export function CassetteTape() {
         className="relative group"
         initial={{ opacity: 0, rotate: 14, scale: 1.02 }}
         animate={{ opacity: 1, rotate: 12, scale: 1.02 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.4, x: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }}
       >
         {/* Vinyl sleeve - click to play/pause */}
         <div
@@ -136,7 +136,7 @@ export function CassetteTape() {
                 borderRadius: "2px",
                 boxShadow: "1px 1px 2px rgba(0,0,0,0.2)"
               }}
-              animate={{ rotate: isPlaying ? 128 : 18 }}
+              animate={{ rotate: isPlaying ? 128 : 85 }}
               transition={{ duration: 0.75, ease: [0.6, 0.05, 0.25, 1] }}
             >
               {/* Headshell */}

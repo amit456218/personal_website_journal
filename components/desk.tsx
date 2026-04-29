@@ -16,6 +16,9 @@ import { VintageRadio } from "./desk/vintage-radio"
 import { AboutMeToken } from "./desk/about-me-token"
 import { AwardsSkillsToken } from "./desk/awards-skills-token"
 import { FountainPen } from "./desk/fountain-pen"
+import { PressedBotanical } from "./desk/pressed-botanical"
+import { StickyNote } from "./desk/sticky-note"
+import { VintageKey } from "./desk/vintage-key"
 import { deskData } from "@/lib/desk-data"
 
 // Curated palette of rich, dark frame colors that complement the cork board
@@ -257,7 +260,7 @@ export function Desk() {
 
         {/* RIGHT SIDE LOWER: Polaroid Stack (Gallery) */}
         <motion.div 
-          className="absolute right-[8%] top-[43%] z-15"
+          className="absolute right-[6%] top-[39%] z-15"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
@@ -304,6 +307,21 @@ export function Desk() {
         >
           <FountainPen />
         </motion.div>
+
+        {/* Pressed botanical — between music and gallery */}
+        <div className="absolute right-[15%] top-[38%] z-10 pointer-events-none scale-[0.55]" style={{ transform: "rotate(-12deg) scale(0.55)" }}>
+          <PressedBotanical />
+        </div>
+
+        {/* Sticky note — under postcard with tree */}
+        <div className="absolute right-[36%] top-[25%] z-10 pointer-events-none">
+          <StickyNote />
+        </div>
+
+        {/* Vintage key — above right of alma mater */}
+        <div className="absolute right-[3%] bottom-[28%] z-10 pointer-events-none scale-[0.85]">
+          <VintageKey />
+        </div>
 
         {/* Decorative elements */}
         <DeskDecorations />

@@ -1,6 +1,97 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
+import { useEffect, useState } from "react"
+
+function StampAnimation() {
+  const stamp = useAnimation()
+  const ring = useAnimation()
+
+  useEffect(() => {
+    const slam = async () => {
+      // Reset up
+      await stamp.set({ opacity: 0, scale: 1.4, y: -28 })
+      await ring.set({ scale: 1, opacity: 0 })
+      // Drift down
+      await stamp.start({ opacity: 0.95, scale: 0.94, y: 3, transition: { duration: 0.18, ease: [0.4, 0, 0.6, 1] } })
+      // Ink ring — subtle
+      ring.start({ scale: 1.45, opacity: [0, 0.3, 0], transition: { duration: 0.5, ease: "easeOut" } })
+      // Settle
+      await stamp.start({ scale: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } })
+      // Hold
+      await new Promise(r => setTimeout(r, 3500))
+      // Lift away softly
+      await stamp.start({ opacity: 0, y: -20, scale: 1.1, transition: { duration: 0.35, ease: "easeInOut" } })
+    }
+
+    slam()
+    const interval = setInterval(slam, 7000)
+    return () => clearInterval(interval)
+  }, [stamp, ring])
+
+  return (
+    <motion.div
+      className="absolute left-[16%] top-[14%] z-5 pointer-events-none"
+      style={{ rotate: -15 }}
+      animate={stamp}
+      initial={{ opacity: 0, scale: 2.5, y: -40 }}
+    >
+      <motion.div
+        className="absolute inset-0 rounded-full border-2 border-stamp-red/60 pointer-events-none"
+        animate={ring}
+        initial={{ scale: 1, opacity: 0 }}
+      />
+      <div className="w-14 h-14 rounded-full border-2 border-stamp-red/90 flex items-center justify-center">
+        <div className="text-center">
+          <div className="font-typewriter text-[6px] text-stamp-red tracking-wider font-bold">APPROVED</div>
+          <div className="font-typewriter text-[5px] text-stamp-red/90">2024</div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+const TEXT = "memories & moments..."
+// type-in takes ~1.3 + 21*0.055 ≈ 2.46s, hold 2.5s, fade 0.4s → cycle ~5.5s
+const CYCLE_MS = 5000
+
+function MemoriesText() {
+  const [cycle, setCycle] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setCycle(c => c + 1), CYCLE_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <motion.div
+      className="absolute left-[20%] bottom-[38%] z-5 pointer-events-none"
+      style={{ rotate: -4 }}
+    >
+      <motion.span
+        key={cycle}
+        className="font-handwriting text-lg text-sepia/80 italic whitespace-nowrap flex"
+        animate={{ opacity: [1, 1, 0] }}
+        transition={{ duration: CYCLE_MS / 1000, times: [0, 0.88, 1], ease: "easeIn" }}
+      >
+        {TEXT.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 5, rotate: (i % 3 - 1) * 2 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{
+              duration: 0.07,
+              delay: 0.15 + i * 0.048,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            style={{ display: "inline-block", whiteSpace: "pre" }}
+          >
+            {char}
+          </motion.span>
+        ))}
+      </motion.span>
+    </motion.div>
+  )
+}
 
 export function DeskDecorations() {
   return (
@@ -222,35 +313,10 @@ export function DeskDecorations() {
       </motion.div>
 
       {/* Handwritten annotation - near center bottom */}
-      <motion.div
-        className="absolute left-[25%] bottom-[46%] z-5 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.7 }}
-        transition={{ duration: 0.6, delay: 1.3 }}
-        style={{ transform: "rotate(-4deg)" }}
-      >
-        <span className="font-handwriting text-lg text-sepia/80 italic">
-          memories &amp; moments...
-        </span>
-      </motion.div>
+      <MemoriesText />
 
-      {/* Small passport stamp - top area */}
-      <motion.div
-        className="absolute left-[16%] top-[14%] z-5 pointer-events-none"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.9, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-      >
-        <div
-          className="w-14 h-14 rounded-full border-2 border-stamp-red/90 flex items-center justify-center"
-          style={{ transform: "rotate(-15deg)" }}
-        >
-          <div className="text-center">
-            <div className="font-typewriter text-[6px] text-stamp-red tracking-wider font-bold">APPROVED</div>
-            <div className="font-typewriter text-[5px] text-stamp-red/90">2024</div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Small passport stamp - slams every 7s */}
+      <StampAnimation />
 
     </>
   )

@@ -12,9 +12,9 @@ export function AwardsSkillsToken() {
         animate={{ opacity: 1, rotate: 6, scale: 1.3 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         whileHover={{
-          scale: 1.37,
-          rotate: 3,
-          transition: { duration: 0.2 }
+          scale: 1.55,
+          rotate: 0,
+          transition: { duration: 0.25 }
         }}
       >
         {/* Vintage certificate/diploma ribbon rosette */}

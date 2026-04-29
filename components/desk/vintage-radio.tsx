@@ -45,9 +45,9 @@ export function VintageRadio() {
           style={{
             width: "176px",
             height: "112px",
-            background: "linear-gradient(175deg, #3a4a5a 0%, #2a3848 40%, #1e2a38 100%)",
-            boxShadow: "5px 6px 16px rgba(0,0,0,0.5), inset 0 2px 4px rgba(150,200,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3)",
-            border: "1.5px solid #1a2230",
+            background: "linear-gradient(175deg, #5a2e1a 0%, #3d1e0e 40%, #2a1408 100%)",
+            boxShadow: "5px 6px 16px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,180,100,0.08), inset 0 -1px 2px rgba(0,0,0,0.3)",
+            border: "1.5px solid #1e0e06",
             borderRadius: "8px"
           }}
         >
