@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useCork } from "@/contexts/cork"
 
 interface ScaleToFitProps {
   designWidth?: number
@@ -13,6 +14,7 @@ export function ScaleToFit({
   designHeight = 800,
   children,
 }: ScaleToFitProps) {
+  const cork = useCork()
   const [scale, setScale] = useState(1)
   const [fill, setFill] = useState(true)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -26,7 +28,6 @@ export function ScaleToFit({
         setScale(1)
       } else {
         setFill(false)
-        // Contain-fit: scale proportionally; shows narrow bands on portrait phones
         setScale(Math.min(w / designWidth, h / designHeight))
       }
     }
@@ -43,16 +44,21 @@ export function ScaleToFit({
     <div
       ref={wrapperRef}
       className="fixed inset-0 overflow-hidden flex items-center justify-center"
-      style={{
-        background: `
-          radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.04) 0%, transparent 50%),
-          repeating-radial-gradient(circle at 20% 30%, rgba(120,90,55,0.10) 0px, transparent 3px),
-          repeating-radial-gradient(circle at 70% 60%, rgba(140,100,60,0.08) 0px, transparent 4px),
-          repeating-radial-gradient(circle at 40% 80%, rgba(100,75,45,0.10) 0px, transparent 3px),
-          linear-gradient(180deg, #c4a878 0%, #b89a66 100%)
-        `,
-      }}
+      style={{ background: cork.bgColor }}
     >
+      {/* Cork base — fills viewport so bands extend the cork seamlessly */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: cork.base }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: cork.speckle,
+          backgroundSize: cork.speckleSize,
+          opacity: 0.85,
+        }}
+      />
       <div
         style={{
           width: designWidth,
@@ -60,6 +66,7 @@ export function ScaleToFit({
           transform: `scale(${scale})`,
           transformOrigin: "center center",
           flexShrink: 0,
+          position: "relative",
         }}
       >
         {children}

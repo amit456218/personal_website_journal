@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
+import { useCork } from "@/contexts/cork"
 import { IntroNote } from "./desk/intro-note"
 import { CompanyCluster } from "./desk/company-cluster"
 import { AtlasPortal } from "./desk/atlas-portal"
@@ -110,11 +111,10 @@ const CORK_DESIGNS = [
 ]
 
 export function Desk() {
+  const cork = useCork()
   const [frame, setFrame] = useState(DARK_FRAME_PALETTE[0])
-  const [cork, setCork] = useState(CORK_DESIGNS[0])
 
   useEffect(() => {
-    setCork(CORK_DESIGNS[Math.floor(Math.random() * CORK_DESIGNS.length)])
     setFrame(DARK_FRAME_PALETTE[Math.floor(Math.random() * DARK_FRAME_PALETTE.length)])
     let timeout: ReturnType<typeof setTimeout>
     const scheduleNext = () => {

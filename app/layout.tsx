@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Caveat, Special_Elite } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { AtlasTransition } from '@/components/atlas-transition'
 import { SpotifyProvider } from '@/contexts/spotify'
+import { CorkProvider } from '@/contexts/cork'
 import { ClickSounds } from '@/components/click-sounds'
 import './globals.css'
 
@@ -51,10 +52,12 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${cormorant.variable} ${caveat.variable} ${specialElite.variable} font-serif antialiased`}>
         <SpotifyProvider>
-          <ClickSounds />
-          <AtlasTransition>
-            {children}
-          </AtlasTransition>
+          <CorkProvider>
+            <ClickSounds />
+            <AtlasTransition>
+              {children}
+            </AtlasTransition>
+          </CorkProvider>
         </SpotifyProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
