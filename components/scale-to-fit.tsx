@@ -13,7 +13,8 @@ export function ScaleToFit({
   designHeight = 800,
   children,
 }: ScaleToFitProps) {
-  const [scale, setScale] = useState(1)
+  const [scaleX, setScaleX] = useState(1)
+  const [scaleY, setScaleY] = useState(1)
   const [fill, setFill] = useState(true)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -23,10 +24,12 @@ export function ScaleToFit({
       const h = window.innerHeight
       if (w >= 768) {
         setFill(true)
-        setScale(1)
+        setScaleX(1); setScaleY(1)
       } else {
         setFill(false)
-        setScale(Math.min(w / designWidth, h / designHeight))
+        // Stretch independently to fill the full viewport (no letterboxing)
+        setScaleX(w / designWidth)
+        setScaleY(h / designHeight)
       }
     }
     compute()
@@ -41,15 +44,14 @@ export function ScaleToFit({
   return (
     <div
       ref={wrapperRef}
-      className="fixed inset-0 overflow-hidden flex items-center justify-center"
-      style={{ background: "#dcc8a0" }}
+      className="fixed inset-0 overflow-hidden"
     >
       <div
         style={{
           width: designWidth,
           height: designHeight,
-          transform: `scale(${scale})`,
-          transformOrigin: "center center",
+          transform: `scale(${scaleX}, ${scaleY})`,
+          transformOrigin: "top left",
           flexShrink: 0,
         }}
       >
