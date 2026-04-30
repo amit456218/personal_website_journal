@@ -81,7 +81,7 @@ export function MusicPage() {
         <Link href="/" className="font-typewriter text-[10px] text-sepia/55 hover:text-sepia/90 tracking-widest uppercase transition-colors">
           &larr; Desk
         </Link>
-        <span className="font-typewriter text-base tracking-wide uppercase text-sepia/80">Current Listens</span>
+        <span className="font-typewriter text-2xl tracking-wide uppercase text-sepia/80">Current Listens</span>
         <div className="w-16"/>
       </div>
 

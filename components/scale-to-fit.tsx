@@ -26,8 +26,8 @@ export function ScaleToFit({
         setScale(1)
       } else {
         setFill(false)
-        // Cover-fit: scale up so the design fills the viewport (crops sides for portrait)
-        setScale(Math.max(w / designWidth, h / designHeight))
+        // Contain-fit: scale proportionally; shows narrow bands on portrait phones
+        setScale(Math.min(w / designWidth, h / designHeight))
       }
     }
     compute()
