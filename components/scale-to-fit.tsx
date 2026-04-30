@@ -43,7 +43,15 @@ export function ScaleToFit({
     <div
       ref={wrapperRef}
       className="fixed inset-0 overflow-hidden flex items-center justify-center"
-      style={{ background: "#dcc8a0" }}
+      style={{
+        background: `
+          radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.04) 0%, transparent 50%),
+          repeating-radial-gradient(circle at 20% 30%, rgba(120,90,55,0.10) 0px, transparent 3px),
+          repeating-radial-gradient(circle at 70% 60%, rgba(140,100,60,0.08) 0px, transparent 4px),
+          repeating-radial-gradient(circle at 40% 80%, rgba(100,75,45,0.10) 0px, transparent 3px),
+          linear-gradient(180deg, #c4a878 0%, #b89a66 100%)
+        `,
+      }}
     >
       <div
         style={{
