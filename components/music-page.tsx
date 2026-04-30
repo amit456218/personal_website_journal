@@ -91,16 +91,13 @@ export function MusicPage() {
           <AnimatePresence mode="wait">
             <motion.div key={currentTrack?.id ?? "empty"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }} className="w-full max-w-[280px]">
               <div className="mx-auto rounded-sm overflow-hidden"
-                style={{ background: "#f5ede0", padding: "10px 10px 36px", width: 240, boxShadow: "4px 6px 20px rgba(0,0,0,0.3)" }}>
+                style={{ background: "#f5ede0", padding: "10px", width: 240, boxShadow: "4px 6px 20px rgba(0,0,0,0.3)" }}>
                 <div className="w-full aspect-square overflow-hidden rounded-sm bg-sepia/10">
                   {currentTrack?.album_image
                     ? <Image src={currentTrack.album_image} alt="album" width={220} height={220} className="object-cover w-full h-full" unoptimized/>
                     : <div className="w-full h-full flex items-center justify-center"><span className="font-typewriter text-sepia/30 text-3xl">&#9835;</span></div>
                   }
                 </div>
-                <p className="font-handwriting text-sepia/50 text-sm text-center mt-2 leading-none">
-                  {isPlaying ? "now playing" : currentTrack ? "paused" : "loading..."}
-                </p>
               </div>
 
               <div className="text-center mt-5">

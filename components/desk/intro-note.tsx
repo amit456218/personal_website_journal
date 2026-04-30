@@ -34,9 +34,11 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
       />
       
       {/* Paperclip */}
-      <div 
-        className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 w-6 h-14"
-        style={{ transform: "translateX(-50%) rotate(5deg)" }}
+      <motion.div
+        className="absolute -top-4 left-1/2 z-30 w-6 h-14"
+        style={{ x: "-50%", originY: 0 }}
+        animate={{ rotate: [3, 7, 3, 6, 3], y: [0, -1, 0, -0.5, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
       >
         <svg viewBox="0 0 24 56" fill="none" className="w-full h-full drop-shadow-sm">
           {/* Outer clip */}
@@ -56,8 +58,8 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
             fill="none"
           />
         </svg>
-      </div>
-      
+      </motion.div>
+
       {/* Main note */}
       <div
         className="relative bg-paper-light p-6 md:p-8 w-[260px] h-[230px]"
