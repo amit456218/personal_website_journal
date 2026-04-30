@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
-import { useCork } from "@/contexts/cork"
+import { useEffect } from "react"
+import { useCork, useFrame } from "@/contexts/cork"
 import { IntroNote } from "./desk/intro-note"
 import { CompanyCluster } from "./desk/company-cluster"
 import { AtlasPortal } from "./desk/atlas-portal"
@@ -112,27 +112,7 @@ const CORK_DESIGNS = [
 
 export function Desk() {
   const cork = useCork()
-  const [frame, setFrame] = useState(DARK_FRAME_PALETTE[0])
-
-  useEffect(() => {
-    setFrame(DARK_FRAME_PALETTE[Math.floor(Math.random() * DARK_FRAME_PALETTE.length)])
-    let timeout: ReturnType<typeof setTimeout>
-    const scheduleNext = () => {
-      const delay = 3000 + Math.random() * 1000
-      timeout = setTimeout(() => {
-        setFrame((current) => {
-          let next = current
-          while (next === current) {
-            next = DARK_FRAME_PALETTE[Math.floor(Math.random() * DARK_FRAME_PALETTE.length)]
-          }
-          return next
-        })
-        scheduleNext()
-      }, delay)
-    }
-    scheduleNext()
-    return () => clearTimeout(timeout)
-  }, [])
+  const frame = useFrame()
 
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: cork.bgColor }}>
@@ -152,9 +132,9 @@ export function Desk() {
         }}
       />
 
-      {/* Soft wooden frame edge */}
+      {/* Soft wooden frame edge — hidden on mobile (frame is rendered at viewport level by ScaleToFit) */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden md:block"
         style={{
           boxShadow: `
             inset 0 0 0 10px ${frame.dark},

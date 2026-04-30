@@ -9,6 +9,23 @@ export interface CorkDesign {
   bgColor: string
 }
 
+export interface FrameDesign {
+  dark: string
+  light: string
+  glow: string
+}
+
+export const DARK_FRAME_PALETTE: FrameDesign[] = [
+  { dark: "#2d3e30", light: "#4a5d45", glow: "30, 50, 35" },
+  { dark: "#3d2817", light: "#5c3d22", glow: "60, 40, 20" },
+  { dark: "#1e2a44", light: "#344260", glow: "25, 35, 60" },
+  { dark: "#4a1f1f", light: "#6b3030", glow: "70, 30, 30" },
+  { dark: "#2a2a2a", light: "#454545", glow: "40, 40, 40" },
+  { dark: "#3a2545", light: "#553a62", glow: "55, 35, 70" },
+  { dark: "#1f3a3a", light: "#345454", glow: "30, 60, 60" },
+  { dark: "#3d2a1a", light: "#5c4024", glow: "60, 40, 25" },
+]
+
 export const CORK_DESIGNS: CorkDesign[] = [
   {
     base: "radial-gradient(ellipse at center, #e8d4a8 0%, #d4bc88 70%, #b89a66 100%)",
@@ -81,16 +98,40 @@ export const CORK_DESIGNS: CorkDesign[] = [
   },
 ]
 
-const CorkContext = createContext<CorkDesign>(CORK_DESIGNS[0])
+interface CorkContextValue {
+  cork: CorkDesign
+  frame: FrameDesign
+}
+
+const CorkContext = createContext<CorkContextValue>({ cork: CORK_DESIGNS[0], frame: DARK_FRAME_PALETTE[0] })
 
 export function CorkProvider({ children }: { children: React.ReactNode }) {
   const [cork, setCork] = useState<CorkDesign>(CORK_DESIGNS[0])
+  const [frame, setFrame] = useState<FrameDesign>(DARK_FRAME_PALETTE[0])
   useEffect(() => {
     setCork(CORK_DESIGNS[Math.floor(Math.random() * CORK_DESIGNS.length)])
+    setFrame(DARK_FRAME_PALETTE[Math.floor(Math.random() * DARK_FRAME_PALETTE.length)])
+    let timeout: ReturnType<typeof setTimeout>
+    const cycle = () => {
+      timeout = setTimeout(() => {
+        setFrame(curr => {
+          let next = curr
+          while (next === curr) next = DARK_FRAME_PALETTE[Math.floor(Math.random() * DARK_FRAME_PALETTE.length)]
+          return next
+        })
+        cycle()
+      }, 3000 + Math.random() * 1000)
+    }
+    cycle()
+    return () => clearTimeout(timeout)
   }, [])
-  return <CorkContext.Provider value={cork}>{children}</CorkContext.Provider>
+  return <CorkContext.Provider value={{ cork, frame }}>{children}</CorkContext.Provider>
 }
 
 export function useCork() {
-  return useContext(CorkContext)
+  return useContext(CorkContext).cork
+}
+
+export function useFrame() {
+  return useContext(CorkContext).frame
 }

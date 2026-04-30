@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { useCork } from "@/contexts/cork"
+import { useCork, useFrame } from "@/contexts/cork"
 
 interface ScaleToFitProps {
   designWidth?: number
@@ -15,6 +15,7 @@ export function ScaleToFit({
   children,
 }: ScaleToFitProps) {
   const cork = useCork()
+  const frame = useFrame()
   const [scale, setScale] = useState(1)
   const [fill, setFill] = useState(true)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -46,7 +47,7 @@ export function ScaleToFit({
       className="fixed inset-0 overflow-hidden flex items-center justify-center"
       style={{ background: cork.bgColor }}
     >
-      {/* Cork base — fills viewport so bands extend the cork seamlessly */}
+      {/* Cork base — fills viewport so cork is continuous */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: cork.base }}
@@ -59,6 +60,18 @@ export function ScaleToFit({
           opacity: 0.85,
         }}
       />
+      {/* Wooden frame fills the viewport (portrait-shaped on phones) */}
+      <div
+        className="absolute inset-0 pointer-events-none z-10"
+        style={{
+          boxShadow: `
+            inset 0 0 0 10px ${frame.dark},
+            inset 0 0 0 12px ${frame.light},
+            inset 0 0 35px rgba(${frame.glow}, 0.25)
+          `,
+          transition: "box-shadow 0.6s ease",
+        }}
+      />
       <div
         style={{
           width: designWidth,
@@ -68,6 +81,7 @@ export function ScaleToFit({
           flexShrink: 0,
           position: "relative",
         }}
+        data-mobile-scaled="true"
       >
         {children}
       </div>
