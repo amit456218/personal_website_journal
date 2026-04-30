@@ -75,7 +75,7 @@ export function MusicPage() {
   const { isPlaying, currentTrack, tracks, progress, duration, toggle, next, prev, seek, playTrack } = useSpotify()
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden"
+    <div className="min-h-screen md:h-screen flex flex-col md:overflow-hidden"
       style={{ background: "radial-gradient(ellipse at center, #e8d4a8 0%, #d4bc88 70%, #b89a66 100%)" }}>
       <div className="flex items-center justify-between px-8 py-3 border-b border-sepia/20 shrink-0">
         <Link href="/" className="font-typewriter text-[10px] text-sepia/55 hover:text-sepia/90 tracking-widest uppercase transition-colors">
@@ -85,7 +85,7 @@ export function MusicPage() {
         <div className="w-16"/>
       </div>
 
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 md:overflow-hidden">
         {/* Now Playing */}
         <div className="flex md:flex-1 flex-col items-center justify-center px-6 md:px-8 py-6 md:py-0 relative shrink-0 md:shrink">
           <AnimatePresence mode="wait">
@@ -114,8 +114,8 @@ export function MusicPage() {
         </div>
 
         {/* Track list */}
-        <div className="flex-1 md:flex-none md:w-96 border-t md:border-t-0 md:border-l border-sepia/20 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto pb-2 pt-3">
+        <div className="flex-1 md:flex-none md:w-96 border-t md:border-t-0 md:border-l border-sepia/20 flex flex-col md:overflow-hidden">
+          <div className="flex-1 md:overflow-y-auto pb-2 pt-3">
             {tracks.map((t, i) => (
               <button key={`${t.id}-${i}`} onClick={() => playTrack(i)}
                 className="w-full flex items-center gap-3 px-3 py-2 rounded-sm text-left group transition-colors hover:bg-sepia/10"
