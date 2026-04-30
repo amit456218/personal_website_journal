@@ -75,7 +75,7 @@ export function MusicPage() {
   const { isPlaying, currentTrack, tracks, progress, duration, toggle, next, prev, seek, playTrack } = useSpotify()
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden"
+    <div data-no-click-sound className="h-screen flex flex-col overflow-hidden"
       style={{ background: "radial-gradient(ellipse at center, #e8d4a8 0%, #d4bc88 70%, #b89a66 100%)" }}>
       <div className="flex items-center justify-between px-8 py-3 border-b border-sepia/20 shrink-0">
         <Link href="/" className="font-typewriter text-[10px] text-sepia/55 hover:text-sepia/90 tracking-widest uppercase transition-colors">

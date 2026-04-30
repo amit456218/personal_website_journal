@@ -21,8 +21,10 @@ export async function GET() {
       return NextResponse.json({ tracks: cache.tracks, cached: true })
     }
 
+    const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
     const html = await fetch(`https://open.spotify.com/embed/playlist/${PLAYLIST_ID}`, {
       cache: 'no-store',
+      headers: { 'User-Agent': UA, 'Accept': 'text/html,application/xhtml+xml' },
     }).then(r => r.text())
 
     const tracks: PreviewTrack[] = []
@@ -50,7 +52,10 @@ export async function GET() {
     // Fetch album art via Spotify's public oEmbed (no auth needed)
     await Promise.all(tracks.map(async (t) => {
       try {
-        const oe = await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${t.id}`, { cache: 'no-store' }).then(r => r.json())
+        const oe = await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${t.id}`, {
+          cache: 'no-store',
+          headers: { 'User-Agent': UA, 'Accept': 'application/json' },
+        }).then(r => r.json())
         t.album_image = oe.thumbnail_url ?? null
       } catch {
         t.album_image = null
@@ -59,7 +64,8 @@ export async function GET() {
 
     cache = { tracks, ts: Date.now() }
     return NextResponse.json({ tracks, cached: false })
-  } catch (e) {
-    return NextResponse.json({ tracks: [], error: String(e) }, { status: 500 })
+  } catch (e: any) {
+    console.error('[preview-playlist] failed:', e, e?.cause)
+    return NextResponse.json({ tracks: [], error: String(e), cause: String(e?.cause ?? '') }, { status: 500 })
   }
 }

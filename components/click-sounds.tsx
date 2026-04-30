@@ -39,6 +39,7 @@ export function ClickSounds() {
       if (!target) return
       const interactive = target.closest("button, a, [role='button'], input, select, textarea, [data-clickable]")
       if (!interactive) return
+      if (target.closest("[data-no-click-sound]")) return
 
       try {
         const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext

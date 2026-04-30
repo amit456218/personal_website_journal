@@ -1,37 +1,39 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useAnimationControls } from "framer-motion"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-
-interface SpotifyData {
-  isPlaying: boolean
-  title: string | null
-  artist: string | null
-  albumImage: string | null
-  songUrl: string | null
-}
-
-function useNowPlaying() {
-  const [data, setData] = useState<SpotifyData | null>(null)
-
-  useEffect(() => {
-    const fetch_ = () =>
-      fetch('/api/spotify')
-        .then(r => r.json())
-        .then(setData)
-        .catch(() => {})
-
-    fetch_()
-    const id = setInterval(fetch_, 30_000)
-    return () => clearInterval(id)
-  }, [])
-
-  return data
-}
+import { useEffect } from "react"
+import { useSpotify } from "@/contexts/spotify"
 
 export function VintageRadio() {
-  const track = useNowPlaying()
+  const { isPlaying } = useSpotify()
+  const playing = isPlaying
+
+  const needleControls = useAnimationControls()
+  const volControls = useAnimationControls()
+  const tuneControls = useAnimationControls()
+
+  useEffect(() => {
+    if (playing) {
+      needleControls.start({
+        left: ["28%", "62%", "44%"],
+        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+      })
+      volControls.start({
+        rotate: [0, 90, 60],
+        transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+      })
+      tuneControls.start({
+        rotate: [0, 120, 50],
+        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+      })
+    } else {
+      // Freeze each animation at its current value (no reset, no reverse)
+      needleControls.stop()
+      volControls.stop()
+      tuneControls.stop()
+    }
+  }, [playing, needleControls, volControls, tuneControls])
 
   return (
     <Link href="/music">
@@ -160,10 +162,10 @@ export function VintageRadio() {
               </div>
               {/* Red tuner needle */}
               <motion.div
+                suppressHydrationWarning
                 className="absolute top-0 bottom-0 w-[1.5px] bg-red-600 rounded-full"
-                style={{ boxShadow: "0 0 2px rgba(200,50,50,0.4)" }}
-                animate={{ left: ["28%", "62%", "44%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                style={{ boxShadow: "0 0 2px rgba(200,50,50,0.4)", left: "28%" }}
+                animate={needleControls}
               />
             </div>
 
@@ -172,13 +174,13 @@ export function VintageRadio() {
               {/* Volume knob — slowly turns */}
               <div className="flex flex-col items-center gap-0.5">
                 <motion.div
+                  suppressHydrationWarning
                   className="w-3.5 h-3.5 rounded-full relative"
                   style={{
-                    background: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
-                    boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)"
+                    backgroundImage: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
+                    boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)",
                   }}
-                  animate={{ rotate: [0, 90, 60] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  animate={volControls}
                 >
                   <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-px h-2 bg-amber-900/60 rounded-full" />
                   <div className="absolute inset-0.5 rounded-full border border-amber-300/15" />
@@ -188,13 +190,13 @@ export function VintageRadio() {
               {/* Tune knob — turns with the needle */}
               <div className="flex flex-col items-center gap-0.5">
                 <motion.div
+                  suppressHydrationWarning
                   className="w-3.5 h-3.5 rounded-full relative"
                   style={{
-                    background: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
-                    boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)"
+                    backgroundImage: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
+                    boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)",
                   }}
-                  animate={{ rotate: [0, 120, 50] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  animate={tuneControls}
                 >
                   <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-px h-2 bg-amber-900/60 rounded-full" />
                   <div className="absolute inset-0.5 rounded-full border border-amber-300/15" />

@@ -9,11 +9,59 @@ interface IntroNoteProps {
 
 export function IntroNote({ name, tagline }: IntroNoteProps) {
   return (
+    <>
+      {/* Crumple filter: turbulence + displacement that ramps from chaotic
+          (paper ball) to flat over ~1.6s. SMIL animates declaratively. */}
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden>
+        <defs>
+          <filter id="intro-crumple" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" numOctaves={3} seed={4} result="noise">
+              <animate
+                attributeName="baseFrequency"
+                values="0.9;0.6;0.25;0.05;0.001"
+                keyTimes="0;0.25;0.55;0.85;1"
+                dur="1.1s"
+                fill="freeze"
+              />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G">
+              <animate
+                attributeName="scale"
+                values="120;75;30;6;0"
+                keyTimes="0;0.25;0.55;0.85;1"
+                dur="1.1s"
+                fill="freeze"
+              />
+            </feDisplacementMap>
+          </filter>
+        </defs>
+      </svg>
     <motion.div
       className="relative"
-      initial={{ opacity: 0, y: 30, rotate: -3, scale: 1.03 }}
-      animate={{ opacity: 1, y: 0, rotate: -1.5, scale: 1.03 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        transformPerspective: 800,
+        filter: "url(#intro-crumple)",
+        willChange: "transform, opacity",
+      }}
+      initial={{
+        opacity: 0,
+        scale: 0.08,
+        rotate: 45,
+        rotateX: 75,
+        rotateY: -50,
+      }}
+      animate={{
+        opacity: [0, 0.6, 1, 1, 1],
+        scale: [0.08, 0.4, 0.85, 1.06, 1.03],
+        rotate: [45, -22, 8, -3, -1.5],
+        rotateX: [75, 30, -10, 3, 0],
+        rotateY: [-50, 22, -8, 2, 0],
+      }}
+      transition={{
+        duration: 1.1,
+        times: [0, 0.25, 0.55, 0.85, 1],
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {/* Shadow layer */}
       <div 
@@ -157,5 +205,6 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
         />
       </div>
     </motion.div>
+    </>
   )
 }

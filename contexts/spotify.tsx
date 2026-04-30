@@ -52,8 +52,88 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [audioDurationMs, setAudioDurationMs] = useState(30000)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const shouldPlayRef = useRef(false) // user intent: keep playing across track changes
+  const audioCtxRef = useRef<AudioContext | null>(null)
+  const initialMountRef = useRef(true)
+  const playTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const TRANSITION_MS = 1400
+
+  // Vinyl-crackle transition burst synthesized via Web Audio
+  const playTransition = useCallback(async () => {
+    if (typeof window === "undefined") return
+    try {
+      if (!audioCtxRef.current) {
+        const Ctx = window.AudioContext || (window as any).webkitAudioContext
+        if (!Ctx) return
+        audioCtxRef.current = new Ctx()
+      }
+      const ctx = audioCtxRef.current
+      if (ctx.state === "suspended") {
+        try { await ctx.resume() } catch {}
+      }
+
+      // Vinyl wind-down + wind-up: rich harmonic buffer played with
+      // playbackRate sliding down then back up (classic turntable stop/start).
+      const now = ctx.currentTime
+      const duration = 1.4
+      const sampleRate = ctx.sampleRate
+      const bufLen = Math.floor(sampleRate * duration)
+      const buffer = ctx.createBuffer(1, bufLen, sampleRate)
+      const data = buffer.getChannelData(0)
+
+      // Build a warm harmonic source (root + fifth + octave) plus light noise
+      const root = 220 // A3
+      const harmonics = [
+        { mult: 1.0, level: 0.28 },
+        { mult: 1.5, level: 0.18 }, // perfect fifth
+        { mult: 2.0, level: 0.14 }, // octave
+        { mult: 3.0, level: 0.07 },
+      ]
+      // Pink-ish noise state
+      let pn0 = 0, pn1 = 0
+      for (let i = 0; i < bufLen; i++) {
+        const t = i / sampleRate
+        let s = 0
+        for (const h of harmonics) {
+          s += Math.sin(2 * Math.PI * root * h.mult * t) * h.level
+        }
+        const w = Math.random() * 2 - 1
+        pn0 = 0.97 * pn0 + 0.05 * w
+        pn1 = 0.85 * pn1 + 0.2 * w
+        s += (pn0 + pn1) * 0.08 // subtle vinyl noise floor
+        data[i] = Math.max(-1, Math.min(1, s))
+      }
+
+      const src = ctx.createBufferSource()
+      src.buffer = buffer
+
+      // Pitch slide: 1.0 → 0.35 (slow down) → back up past 1.0 → settle at 1.0
+      src.playbackRate.setValueAtTime(1.0, now)
+      src.playbackRate.linearRampToValueAtTime(0.35, now + duration * 0.45) // wind down
+      src.playbackRate.linearRampToValueAtTime(1.15, now + duration * 0.85) // wind up past
+      src.playbackRate.linearRampToValueAtTime(1.0, now + duration)         // settle
+
+      // Warmth filter
+      const warm = ctx.createBiquadFilter()
+      warm.type = "lowpass"
+      warm.frequency.value = 3500
+      warm.Q.value = 0.6
+
+      const gain = ctx.createGain()
+      gain.gain.setValueAtTime(0.0001, now)
+      gain.gain.exponentialRampToValueAtTime(0.9, now + 0.04)
+      gain.gain.setValueAtTime(0.9, now + duration * 0.7)
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration)
+
+      src.connect(warm).connect(gain).connect(ctx.destination)
+      src.start(now)
+      src.stop(now + duration + 0.05)
+    } catch {
+      // ignore — audio context not available or blocked
+    }
+  }, [])
 
   // Load and shuffle the playlist once
   useEffect(() => {
@@ -81,11 +161,18 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     }
     const onPlay = () => { shouldPlayRef.current = true; setIsPlaying(true) }
     const onPause = () => setIsPlaying(false)
+    const onMeta = () => {
+      if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        setAudioDurationMs(audio.duration * 1000)
+      }
+    }
 
     audio.addEventListener("timeupdate", onTime)
     audio.addEventListener("ended", onEnd)
     audio.addEventListener("play", onPlay)
     audio.addEventListener("pause", onPause)
+    audio.addEventListener("loadedmetadata", onMeta)
+    audio.addEventListener("durationchange", onMeta)
 
     return () => {
       audio.pause()
@@ -93,6 +180,8 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       audio.removeEventListener("ended", onEnd)
       audio.removeEventListener("play", onPlay)
       audio.removeEventListener("pause", onPause)
+      audio.removeEventListener("loadedmetadata", onMeta)
+      audio.removeEventListener("durationchange", onMeta)
     }
   }, [tracks.length])
 
@@ -102,12 +191,44 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     if (!audio || tracks.length === 0) return
     const track = tracks[currentIndex]
     if (!track) return
+
+    if (playTimeoutRef.current) {
+      clearTimeout(playTimeoutRef.current)
+      playTimeoutRef.current = null
+    }
+
+    const isInitial = initialMountRef.current
+    if (isInitial) initialMountRef.current = false
+
+    // Pause any current audio while the transition plays so they don't overlap
+    audio.pause()
     audio.src = track.preview_url
     setProgress(0)
-    if (shouldPlayRef.current) {
-      audio.play().catch(() => { shouldPlayRef.current = false; setIsPlaying(false) })
+    setAudioDurationMs(30000) // reset until metadata loads
+
+    const startPlayback = () => {
+      if (shouldPlayRef.current) {
+        audio.play().catch(() => { shouldPlayRef.current = false; setIsPlaying(false) })
+      }
     }
-  }, [currentIndex, tracks])
+
+    if (isInitial) {
+      startPlayback()
+    } else {
+      playTransition()
+      playTimeoutRef.current = setTimeout(() => {
+        playTimeoutRef.current = null
+        startPlayback()
+      }, TRANSITION_MS)
+    }
+
+    return () => {
+      if (playTimeoutRef.current) {
+        clearTimeout(playTimeoutRef.current)
+        playTimeoutRef.current = null
+      }
+    }
+  }, [currentIndex, tracks, playTransition])
 
   const toggle = useCallback(() => {
     const audio = audioRef.current
@@ -141,16 +262,14 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
 
   const playTrack = useCallback((index: number) => {
     if (index < 0 || index >= tracks.length) return
+    shouldPlayRef.current = true
     setCurrentIndex(index)
-    const audio = audioRef.current
-    if (audio) {
-      audio.src = tracks[index].preview_url
-      audio.play().catch(() => setIsPlaying(false))
-    }
-  }, [tracks])
+  }, [tracks.length])
 
   const currentTrack = tracks[currentIndex] ?? null
-  const duration = currentTrack?.duration_ms ?? 30000 // previews are ~30s
+  // Previews are ~30s — use the actual loaded audio duration, not the full
+  // Spotify track length, otherwise the seek bar maps to the wrong range.
+  const duration = audioDurationMs
 
   return (
     <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, toggle, next, prev, seek, playTrack }}>
