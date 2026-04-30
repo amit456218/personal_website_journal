@@ -217,14 +217,14 @@ export function DeskDecorations() {
 
       {/* Second route scribble - to the right of admit one */}
       <motion.svg
-        className="absolute left-[11%] bottom-[10%] w-24 h-14 z-5 pointer-events-none"
-        viewBox="0 0 100 50"
+        className="absolute left-[11%] bottom-[10%] w-32 h-16 z-5 pointer-events-none"
+        viewBox="-35 -5 145 60"
         initial={{ opacity: 0, rotate: 295 }}
         animate={{ opacity: 0.7, rotate: 295 }}
         transition={{ duration: 0.8, delay: 1.1 }}
       >
         <motion.path
-          d="M8 40 C25 38, 30 10, 50 15 S75 42, 92 20"
+          d="M-30 32 C-18 28, -8 36, 0 40 C8 42, 16 41, 25 38 C32 36, 35 18, 50 15 S75 42, 92 20"
           fill="none"
           stroke="#6b4a2b"
           strokeWidth="1.3"
@@ -233,7 +233,7 @@ export function DeskDecorations() {
           animate={{ strokeDashoffset: [0, -24] }}
           transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
         />
-        <motion.circle cx="8" cy="40" r="2.5" fill="#b85450" animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.circle cx="-30" cy="32" r="2.5" fill="#b85450" animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} />
         <motion.circle cx="92" cy="20" r="2.5" fill="#b85450" animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }} />
         <circle cx="50" cy="15" r="1.8" fill="#6b4a2b" opacity="0.55" />
       </motion.svg>
@@ -261,22 +261,65 @@ export function DeskDecorations() {
         <circle cx="40" cy="25" r="2" fill="#8b7355" opacity="0.4" />
       </motion.svg>
 
-      {/* Paper clip - near field notes */}
+      {/* 8-ball — right of the top-center postcard */}
       <motion.div
-        className="absolute left-[18%] top-[4%] z-25 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.75 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        style={{ transform: "rotate(25deg)" }}
+        className="absolute right-[19%] top-[6%] z-10 pointer-events-none"
+        initial={{ opacity: 0, y: -8, rotate: -8, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, rotate: -6, scale: 1 }}
+        transition={{ duration: 0.7, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        style={{ filter: "drop-shadow(3px 5px 6px rgba(40, 28, 12, 0.35))" }}
       >
-        <svg viewBox="0 0 14 32" className="w-4 h-9">
-          <path 
-            d="M3.5 2C3.5 1 4.5 0.5 5.5 0.5h3c1 0 2 0.5 2 1.5v23c0 2.5-2 4.5-4.5 4.5S1.5 27 1.5 24.5V7c0-2 1.2-3 3-3s3 1 3 3v16"
-            stroke="#9ca3af"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-          />
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden>
+          <defs>
+            <radialGradient id="ball-body" cx="35%" cy="32%" r="75%">
+              <stop offset="0%" stopColor="#4a4a4a" />
+              <stop offset="40%" stopColor="#1a1a1a" />
+              <stop offset="100%" stopColor="#000000" />
+            </radialGradient>
+            <radialGradient id="ball-rim" cx="50%" cy="50%" r="50%">
+              <stop offset="92%" stopColor="rgba(0,0,0,0)" />
+              <stop offset="100%" stopColor="rgba(0,0,0,0.55)" />
+            </radialGradient>
+            <radialGradient id="ball-disk" cx="38%" cy="32%" r="80%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="80%" stopColor="#f0eee4" />
+              <stop offset="100%" stopColor="#cfcabb" />
+            </radialGradient>
+            <radialGradient id="ball-shine" cx="35%" cy="28%" r="22%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.85)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            </radialGradient>
+          </defs>
+
+          {/* Sphere */}
+          <circle cx="32" cy="32" r="28" fill="url(#ball-body)" />
+          {/* Subtle dark rim for depth */}
+          <circle cx="32" cy="32" r="28" fill="url(#ball-rim)" />
+
+          {/* White disk on the front, slightly tilted */}
+          <g transform="rotate(-12 32 30)">
+            <ellipse cx="32" cy="30" rx="13" ry="12.5" fill="url(#ball-disk)" />
+            <ellipse cx="32" cy="30" rx="13" ry="12.5" fill="none" stroke="rgba(0,0,0,0.18)" strokeWidth="0.4" />
+            {/* The "8" — bold italic, geometrically centered on the disk */}
+            <text
+              x="31"
+              y="30"
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontFamily='Impact, "Haettenschweiler", "Arial Narrow Bold", sans-serif'
+              fontSize="22"
+              fontWeight="900"
+              fontStyle="normal"
+              fill="#0a0a0a"
+            >
+              8
+            </text>
+          </g>
+
+          {/* Specular highlight */}
+          <ellipse cx="22" cy="20" rx="7" ry="4" fill="url(#ball-shine)" transform="rotate(-32 22 20)" />
+          {/* Tiny pin-prick highlight */}
+          <circle cx="20" cy="18" r="1.4" fill="rgba(255,255,255,0.9)" />
         </svg>
       </motion.div>
 

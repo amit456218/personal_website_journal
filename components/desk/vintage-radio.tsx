@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useAnimationControls } from "framer-motion"
+import { motion, useMotionValue, useMotionTemplate, animate } from "framer-motion"
 import Link from "next/link"
 import { useEffect } from "react"
 import { useSpotify } from "@/contexts/spotify"
@@ -9,31 +9,25 @@ export function VintageRadio() {
   const { isPlaying } = useSpotify()
   const playing = isPlaying
 
-  const needleControls = useAnimationControls()
-  const volControls = useAnimationControls()
-  const tuneControls = useAnimationControls()
+  // Motion values keep their last value across stop/start, so resume picks up
+  // exactly where it froze (instead of snapping back to the keyframe origin).
+  const needleLeft = useMotionValue(28)
+  const volRot = useMotionValue(0)
+  const tuneRot = useMotionValue(0)
 
   useEffect(() => {
-    if (playing) {
-      needleControls.start({
-        left: ["28%", "62%", "44%"],
-        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-      })
-      volControls.start({
-        rotate: [0, 90, 60],
-        transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-      })
-      tuneControls.start({
-        rotate: [0, 120, 50],
-        transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-      })
-    } else {
-      // Freeze each animation at its current value (no reset, no reverse)
-      needleControls.stop()
-      volControls.stop()
-      tuneControls.stop()
-    }
-  }, [playing, needleControls, volControls, tuneControls])
+    if (!playing) return // motion values keep current value; nothing to stop
+    const c1 = animate(needleLeft, [needleLeft.get(), 62, 28], {
+      duration: 4, repeat: Infinity, ease: "easeInOut",
+    })
+    const c2 = animate(volRot, [volRot.get(), 90, volRot.get()], {
+      duration: 3, repeat: Infinity, ease: "easeInOut",
+    })
+    const c3 = animate(tuneRot, [tuneRot.get(), 120, tuneRot.get()], {
+      duration: 4, repeat: Infinity, ease: "easeInOut",
+    })
+    return () => { c1.stop(); c2.stop(); c3.stop() }
+  }, [playing, needleLeft, volRot, tuneRot])
 
   return (
     <Link href="/music">
@@ -164,8 +158,10 @@ export function VintageRadio() {
               <motion.div
                 suppressHydrationWarning
                 className="absolute top-0 bottom-0 w-[1.5px] bg-red-600 rounded-full"
-                style={{ boxShadow: "0 0 2px rgba(200,50,50,0.4)", left: "28%" }}
-                animate={needleControls}
+                style={{
+                  boxShadow: "0 0 2px rgba(200,50,50,0.4)",
+                  left: useMotionTemplate`${needleLeft}%`,
+                }}
               />
             </div>
 
@@ -179,8 +175,8 @@ export function VintageRadio() {
                   style={{
                     backgroundImage: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
                     boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)",
+                    rotate: volRot,
                   }}
-                  animate={volControls}
                 >
                   <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-px h-2 bg-amber-900/60 rounded-full" />
                   <div className="absolute inset-0.5 rounded-full border border-amber-300/15" />
@@ -195,8 +191,8 @@ export function VintageRadio() {
                   style={{
                     backgroundImage: "radial-gradient(circle at 35% 30%, #d4b068 0%, #a88c48 40%, #7a6428 100%)",
                     boxShadow: "1px 2px 3px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.2)",
+                    rotate: tuneRot,
                   }}
-                  animate={tuneControls}
                 >
                   <div className="absolute top-0.5 left-1/2 -translate-x-1/2 w-px h-2 bg-amber-900/60 rounded-full" />
                   <div className="absolute inset-0.5 rounded-full border border-amber-300/15" />
