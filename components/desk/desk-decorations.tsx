@@ -217,7 +217,7 @@ export function DeskDecorations() {
 
       {/* Second route scribble - to the right of admit one */}
       <motion.svg
-        className="absolute left-[11%] bottom-[10%] w-32 h-16 z-5 pointer-events-none"
+        className="absolute left-[10%] bottom-[12%] w-32 h-16 z-5 pointer-events-none"
         viewBox="-35 -5 145 60"
         initial={{ opacity: 0, rotate: 295 }}
         animate={{ opacity: 0.7, rotate: 295 }}
