@@ -85,13 +85,13 @@ export function MusicPage() {
         <div className="w-16"/>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Now Playing */}
-        <div className="flex-1 flex flex-col items-center justify-center px-8 relative">
+        <div className="flex md:flex-1 flex-col items-center justify-center px-6 md:px-8 py-6 md:py-0 relative shrink-0 md:shrink">
           <AnimatePresence mode="wait">
             <motion.div key={currentTrack?.id ?? "empty"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }} className="w-full max-w-[280px]">
-              <div className="mx-auto rounded-sm overflow-hidden"
-                style={{ background: "#f5ede0", padding: "10px", width: 240, boxShadow: "4px 6px 20px rgba(0,0,0,0.3)" }}>
+              <div className="mx-auto rounded-sm overflow-hidden w-full max-w-[240px]"
+                style={{ background: "#f5ede0", padding: "10px", boxShadow: "4px 6px 20px rgba(0,0,0,0.3)" }}>
                 <div className="w-full aspect-square overflow-hidden rounded-sm bg-sepia/10">
                   {currentTrack?.album_image
                     ? <Image src={currentTrack.album_image} alt="album" width={220} height={220} className="object-cover w-full h-full" unoptimized/>
@@ -100,8 +100,8 @@ export function MusicPage() {
                 </div>
               </div>
 
-              <div className="text-center mt-5">
-                <p className="font-serif text-[22px] text-sepia/90 leading-tight truncate">{currentTrack?.name ?? "—"}</p>
+              <div className="text-center mt-4 md:mt-5">
+                <p className="font-serif text-[20px] md:text-[22px] text-sepia/90 leading-tight truncate">{currentTrack?.name ?? "—"}</p>
                 <p className="font-typewriter text-[11px] text-sepia/50 mt-1 truncate">
                   {currentTrack?.artist ?? ""}
                 </p>
@@ -114,7 +114,7 @@ export function MusicPage() {
         </div>
 
         {/* Track list */}
-        <div className="w-96 border-l border-sepia/20 flex flex-col overflow-hidden shrink-0">
+        <div className="flex-1 md:flex-none md:w-96 border-t md:border-t-0 md:border-l border-sepia/20 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto pb-2 pt-3">
             {tracks.map((t, i) => (
               <button key={`${t.id}-${i}`} onClick={() => playTrack(i)}
