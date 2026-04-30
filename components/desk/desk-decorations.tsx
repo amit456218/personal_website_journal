@@ -1,45 +1,30 @@
 "use client"
 
-import { motion, useAnimation } from "framer-motion"
+import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
 function StampAnimation() {
-  const stamp = useAnimation()
-  const ring = useAnimation()
+  const [cycle, setCycle] = useState(0)
 
   useEffect(() => {
-    const slam = async () => {
-      // Reset up
-      await stamp.set({ opacity: 0, scale: 1.4, y: -28 })
-      await ring.set({ scale: 1, opacity: 0 })
-      // Drift down
-      await stamp.start({ opacity: 0.95, scale: 0.94, y: 3, transition: { duration: 0.18, ease: [0.4, 0, 0.6, 1] } })
-      // Ink ring — subtle
-      ring.start({ scale: 1.45, opacity: [0, 0.3, 0], transition: { duration: 0.5, ease: "easeOut" } })
-      // Settle
-      await stamp.start({ scale: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } })
-      // Hold
-      await new Promise(r => setTimeout(r, 3500))
-      // Lift away softly
-      await stamp.start({ opacity: 0, y: -20, scale: 1.1, transition: { duration: 0.35, ease: "easeInOut" } })
-    }
-
-    slam()
-    const interval = setInterval(slam, 7000)
-    return () => clearInterval(interval)
-  }, [stamp, ring])
+    const id = setInterval(() => setCycle(c => c + 1), 7000)
+    return () => clearInterval(id)
+  }, [])
 
   return (
     <motion.div
+      key={cycle}
       className="absolute left-[16%] top-[14%] z-5 pointer-events-none"
       style={{ rotate: -15 }}
-      animate={stamp}
-      initial={{ opacity: 0, scale: 2.5, y: -40 }}
+      initial={{ opacity: 0, scale: 1.4, y: -28 }}
+      animate={{ opacity: [0, 0.95, 0.95, 0.95, 0], scale: [1.4, 0.94, 1, 1, 1.1], y: [-28, 3, 0, 0, -20] }}
+      transition={{ duration: 4.5, times: [0, 0.04, 0.09, 0.85, 1], ease: "easeOut" }}
     >
       <motion.div
         className="absolute inset-0 rounded-full border-2 border-stamp-red/60 pointer-events-none"
-        animate={ring}
         initial={{ scale: 1, opacity: 0 }}
+        animate={{ scale: [1, 1.45, 1.45], opacity: [0, 0.3, 0] }}
+        transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
       />
       <div className="w-14 h-14 rounded-full border-2 border-stamp-red/90 flex items-center justify-center">
         <div className="text-center">
@@ -214,25 +199,8 @@ export function DeskDecorations() {
         </div>
       </motion.div>
 
-      {/* Brass button / rivet decoration - bottom right area */}
-      <motion.div
-        className="absolute right-[3%] bottom-[4%] z-5 pointer-events-none"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ duration: 0.4, delay: 1.2 }}
-      >
-        <div 
-          className="w-6 h-6 rounded-full relative"
-          style={{
-            background: "radial-gradient(circle at 35% 35%, #d4b068 0%, #a88c48 50%, #8b7030 100%)",
-            boxShadow: "1px 1px 3px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(255,255,255,0.2)"
-          }}
-        >
-          <div className="absolute inset-1.5 rounded-full border border-amber-200/30" />
-        </div>
-      </motion.div>
 
-      {/* Coffee ring stain - subtle */}
+{/* Coffee ring stain - subtle */}
       <motion.div
         className="absolute left-[45%] bottom-[25%] z-2 pointer-events-none"
         initial={{ opacity: 0 }}

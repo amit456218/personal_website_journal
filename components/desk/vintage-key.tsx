@@ -6,26 +6,38 @@ export function VintageKey() {
   return (
     <motion.div
       className="relative pointer-events-none"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.9 }}
-      transition={{ duration: 0.7, delay: 0.85 }}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 0.92, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.85 }}
     >
-      {/* Pivot at the bow ring — key swings from there */}
+      {/* Swing pivot at top of bow ring */}
       <motion.div
-        style={{ originX: "14%", originY: "44%" }}
+        style={{ originX: "13%", originY: "8%" }}
         animate={{
-          rotate: [15, 15, 26, 4, 20, 8, 16, 13, 15, 15, 15],
-          y:      [0,  0,  -4,  4, -2,  2,  -1,  1,  0,  0,  0],
+          rotate: [5, 5, 5, 28, -16, 10, -5, 2, 5, 5, 5],
         }}
         transition={{
-          duration: 3.2,
-          times: [0, 0.18, 0.28, 0.40, 0.52, 0.62, 0.70, 0.78, 0.84, 0.92, 1],
+          duration: 5,
+          times: [0, 0.1, 0.22, 0.34, 0.47, 0.58, 0.67, 0.75, 0.81, 0.9, 1],
           repeat: Infinity,
-          repeatDelay: 5,
+          repeatDelay: 4.5,
           ease: "easeInOut",
         }}
       >
-        <svg viewBox="0 0 120 36" width="108" height="32" style={{ filter: "drop-shadow(2px 3px 4px rgba(0,0,0,0.35))" }}>
+        {/* Golden glow pulses gently on the idle */}
+        <motion.svg
+          viewBox="0 0 120 36"
+          width="108"
+          height="32"
+          animate={{
+            filter: [
+              "drop-shadow(2px 3px 5px rgba(0,0,0,0.38))",
+              "drop-shadow(2px 3px 10px rgba(212,168,75,0.55))",
+              "drop-shadow(2px 3px 5px rgba(0,0,0,0.38))",
+            ],
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.5 }}
+        >
           {/* Key bow (ring) */}
           <circle cx="16" cy="16" r="13" fill="none" stroke="url(#keyGold)" strokeWidth="4.5" />
           <circle cx="16" cy="16" r="13" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
@@ -37,21 +49,21 @@ export function VintageKey() {
           <rect x="28" y="14.5" width="78" height="3" rx="1.5" fill="rgba(255,255,255,0.2)" />
 
           {/* Teeth */}
-          <rect x="68" y="22" width="7" height="9" rx="1.5" fill="url(#keyGold)" />
-          <rect x="82" y="22" width="5" height="6" rx="1.5" fill="url(#keyGold)" />
+          <rect x="68" y="22" width="7" height="9"  rx="1.5" fill="url(#keyGold)" />
+          <rect x="82" y="22" width="5" height="6"  rx="1.5" fill="url(#keyGold)" />
           <rect x="93" y="22" width="7" height="11" rx="1.5" fill="url(#keyGold)" />
 
-          {/* Bow detail */}
+          {/* Bow centre detail */}
           <circle cx="16" cy="16" r="3" fill="url(#keyGold)" opacity="0.6" />
 
           <defs>
             <linearGradient id="keyGold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#d4a84b" />
-              <stop offset="40%" stopColor="#b8965c" />
+              <stop offset="0%"   stopColor="#d4a84b" />
+              <stop offset="40%"  stopColor="#b8965c" />
               <stop offset="100%" stopColor="#8a6a30" />
             </linearGradient>
           </defs>
-        </svg>
+        </motion.svg>
       </motion.div>
     </motion.div>
   )

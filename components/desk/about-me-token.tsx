@@ -12,7 +12,7 @@ export function AboutMeToken() {
         animate={{ opacity: 1, rotate: 9, scale: 1.664 }}
         transition={{ duration: 0.6, delay: 0.5 }}
         whileHover={{
-          scale: 1.67,
+          scale: 1.78,
           rotate: 0,
           transition: { duration: 0.2 }
         }}

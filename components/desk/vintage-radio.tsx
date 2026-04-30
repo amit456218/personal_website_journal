@@ -2,8 +2,37 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+
+interface SpotifyData {
+  isPlaying: boolean
+  title: string | null
+  artist: string | null
+  albumImage: string | null
+  songUrl: string | null
+}
+
+function useNowPlaying() {
+  const [data, setData] = useState<SpotifyData | null>(null)
+
+  useEffect(() => {
+    const fetch_ = () =>
+      fetch('/api/spotify')
+        .then(r => r.json())
+        .then(setData)
+        .catch(() => {})
+
+    fetch_()
+    const id = setInterval(fetch_, 30_000)
+    return () => clearInterval(id)
+  }, [])
+
+  return data
+}
 
 export function VintageRadio() {
+  const track = useNowPlaying()
+
   return (
     <Link href="/music">
       <motion.div

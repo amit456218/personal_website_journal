@@ -300,7 +300,7 @@ export function Desk() {
 
         {/* Fountain Pen — top center gap */}
         <motion.div
-          className="absolute right-[17%] bottom-[29%] z-10 pointer-events-none scale-[0.85]"
+          className="absolute right-[17%] bottom-[25%] z-10 pointer-events-none scale-[0.85]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.65 }}
@@ -309,7 +309,7 @@ export function Desk() {
         </motion.div>
 
         {/* Pressed botanical — between music and gallery */}
-        <div className="absolute right-[15%] top-[38%] z-10 pointer-events-none scale-[0.55]" style={{ transform: "rotate(-12deg) scale(0.55)" }}>
+        <div className="absolute right-[17%] top-[40%] z-10 pointer-events-none" style={{ transform: "rotate(-12deg) scale(0.72)" }}>
           <PressedBotanical />
         </div>
 
