@@ -1,12 +1,22 @@
+"use client"
+
 import { Desk } from "@/components/desk"
 import { ScaleToFit } from "@/components/scale-to-fit"
+import { MobileDesk } from "@/components/mobile-desk"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function Home() {
+  const isMobile = useIsMobile()
+
   return (
     <main className="relative">
-      <ScaleToFit>
-        <Desk />
-      </ScaleToFit>
+      {isMobile ? (
+        <MobileDesk />
+      ) : (
+        <ScaleToFit>
+          <Desk />
+        </ScaleToFit>
+      )}
     </main>
   )
 }
