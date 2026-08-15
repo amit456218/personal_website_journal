@@ -22,11 +22,14 @@ function Medallion({ size = 64 }: { size?: number }) {
       {/* Outer rim with engraved ticks */}
       <circle cx="32" cy="32" r="30" fill="url(#seal-rim)" />
       {Array.from({ length: 48 }).map((_, i) => {
+        // Round trig output — Math.sin/cos are implementation-defined, so Node and the
+        // browser can differ in the last digit and desync hydration.
+        const r = (n: number) => n.toFixed(3)
         const a = (i * Math.PI * 2) / 48
-        const x1 = 32 + Math.cos(a) * 28
-        const y1 = 32 + Math.sin(a) * 28
-        const x2 = 32 + Math.cos(a) * 30
-        const y2 = 32 + Math.sin(a) * 30
+        const x1 = r(32 + Math.cos(a) * 28)
+        const y1 = r(32 + Math.sin(a) * 28)
+        const x2 = r(32 + Math.cos(a) * 30)
+        const y2 = r(32 + Math.sin(a) * 30)
         return (
           <line
             key={i}
