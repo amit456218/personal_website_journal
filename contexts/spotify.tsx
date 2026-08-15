@@ -49,7 +49,7 @@ const SpotifyContext = createContext<SpotifyContextValue>({
  * this and the whole gesture tightens up; the ramp positions below are
  * fractions of it rather than absolute times.
  */
-const TRANSITION_SEC = 0.85
+const TRANSITION_SEC = 0.6
 const TRANSITION_MS = TRANSITION_SEC * 1000
 
 function shuffle<T>(arr: T[]): T[] {
@@ -98,8 +98,8 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       const buffer = ctx.createBuffer(1, bufLen, sampleRate)
       const data = buffer.getChannelData(0)
 
-      // Build a warm harmonic source (root + fifth + octave) plus light noise
-      const root = 220 // A3
+      // Build a warm harmonic source (root + fifth + octave) plus noise
+      const root = 440 // A4
       const harmonics = [
         { mult: 1.0, level: 0.28 },
         { mult: 1.5, level: 0.18 }, // perfect fifth
@@ -117,7 +117,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
         const w = Math.random() * 2 - 1
         pn0 = 0.97 * pn0 + 0.05 * w
         pn1 = 0.85 * pn1 + 0.2 * w
-        s += (pn0 + pn1) * 0.08 // subtle vinyl noise floor
+        s += (pn0 + pn1) * 0.24 // vinyl noise floor — audible grit, not just a hint
         data[i] = Math.max(-1, Math.min(1, s))
       }
 
@@ -129,17 +129,17 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       // Exponential ramps, not linear: a real platter loses speed fast and then
       // creeps to a halt, and pitch is perceived logarithmically, so a linear
       // ramp sounds like it stalls in the middle. The wind-down is given less
-      // of the window than the wind-up (0.38 vs the rest) so the gesture reads
+      // of the window than the wind-up (0.35 vs the rest) so the gesture reads
       // as a quick drop and an eager return rather than a long sag.
       src.playbackRate.setValueAtTime(1.0, now)
-      src.playbackRate.exponentialRampToValueAtTime(0.28, now + duration * 0.38) // wind down
-      src.playbackRate.exponentialRampToValueAtTime(1.18, now + duration * 0.86) // wind up past
+      src.playbackRate.exponentialRampToValueAtTime(0.28, now + duration * 0.35) // wind down
+      src.playbackRate.exponentialRampToValueAtTime(1.25, now + duration * 0.85) // wind up past
       src.playbackRate.exponentialRampToValueAtTime(1.0, now + duration)         // settle
 
       // Warmth filter
       const warm = ctx.createBiquadFilter()
       warm.type = "lowpass"
-      warm.frequency.value = 3500
+      warm.frequency.value = 4800
       warm.Q.value = 0.6
 
       // Fast attack so the drop lands immediately, then hold most of the window
