@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function AwardsSkillsToken() {
   return (
-    <Link href="/awards" className="block">
+    <Link href="/awards" className="block" aria-label="Awards and skills">
       <motion.div
         className="relative cursor-pointer group"
         initial={{ opacity: 0, rotate: 8, scale: 1.3 }}

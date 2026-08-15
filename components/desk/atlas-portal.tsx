@@ -15,7 +15,7 @@ export function AtlasPortal({ onNavigate }: AtlasPortalProps) {
   }
 
   return (
-    <Link href="/atlas" onClick={handleClick}>
+    <Link href="/atlas" onClick={handleClick} aria-label="Open the atlas of travels">
       <motion.div
         className="relative cursor-pointer group focus:outline-none"
         style={{ transform: "rotate(5deg)" }}

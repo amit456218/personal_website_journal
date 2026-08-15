@@ -11,12 +11,13 @@ interface Company {
 }
 
 interface CompanyClusterProps {
-  companies: Company[]
+  /** Retained for callers; the passport cover is rendered without per-company detail. */
+  companies?: Company[]
 }
 
-export function CompanyCluster({ companies }: CompanyClusterProps) {
+export function CompanyCluster({}: CompanyClusterProps) {
   return (
-    <Link href="/work" className="block">
+    <Link href="/work" className="block" aria-label="Work archive: companies and experiences">
       <motion.div
         className="relative cursor-pointer group"
         initial={{ opacity: 0, y: 20, rotate: 12, scale: 1.35 }}

@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { seededRandom, seededRange } from "@/lib/seeded-random"
 
 interface TicketStubProps {
   title: string
@@ -10,7 +11,7 @@ interface TicketStubProps {
 }
 
 export function TicketStub({ title, details, rotation = 0, index = 0 }: TicketStubProps) {
-  const randomRotation = rotation || (Math.random() * 8 - 4)
+  const randomRotation = rotation || Number(seededRange(index, -4, 4, 1).toFixed(3))
   
   return (
     <motion.div
@@ -63,8 +64,8 @@ export function TicketStub({ title, details, rotation = 0, index = 0 }: TicketSt
               key={i}
               className="bg-ink"
               style={{ 
-                width: Math.random() > 0.5 ? 2 : 1,
-                height: 16 + Math.random() * 8
+                width: seededRandom(index, 100 + i) > 0.5 ? 2 : 1,
+                height: Number((16 + seededRandom(index, 200 + i) * 8).toFixed(3))
               }}
             />
           ))}

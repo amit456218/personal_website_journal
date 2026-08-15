@@ -1,17 +1,18 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { useState } from "react"
+import { seededRandom, seededRange } from "@/lib/seeded-random"
 
 interface PolaroidProps {
-  src: string
+  /** Retained for callers; the frame is drawn in CSS rather than from a bitmap. */
+  src?: string
   caption: string
   rotation?: number
   index?: number
 }
 
-export function Polaroid({ src, caption, rotation = 0, index = 0 }: PolaroidProps) {
+export function Polaroid({ caption, rotation = 0, index = 0 }: PolaroidProps) {
   const [isHovered, setIsHovered] = useState(false)
   
   // Generate random tape positions
@@ -20,7 +21,7 @@ export function Polaroid({ src, caption, rotation = 0, index = 0 }: PolaroidProp
     { top: -6, right: "15%", rotate: 12 },
   ]
   
-  const showSecondTape = Math.random() > 0.5
+  const showSecondTape = seededRandom(index, 1) > 0.5
   
   return (
     <motion.div
@@ -98,7 +99,7 @@ export function Polaroid({ src, caption, rotation = 0, index = 0 }: PolaroidProp
         {/* Caption */}
         <p 
           className="font-handwriting text-base md:text-lg text-ink mt-3 text-center px-2"
-          style={{ transform: `rotate(${Math.random() * 2 - 1}deg)` }}
+          style={{ transform: `rotate(${seededRange(index, -1, 1, 2).toFixed(3)}deg)` }}
         >
           {caption}
         </p>

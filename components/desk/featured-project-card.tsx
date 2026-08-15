@@ -11,7 +11,7 @@ interface FeaturedProjectCardProps {
 
 export function FeaturedProjectCard({ title, description, slug }: FeaturedProjectCardProps) {
   return (
-    <Link href={`/projects/${slug}`}>
+    <Link href={`/projects/${slug}`} aria-label={`Featured project: ${title}`}>
       <motion.div
         className="relative bg-paper-light p-4 w-52 cursor-pointer group"
         style={{

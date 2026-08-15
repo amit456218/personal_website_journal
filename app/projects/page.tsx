@@ -1,4 +1,10 @@
 import Link from "next/link"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description: 'Field notes on things built — selected projects and the thinking behind them.',
+}
 
 export default function ProjectsPage() {
   return (

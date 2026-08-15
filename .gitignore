@@ -20,3 +20,5 @@ node_modules
 
 # Use pnpm-lock.yaml; ignore npm's lockfile
 package-lock.json
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

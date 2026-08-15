@@ -30,7 +30,7 @@ export function VintageRadio() {
   }, [playing, needleLeft, volRot, tuneRot])
 
   return (
-    <Link href="/music">
+    <Link href="/music" aria-label="Current listens">
       <motion.div
         className="cursor-pointer relative"
         initial={{ opacity: 0, y: -12, rotate: -8, scale: 1.16 }}

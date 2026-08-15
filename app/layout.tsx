@@ -25,9 +25,40 @@ const specialElite = Special_Elite({
   variable: "--font-typewriter"
 })
 
+const SITE_URL = 'https://amitabhgulati.com'
+const DESCRIPTION =
+  'The portfolio of Amitabh Gulati — designer, developer and traveler — laid out as a worn vintage travel journal of projects, journeys and stories.'
+
 export const metadata: Metadata = {
-  title: 'Travel Journal | A Personal Portfolio',
-  description: 'A personal portfolio designed as a worn vintage travel journal — documenting journeys, projects, and stories from around the world.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Amitabh Gulati | Designer & Developer',
+    template: '%s | Amitabh Gulati',
+  },
+  description: DESCRIPTION,
+  keywords: ['Amitabh Gulati', 'portfolio', 'product designer', 'developer', 'UX', 'travel journal'],
+  authors: [{ name: 'Amitabh Gulati', url: SITE_URL }],
+  creator: 'Amitabh Gulati',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Amitabh Gulati',
+    title: 'Amitabh Gulati | Designer & Developer',
+    description: DESCRIPTION,
+    url: SITE_URL,
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Amitabh Gulati | Designer & Developer',
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       {

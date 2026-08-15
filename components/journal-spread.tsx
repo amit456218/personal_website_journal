@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import type { JournalEntry } from "@/lib/journal-data"
+import { seededRange } from "@/lib/seeded-random"
 import { Polaroid } from "./polaroid"
 import { Stamp } from "./stamp"
 import { TicketStub } from "./ticket-stub"
@@ -150,7 +151,7 @@ export function JournalSpread({ entry }: JournalSpreadProps) {
                   <motion.div
                     key={i}
                     className="relative pl-6 border-l-2 border-brass/40"
-                    style={{ transform: `rotate(${Math.random() * 1 - 0.5}deg)` }}
+                    style={{ transform: `rotate(${seededRange(i, -0.5, 0.5).toFixed(3)}deg)` }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.9 + i * 0.1 }}

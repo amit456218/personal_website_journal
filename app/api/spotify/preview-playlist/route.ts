@@ -64,8 +64,9 @@ export async function GET() {
 
     cache = { tracks, ts: Date.now() }
     return NextResponse.json({ tracks, cached: false })
-  } catch (e: any) {
-    console.error('[preview-playlist] failed:', e, e?.cause)
-    return NextResponse.json({ tracks: [], error: String(e), cause: String(e?.cause ?? '') }, { status: 500 })
+  } catch (e) {
+    const cause = e instanceof Error ? e.cause : undefined
+    console.error('[preview-playlist] failed:', e, cause)
+    return NextResponse.json({ tracks: [], error: String(e), cause: String(cause ?? '') }, { status: 500 })
   }
 }

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function FilmStrip() {
   return (
-    <Link href="/gallery" className="block">
+    <Link href="/gallery" className="block" aria-label="Photo gallery">
       <motion.div
         className="relative cursor-pointer group"
         initial={{ opacity: 0, rotate: -10, scale: 1.45 }}

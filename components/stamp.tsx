@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
+import { seededRange } from "@/lib/seeded-random"
 
 interface StampProps {
   text: string
@@ -35,7 +36,7 @@ export function Stamp({ text, type, color, rotation = 0, index = 0 }: StampProps
   const isInView = useInView(ref, { once: true, margin: "-50px" })
   
   const colors = colorMap[color]
-  const randomRotation = rotation || (Math.random() * 20 - 10)
+  const randomRotation = rotation || Number(seededRange(index, -10, 10, 1).toFixed(3))
   
   if (type === "round") {
     return (

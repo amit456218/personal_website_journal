@@ -254,21 +254,21 @@ export function AlmaMaterPage() {
               >
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed first-letter:text-4xl first-letter:font-serif first-letter:font-bold first-letter:mr-1 first-letter:float-left first-letter:leading-none">
                   The Quad in October is a particular kind of beautiful — orange leaves over
-                  green grass, Altgeld Hall's limestone tower at the edge of your sight, the
-                  smell of autumn threading through Champaign's flat air. Four years of that
+                  green grass, Altgeld Hall&apos;s limestone tower at the edge of your sight, the
+                  smell of autumn threading through Champaign&apos;s flat air. Four years of that
                   view taught me to pay attention.
                 </p>
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed">
                   I came in knowing how to write code. Illinois taught me how to think — in
                   systems, in tradeoffs, in the long arc of a design decision made at 2 AM in
                   Grainger. The CS curriculum is relentless, and the design courses quietly
-                  rewire how you see every interface you'll ever touch.
+                  rewire how you see every interface you&apos;ll ever touch.
                 </p>
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed">
                   Between lectures and project sprints, there were Illini basketball runs to
                   State Farm Center, late-night diner booths on Green Street, and the kind of
                   friendships that only form when everyone around you is equally exhausted and
-                  equally hungry to build something. I'd do it again without hesitation.
+                  equally hungry to build something. I&apos;d do it again without hesitation.
                 </p>
               </motion.div>
 
@@ -465,7 +465,7 @@ export function AlmaMaterPage() {
                   className="font-handwriting text-xl leading-snug"
                   style={{ color: ILLINI_ORANGE + "cc" }}
                 >
-                  "I am Illinois"
+                  &ldquo;I am Illinois&rdquo;
                 </p>
               </motion.div>
             </div>

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function AboutMeToken() {
   return (
-    <Link href="/about" className="block">
+    <Link href="/about" className="block" aria-label="About me">
       <motion.div
         className="relative cursor-pointer group"
         initial={{ opacity: 0, rotate: 7, scale: 1.664 }}

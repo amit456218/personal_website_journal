@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function FieldNotesBook() {
   return (
-    <Link href="/projects">
+    <Link href="/projects" aria-label="Field notes: projects">
       <motion.div
         className="relative w-24 h-36 cursor-pointer group"
         initial={{ opacity: 0, x: -20, rotate: -12 }}

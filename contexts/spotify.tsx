@@ -65,7 +65,9 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     if (typeof window === "undefined") return
     try {
       if (!audioCtxRef.current) {
-        const Ctx = window.AudioContext || (window as any).webkitAudioContext
+        const Ctx =
+          window.AudioContext ||
+          (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
         if (!Ctx) return
         audioCtxRef.current = new Ctx()
       }

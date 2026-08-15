@@ -1,5 +1,11 @@
 import { WorldMap } from "@/components/world-map"
 import { BackToDesk } from "@/components/back-to-desk"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Atlas',
+  description: 'A chronicle of wanderings — the places that shaped the work.',
+}
 
 export default function AtlasPage() {
   return (

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function ResumeDocument() {
   return (
-    <Link href="/resume">
+    <Link href="/resume" aria-label="Education and alma mater">
       <motion.div
         className="relative w-32 h-20 cursor-pointer group"
         initial={{ opacity: 0, y: 20, scale: 1.125, rotate: -4 }}
