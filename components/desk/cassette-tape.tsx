@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useSpotify } from "@/contexts/spotify"
 
 export function CassetteTape() {
-  const { isPlaying, toggle } = useSpotify()
+  const { isPlaying, toggle, isReady } = useSpotify()
 
   return (
     <>
@@ -22,8 +22,19 @@ export function CassetteTape() {
       >
         {/* Vinyl sleeve - click to play/pause */}
         <div
-          className="relative w-40 h-40 rounded-sm overflow-hidden cursor-pointer"
-          onClick={toggle}
+          className={`relative w-40 h-40 rounded-sm overflow-hidden ${isReady ? "cursor-pointer" : "cursor-default"}`}
+          onClick={isReady ? toggle : undefined}
+          role="button"
+          tabIndex={isReady ? 0 : -1}
+          aria-disabled={!isReady}
+          aria-label={isReady ? (isPlaying ? "Pause music" : "Play music") : "Music unavailable"}
+          onKeyDown={(e) => {
+            if (!isReady) return
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault()
+              toggle()
+            }
+          }}
           style={{
             background: "linear-gradient(145deg, #e8dcc8 0%, #d8c8b0 100%)",
             boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.25), 1px 1px 3px rgba(44, 36, 22, 0.15)"
@@ -138,7 +149,7 @@ export function CassetteTape() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
         >
-          {isPlaying ? "tap to pause" : "tap to play"}
+          {!isReady ? "quiet for now" : isPlaying ? "tap to pause" : "tap to play"}
         </motion.p>
       </motion.div>
     </>

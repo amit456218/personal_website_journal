@@ -18,6 +18,8 @@ interface SpotifyContextValue {
   tracks: PreviewTrack[]
   progress: number
   duration: number
+  /** False until the playlist resolves, so controls can show they are inert. */
+  isReady: boolean
   toggle: () => void
   next: () => void
   prev: () => void
@@ -31,6 +33,7 @@ const SpotifyContext = createContext<SpotifyContextValue>({
   tracks: [],
   progress: 0,
   duration: 0,
+  isReady: false,
   toggle: () => {},
   next: () => {},
   prev: () => {},
@@ -143,9 +146,18 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       .then(r => r.json())
       .then(d => {
         const shuffled = shuffle((d.tracks ?? []) as PreviewTrack[])
+        if (shuffled.length === 0) {
+          // Surface it. A dead click with no explanation is how this went
+          // unnoticed: the vinyl just silently did nothing.
+          console.warn(
+            "[spotify] playlist returned no playable tracks." +
+              (d.hint ? ` ${d.hint}` : "") +
+              (d.playlistId ? ` (playlist ${d.playlistId})` : "")
+          )
+        }
         setTracks(shuffled)
       })
-      .catch(() => {})
+      .catch(err => console.warn("[spotify] could not load playlist:", err))
   }, [])
 
   // Initialize audio element
@@ -274,7 +286,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const duration = audioDurationMs
 
   return (
-    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, toggle, next, prev, seek, playTrack }}>
+    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, isReady: tracks.length > 0, toggle, next, prev, seek, playTrack }}>
       {children}
     </SpotifyContext.Provider>
   )
