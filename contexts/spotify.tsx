@@ -41,6 +41,17 @@ const SpotifyContext = createContext<SpotifyContextValue>({
   playTrack: () => {},
 })
 
+/**
+ * Length of the turntable stop/start sound between clips, in seconds.
+ *
+ * Single source of truth: the synthesised buffer and the delay before the next
+ * clip starts are both derived from it, so they cannot drift apart. Shorten
+ * this and the whole gesture tightens up; the ramp positions below are
+ * fractions of it rather than absolute times.
+ */
+const TRANSITION_SEC = 0.85
+const TRANSITION_MS = TRANSITION_SEC * 1000
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -61,7 +72,6 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const audioCtxRef = useRef<AudioContext | null>(null)
   const initialMountRef = useRef(true)
   const playTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const TRANSITION_MS = 1400
 
   // Vinyl-crackle transition burst synthesized via Web Audio
   const playTransition = useCallback(async () => {
@@ -82,7 +92,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       // Vinyl wind-down + wind-up: rich harmonic buffer played with
       // playbackRate sliding down then back up (classic turntable stop/start).
       const now = ctx.currentTime
-      const duration = 1.4
+      const duration = TRANSITION_SEC
       const sampleRate = ctx.sampleRate
       const bufLen = Math.floor(sampleRate * duration)
       const buffer = ctx.createBuffer(1, bufLen, sampleRate)
@@ -114,11 +124,17 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       const src = ctx.createBufferSource()
       src.buffer = buffer
 
-      // Pitch slide: 1.0 → 0.35 (slow down) → back up past 1.0 → settle at 1.0
+      // Pitch slide: 1.0 → 0.28 (slow down) → overshoot → settle at 1.0.
+      //
+      // Exponential ramps, not linear: a real platter loses speed fast and then
+      // creeps to a halt, and pitch is perceived logarithmically, so a linear
+      // ramp sounds like it stalls in the middle. The wind-down is given less
+      // of the window than the wind-up (0.38 vs the rest) so the gesture reads
+      // as a quick drop and an eager return rather than a long sag.
       src.playbackRate.setValueAtTime(1.0, now)
-      src.playbackRate.linearRampToValueAtTime(0.35, now + duration * 0.45) // wind down
-      src.playbackRate.linearRampToValueAtTime(1.15, now + duration * 0.85) // wind up past
-      src.playbackRate.linearRampToValueAtTime(1.0, now + duration)         // settle
+      src.playbackRate.exponentialRampToValueAtTime(0.28, now + duration * 0.38) // wind down
+      src.playbackRate.exponentialRampToValueAtTime(1.18, now + duration * 0.86) // wind up past
+      src.playbackRate.exponentialRampToValueAtTime(1.0, now + duration)         // settle
 
       // Warmth filter
       const warm = ctx.createBiquadFilter()
@@ -126,10 +142,13 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       warm.frequency.value = 3500
       warm.Q.value = 0.6
 
+      // Fast attack so the drop lands immediately, then hold most of the window
+      // and fade only at the tail — a slow fade would eat the wind-up, which is
+      // the half that signals the next clip is arriving.
       const gain = ctx.createGain()
       gain.gain.setValueAtTime(0.0001, now)
-      gain.gain.exponentialRampToValueAtTime(0.9, now + 0.04)
-      gain.gain.setValueAtTime(0.9, now + duration * 0.7)
+      gain.gain.exponentialRampToValueAtTime(0.9, now + 0.02)
+      gain.gain.setValueAtTime(0.9, now + duration * 0.78)
       gain.gain.exponentialRampToValueAtTime(0.0001, now + duration)
 
       src.connect(warm).connect(gain).connect(ctx.destination)
