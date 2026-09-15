@@ -127,42 +127,6 @@ export const projects: Project[] = [
     tier: "earlier",
   },
   {
-    slug: "spendboost",
-    title: "SpendBoost",
-    tagline: "A gamified budgeting and savings accelerator for your phone.",
-    year: "2025",
-    kind: "Mobile · React Native",
-    stack: ["React Native", "Expo"],
-    summary:
-      "SpendBoost aggregates a user's transaction data, displays active savings challenges and simulates real-time notifications, built with React Native on Expo.",
-    links: [{ label: "Repository", href: "https://github.com/amit456218/Updated-Projects" }],
-    tier: "earlier",
-  },
-  {
-    slug: "stashspot",
-    title: "StashSpot",
-    tagline: "Secure luggage storage near airports and transit hubs. Travel light, explore freely.",
-    year: "2025",
-    kind: "Web app · Travel",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Mapbox"],
-    summary:
-      "Search by address or your current location, browse nearby storage spots on a map, and walk through a booking-ready flow. Demo-ready with mock data, with a 'Why We Exist' page explaining the mission.",
-    links: [{ label: "Repository", href: "https://github.com/amit456218/StashSpot" }],
-    tier: "earlier",
-  },
-  {
-    slug: "lifevision",
-    title: "LifeVision",
-    tagline: "Reading emotional cues in Instagram photos to estimate suicide risk.",
-    year: "2024",
-    kind: "Machine learning · Research",
-    stack: ["Python", "OpenCV", "LBPH"],
-    summary:
-      "A pipeline that processes Instagram images to detect emotional cues and estimate suicide risk from facial expressions. A Haar-cascade detector crops faces from labelled posts, an LBPH recognizer is trained on the result, and the model is evaluated on new images. The write-up includes an ethical-considerations section.",
-    links: [{ label: "Repository", href: "https://github.com/amit456218/LifeVision" }],
-    tier: "earlier",
-  },
-  {
     slug: "this-journal",
     title: "This Journal",
     tagline: "The site you're reading, built as a worn vintage travel journal.",
