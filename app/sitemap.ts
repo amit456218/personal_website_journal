@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { workExperiences } from '@/lib/work-data'
 import { journalEntries } from '@/lib/journal-data'
+import { projects } from '@/lib/projects-data'
 
 const SITE_URL = 'https://amitabhgulati.com'
 
@@ -27,11 +28,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
+  const projectRoutes = projects.map((p) => ({
+    url: `${SITE_URL}/projects/${p.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   const journalRoutes = journalEntries.map((e) => ({
     url: `${SITE_URL}/journal/${e.id}`,
     changeFrequency: 'yearly' as const,
     priority: 0.5,
   }))
 
-  return [...staticRoutes, ...workRoutes, ...journalRoutes]
+  return [...staticRoutes, ...workRoutes, ...projectRoutes, ...journalRoutes]
 }

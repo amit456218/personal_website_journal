@@ -6,9 +6,9 @@ export const deskData = {
     tagline: "Designer, developer, traveler, and collector of stories",
   },
   featuredProject: {
-    title: "Meridian",
-    description: "A spatial design tool for architects",
-    slug: "meridian",
+    title: "Caught",
+    description: "A desk camera that learns your bad habits",
+    slug: "caught",
   },
   companies: [
     { name: "Impekable", date: "2022", type: "stamp" as const },
