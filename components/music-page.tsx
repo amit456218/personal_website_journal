@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { useSpotify } from "@/contexts/spotify"
+import { RadioDial } from "./radio-dial"
 
 function fmt(ms: number) {
   const s = Math.floor(ms / 1000)
@@ -83,6 +84,11 @@ export function MusicPage() {
         </Link>
         <span className="font-typewriter text-2xl tracking-wide uppercase text-sepia/80">Current Listens</span>
         <div className="w-16"/>
+      </div>
+
+      {/* Tuning dial */}
+      <div className="px-6 md:px-8 pt-4 pb-3 border-b border-sepia/20 shrink-0">
+        <RadioDial />
       </div>
 
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">

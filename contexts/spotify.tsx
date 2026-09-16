@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useRef, useState, useCallback } from "react"
+import { STATIONS, type Station } from "@/lib/stations"
 
 export interface PreviewTrack {
   id: string
@@ -25,6 +26,13 @@ interface SpotifyContextValue {
   prev: () => void
   seek: (ms: number) => void
   playTrack: (index: number) => void
+  /** Radio stations: each is a public playlist; tuning swaps the whole track list. */
+  stations: Station[]
+  stationIndex: number
+  isTuning: boolean
+  tune: (index: number) => void
+  /** Static hiss level 0..1, driven by the dial while it's being dragged. */
+  setStaticLevel: (level: number) => void
 }
 
 const SpotifyContext = createContext<SpotifyContextValue>({
@@ -39,6 +47,11 @@ const SpotifyContext = createContext<SpotifyContextValue>({
   prev: () => {},
   seek: () => {},
   playTrack: () => {},
+  stations: STATIONS,
+  stationIndex: 0,
+  isTuning: false,
+  tune: () => {},
+  setStaticLevel: () => {},
 })
 
 /**
@@ -72,22 +85,110 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const audioCtxRef = useRef<AudioContext | null>(null)
   const initialMountRef = useRef(true)
   const playTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [stationIndex, setStationIndex] = useState(0)
+  const [isTuning, setIsTuning] = useState(false)
+  const stationIndexRef = useRef(0)
+  const stationSwitchRef = useRef(false) // next track change is a retune: static, not the vinyl thunk
+  const stationCache = useRef(new Map<string, PreviewTrack[]>())
+  const staticRef = useRef<{ gain: GainNode } | null>(null)
+
+  const ensureCtx = useCallback(async (): Promise<AudioContext | null> => {
+    if (typeof window === "undefined") return null
+    if (!audioCtxRef.current) {
+      const Ctx =
+        window.AudioContext ||
+        (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!Ctx) return null
+      audioCtxRef.current = new Ctx()
+    }
+    const ctx = audioCtxRef.current
+    if (ctx.state === "suspended") {
+      try { await ctx.resume() } catch {}
+    }
+    return ctx
+  }, [])
+
+  // Between-station hiss: a looping bandpassed noise bed whose gain the dial drives.
+  const setStaticLevel = useCallback((level: number) => {
+    ensureCtx().then((ctx) => {
+      if (!ctx) return
+      if (!staticRef.current) {
+        const len = ctx.sampleRate * 2
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate)
+        const d = buf.getChannelData(0)
+        let b0 = 0, b1 = 0
+        for (let i = 0; i < len; i++) {
+          const w = Math.random() * 2 - 1
+          b0 = 0.99 * b0 + w * 0.1
+          b1 = 0.96 * b1 + w * 0.25
+          d[i] = (b0 + b1 + w * 0.35) * 0.5
+        }
+        const src = ctx.createBufferSource()
+        src.buffer = buf
+        src.loop = true
+        const bp = ctx.createBiquadFilter()
+        bp.type = "bandpass"
+        bp.frequency.value = 1400
+        bp.Q.value = 0.6
+        const gain = ctx.createGain()
+        gain.gain.value = 0
+        src.connect(bp).connect(gain).connect(ctx.destination)
+        src.start()
+        staticRef.current = { gain }
+      }
+      const g = staticRef.current.gain.gain
+      g.cancelScheduledValues(ctx.currentTime)
+      g.setTargetAtTime(Math.max(0, Math.min(1, level)) * 0.28, ctx.currentTime, 0.06)
+    })
+  }, [ensureCtx])
+
+  const loadStation = useCallback(async (station: Station): Promise<PreviewTrack[]> => {
+    const cached = stationCache.current.get(station.id)
+    if (cached) return cached
+    const d = await fetch(`/api/spotify/preview-playlist?id=${station.id}`).then((r) => r.json())
+    const list = shuffle((d.tracks ?? []) as PreviewTrack[])
+    if (list.length === 0) {
+      // Surface it. A dead click with no explanation is how this went
+      // unnoticed: the vinyl just silently did nothing.
+      console.warn(
+        `[spotify] station "${station.name}" returned no playable tracks.` +
+          (d.hint ? ` ${d.hint}` : "") +
+          (d.playlistId ? ` (playlist ${d.playlistId})` : "")
+      )
+    }
+    stationCache.current.set(station.id, list)
+    return list
+  }, [])
+
+  const tune = useCallback((index: number) => {
+    if (index < 0 || index >= STATIONS.length || index === stationIndexRef.current) return
+    stationIndexRef.current = index
+    setStationIndex(index)
+    setIsTuning(true)
+    setStaticLevel(1)
+    const started = Date.now()
+    loadStation(STATIONS[index])
+      .then((list) => {
+        if (stationIndexRef.current !== index) return // retuned again meanwhile
+        stationSwitchRef.current = true
+        setTracks(list)
+        setCurrentIndex(0)
+        // Hold the hiss for a beat so the change reads as a retune, then let the station through.
+        const wait = Math.max(0, 700 - (Date.now() - started))
+        setTimeout(() => { setStaticLevel(0); setIsTuning(false) }, wait)
+      })
+      .catch((err) => {
+        console.warn("[spotify] could not tune:", err)
+        setStaticLevel(0)
+        setIsTuning(false)
+      })
+  }, [loadStation, setStaticLevel])
 
   // Vinyl-crackle transition burst synthesized via Web Audio
   const playTransition = useCallback(async () => {
-    if (typeof window === "undefined") return
     try {
-      if (!audioCtxRef.current) {
-        const Ctx =
-          window.AudioContext ||
-          (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-        if (!Ctx) return
-        audioCtxRef.current = new Ctx()
-      }
-      const ctx = audioCtxRef.current
-      if (ctx.state === "suspended") {
-        try { await ctx.resume() } catch {}
-      }
+      const ctx = await ensureCtx()
+      if (!ctx) return
 
       // Vinyl wind-down + wind-up: rich harmonic buffer played with
       // playbackRate sliding down then back up (classic turntable stop/start).
@@ -157,27 +258,14 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // ignore — audio context not available or blocked
     }
-  }, [])
+  }, [ensureCtx])
 
-  // Load and shuffle the playlist once
+  // Load the first station once
   useEffect(() => {
-    fetch("/api/spotify/preview-playlist")
-      .then(r => r.json())
-      .then(d => {
-        const shuffled = shuffle((d.tracks ?? []) as PreviewTrack[])
-        if (shuffled.length === 0) {
-          // Surface it. A dead click with no explanation is how this went
-          // unnoticed: the vinyl just silently did nothing.
-          console.warn(
-            "[spotify] playlist returned no playable tracks." +
-              (d.hint ? ` ${d.hint}` : "") +
-              (d.playlistId ? ` (playlist ${d.playlistId})` : "")
-          )
-        }
-        setTracks(shuffled)
-      })
+    loadStation(STATIONS[0])
+      .then(setTracks)
       .catch(err => console.warn("[spotify] could not load playlist:", err))
-  }, [])
+  }, [loadStation])
 
   // Initialize audio element
   useEffect(() => {
@@ -247,7 +335,8 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    if (isInitial) {
+    if (isInitial || stationSwitchRef.current) {
+      stationSwitchRef.current = false
       startPlayback()
     } else {
       playTransition()
@@ -308,7 +397,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const duration = audioDurationMs
 
   return (
-    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, isReady: tracks.length > 0, toggle, next, prev, seek, playTrack }}>
+    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, isReady: tracks.length > 0, toggle, next, prev, seek, playTrack, stations: STATIONS, stationIndex, isTuning, tune, setStaticLevel }}>
       {children}
     </SpotifyContext.Provider>
   )

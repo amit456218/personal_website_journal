@@ -4,10 +4,12 @@ import { motion, useMotionValue, useMotionTemplate, animate } from "framer-motio
 import Link from "next/link"
 import { useEffect } from "react"
 import { useSpotify } from "@/contexts/spotify"
+import { STATIONS, freqToFraction } from "@/lib/stations"
 
 export function VintageRadio() {
-  const { isPlaying } = useSpotify()
+  const { isPlaying, stationIndex } = useSpotify()
   const playing = isPlaying
+  const station = STATIONS[stationIndex]
 
   // Motion values keep their last value across stop/start, so resume picks up
   // exactly where it froze (instead of snapping back to the keyframe origin).
@@ -16,7 +18,11 @@ export function VintageRadio() {
   const tuneRot = useMotionValue(0)
 
   useEffect(() => {
-    if (!playing) return // motion values keep current value; nothing to stop
+    if (!playing) {
+      // Parked: rest on the tuned station's spot on the little dial.
+      const park = animate(needleLeft, 6 + freqToFraction(station.freq) * 86, { duration: 0.7, ease: "easeInOut" })
+      return () => park.stop()
+    }
     const c1 = animate(needleLeft, [needleLeft.get(), 62, 28], {
       duration: 4, repeat: Infinity, ease: "easeInOut",
     })
@@ -27,7 +33,7 @@ export function VintageRadio() {
       duration: 4, repeat: Infinity, ease: "easeInOut",
     })
     return () => { c1.stop(); c2.stop(); c3.stop() }
-  }, [playing, needleLeft, volRot, tuneRot])
+  }, [playing, needleLeft, volRot, tuneRot, station.freq])
 
   return (
     <Link href="/music" aria-label="Current listens">
@@ -127,7 +133,7 @@ export function VintageRadio() {
             <p className="font-typewriter text-[13px] text-amber-100 font-normal leading-tight tracking-wide uppercase" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
               Current Listens
             </p>
-            <p className="font-typewriter text-[7px] tracking-[0.3em] text-amber-300/60">TUNED IN</p>
+            <p className="font-typewriter text-[7px] tracking-[0.3em] text-amber-300/60">TUNED IN &middot; {station.freq.toFixed(1)}</p>
 
             {/* Frequency dial — larger and more detailed */}
             <div

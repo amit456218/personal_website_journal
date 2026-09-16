@@ -1,6 +1,9 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
+import { STATIONS } from '@/lib/stations'
 
-const PLAYLIST_ID = process.env.SPOTIFY_PLAYLIST_ID ?? '1tMu5VHwOgUnHyHpfbxpvG'
+const DEFAULT_PLAYLIST_ID = process.env.SPOTIFY_PLAYLIST_ID ?? '1tMu5VHwOgUnHyHpfbxpvG'
+// Only the station playlists can be requested by id, so this never becomes an open proxy.
+const ALLOWED_IDS = new Set([DEFAULT_PLAYLIST_ID, ...STATIONS.map((s) => s.id)])
 
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -24,7 +27,7 @@ interface EmbedTrack {
   audioPreview?: { url?: string }
 }
 
-let cache: { tracks: PreviewTrack[]; ts: number } | null = null
+const cache = new Map<string, { tracks: PreviewTrack[]; ts: number }>()
 const TTL_MS = 60 * 1000 // 60 seconds — new playlist additions show up within a minute
 
 /**
@@ -64,10 +67,13 @@ function extractTrackList(html: string): EmbedTrack[] {
   return found ?? []
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const requested = req.nextUrl.searchParams.get('id')
+  const PLAYLIST_ID = requested && ALLOWED_IDS.has(requested) ? requested : DEFAULT_PLAYLIST_ID
   try {
-    if (cache && Date.now() - cache.ts < TTL_MS) {
-      return NextResponse.json({ tracks: cache.tracks, cached: true })
+    const hit = cache.get(PLAYLIST_ID)
+    if (hit && Date.now() - hit.ts < TTL_MS) {
+      return NextResponse.json({ tracks: hit.tracks, cached: true, playlistId: PLAYLIST_ID })
     }
 
     const html = await fetch(`https://open.spotify.com/embed/playlist/${PLAYLIST_ID}`, {
@@ -128,8 +134,8 @@ export async function GET() {
       })
     }
 
-    cache = { tracks, ts: Date.now() }
-    return NextResponse.json({ tracks, cached: false })
+    cache.set(PLAYLIST_ID, { tracks, ts: Date.now() })
+    return NextResponse.json({ tracks, cached: false, playlistId: PLAYLIST_ID })
   } catch (e) {
     const cause = e instanceof Error ? e.cause : undefined
     console.error('[preview-playlist] failed:', e, cause)
