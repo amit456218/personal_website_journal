@@ -33,6 +33,8 @@ interface SpotifyContextValue {
   tune: (index: number) => void
   /** Static hiss level 0..1, driven by the dial while it's being dragged. */
   setStaticLevel: (level: number) => void
+  /** Live frequency/time-domain analyser on the playing audio, once playback has started. */
+  getAnalyser: () => AnalyserNode | null
 }
 
 const SpotifyContext = createContext<SpotifyContextValue>({
@@ -52,6 +54,7 @@ const SpotifyContext = createContext<SpotifyContextValue>({
   isTuning: false,
   tune: () => {},
   setStaticLevel: () => {},
+  getAnalyser: () => null,
 })
 
 /**
@@ -91,6 +94,9 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const stationSwitchRef = useRef(false) // next track change is a retune: static, not the vinyl thunk
   const stationCache = useRef(new Map<string, PreviewTrack[]>())
   const staticRef = useRef<{ gain: GainNode } | null>(null)
+  const tracksLenRef = useRef(0)
+  const analyserRef = useRef<AnalyserNode | null>(null)
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null)
 
   const ensureCtx = useCallback(async (): Promise<AudioContext | null> => {
     if (typeof window === "undefined") return null
@@ -141,6 +147,29 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       g.setTargetAtTime(Math.max(0, Math.min(1, level)) * 0.28, ctx.currentTime, 0.06)
     })
   }, [ensureCtx])
+
+  // Route the <audio> through an analyser so the turntable can see the music.
+  // Must be created after a user gesture (the context needs to be running),
+  // and only once per element; afterwards the element plays through the graph.
+  const connectAnalyser = useCallback(async () => {
+    const audio = audioRef.current
+    if (!audio || sourceRef.current) return
+    const ctx = await ensureCtx()
+    if (!ctx || sourceRef.current) return
+    try {
+      const src = ctx.createMediaElementSource(audio)
+      const analyser = ctx.createAnalyser()
+      analyser.fftSize = 256
+      analyser.smoothingTimeConstant = 0.82
+      src.connect(analyser).connect(ctx.destination)
+      sourceRef.current = src
+      analyserRef.current = analyser
+    } catch (err) {
+      console.warn("[spotify] analyser unavailable:", err)
+    }
+  }, [ensureCtx])
+
+  const getAnalyser = useCallback(() => analyserRef.current, [])
 
   const loadStation = useCallback(async (station: Station): Promise<PreviewTrack[]> => {
     const cached = stationCache.current.get(station.id)
@@ -267,7 +296,12 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       .catch(err => console.warn("[spotify] could not load playlist:", err))
   }, [loadStation])
 
-  // Initialize audio element
+  useEffect(() => {
+    tracksLenRef.current = tracks.length
+  }, [tracks.length])
+
+  // Initialize the audio element, once. (It used to be rebuilt whenever the
+  // track count changed; an analyser can only ever be attached to one element.)
   useEffect(() => {
     if (typeof window === "undefined") return
     const audio = new Audio()
@@ -275,12 +309,15 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     // 300 KB preview clip on load for every visitor, most of whom never press play.
     audio.preload = "none"
     audio.volume = 0.7
+    // Spotify's preview CDN sends CORS headers, which is what lets the
+    // analyser read the signal instead of getting silence.
+    audio.crossOrigin = "anonymous"
     audioRef.current = audio
 
     const onTime = () => setProgress(audio.currentTime * 1000)
     const onEnd = () => {
       shouldPlayRef.current = true
-      setCurrentIndex(i => (i + 1) % Math.max(tracks.length, 1))
+      setCurrentIndex(i => (i + 1) % Math.max(tracksLenRef.current, 1))
     }
     const onPlay = () => { shouldPlayRef.current = true; setIsPlaying(true) }
     const onPause = () => setIsPlaying(false)
@@ -305,8 +342,11 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
       audio.removeEventListener("pause", onPause)
       audio.removeEventListener("loadedmetadata", onMeta)
       audio.removeEventListener("durationchange", onMeta)
+      try { sourceRef.current?.disconnect() } catch {}
+      sourceRef.current = null
+      analyserRef.current = null
     }
-  }, [tracks.length])
+  }, [])
 
   // When currentIndex changes, swap the audio source
   useEffect(() => {
@@ -361,12 +401,13 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     if (audio.paused) {
       shouldPlayRef.current = true
       audio.preload = "auto" // from here on, prefetch the next clip so track changes are instant
+      connectAnalyser()
       audio.play().catch(() => { shouldPlayRef.current = false; setIsPlaying(false) })
     } else {
       shouldPlayRef.current = false
       audio.pause()
     }
-  }, [tracks, currentIndex])
+  }, [tracks, currentIndex, connectAnalyser])
 
   const next = useCallback(() => {
     if (tracks.length === 0) return
@@ -388,8 +429,9 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const playTrack = useCallback((index: number) => {
     if (index < 0 || index >= tracks.length) return
     shouldPlayRef.current = true
+    connectAnalyser()
     setCurrentIndex(index)
-  }, [tracks.length])
+  }, [tracks.length, connectAnalyser])
 
   const currentTrack = tracks[currentIndex] ?? null
   // Previews are ~30s — use the actual loaded audio duration, not the full
@@ -397,7 +439,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   const duration = audioDurationMs
 
   return (
-    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, isReady: tracks.length > 0, toggle, next, prev, seek, playTrack, stations: STATIONS, stationIndex, isTuning, tune, setStaticLevel }}>
+    <SpotifyContext.Provider value={{ isPlaying, currentTrack, tracks, progress, duration, isReady: tracks.length > 0, toggle, next, prev, seek, playTrack, stations: STATIONS, stationIndex, isTuning, tune, setStaticLevel, getAnalyser }}>
       {children}
     </SpotifyContext.Provider>
   )

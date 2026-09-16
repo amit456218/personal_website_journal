@@ -2,10 +2,10 @@
 
 import { useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
 import Link from "next/link"
 import { useSpotify } from "@/contexts/spotify"
 import { RadioDial } from "./radio-dial"
+import { Turntable } from "./turntable"
 
 function fmt(ms: number) {
   const s = Math.floor(ms / 1000)
@@ -17,7 +17,7 @@ function Controls({ isPlaying, onPrev, onPlayPause, onNext }: {
 }) {
   return (
     <div className="flex items-center justify-center gap-8 mt-6">
-      <button onClick={onPrev} className="opacity-60 hover:opacity-100 transition-opacity">
+      <button onClick={onPrev} aria-label="Previous track" className="opacity-60 hover:opacity-100 transition-opacity">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="#2c2416">
           <polygon points="19,5 9,12 19,19"/>
           <rect x="5" y="5" width="2.5" height="14" rx="1"/>
@@ -25,6 +25,7 @@ function Controls({ isPlaying, onPrev, onPlayPause, onNext }: {
       </button>
       <button
         onClick={onPlayPause}
+        aria-label={isPlaying ? "Pause" : "Play"}
         className="w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
         style={{
           background: "radial-gradient(circle at 35% 35%, #d4a84b 0%, #b8965c 55%, #8a6a30 100%)",
@@ -42,7 +43,7 @@ function Controls({ isPlaying, onPrev, onPlayPause, onNext }: {
           </svg>
         )}
       </button>
-      <button onClick={onNext} className="opacity-60 hover:opacity-100 transition-opacity">
+      <button onClick={onNext} aria-label="Next track" className="opacity-60 hover:opacity-100 transition-opacity">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="#2c2416">
           <polygon points="5,5 15,12 5,19"/>
           <rect x="16.5" y="5" width="2.5" height="14" rx="1"/>
@@ -93,18 +94,10 @@ export function MusicPage() {
 
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Now Playing */}
-        <div className="flex md:flex-1 flex-col items-center justify-center px-6 md:px-8 py-6 md:py-0 relative shrink-0 md:shrink">
+        <div className="flex md:flex-1 flex-col items-center px-6 md:px-8 py-6 md:py-4 relative shrink-0 md:shrink md:overflow-y-auto">
           <AnimatePresence mode="wait">
-            <motion.div key={currentTrack?.id ?? "empty"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }} className="w-full max-w-[280px]">
-              <div className="mx-auto rounded-sm overflow-hidden w-full max-w-[240px]"
-                style={{ background: "#f5ede0", padding: "10px", boxShadow: "4px 6px 20px rgba(0,0,0,0.3)" }}>
-                <div className="w-full aspect-square overflow-hidden rounded-sm bg-sepia/10">
-                  {currentTrack?.album_image
-                    ? <Image src={currentTrack.album_image} alt="album" width={220} height={220} className="object-cover w-full h-full" unoptimized/>
-                    : <div className="w-full h-full flex items-center justify-center"><span className="font-typewriter text-sepia/30 text-3xl">&#9835;</span></div>
-                  }
-                </div>
-              </div>
+            <motion.div key={currentTrack?.id ?? "empty"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }} className="w-full max-w-[320px] my-auto">
+              <Turntable />
 
               <div className="text-center mt-4 md:mt-5">
                 <p className="font-serif text-[20px] md:text-[22px] text-sepia/90 leading-tight truncate">{currentTrack?.name ?? "—"}</p>
