@@ -20,10 +20,20 @@ import { PressedBotanical } from "./desk/pressed-botanical"
 import { StickyNote } from "./desk/sticky-note"
 import { VintageKey } from "./desk/vintage-key"
 import { deskData } from "@/lib/desk-data"
+import { DeskArrangeProvider, DeskArrangeControls, DeskItem, useDeskArrange } from "./desk/desk-arrange"
 
 export function Desk() {
+  return (
+    <DeskArrangeProvider>
+      <DeskBoard />
+    </DeskArrangeProvider>
+  )
+}
+
+function DeskBoard() {
   const cork = useCork()
   const frame = useFrame()
+  const { constraintsRef } = useDeskArrange()
 
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: cork.bgColor }}>
@@ -57,137 +67,76 @@ export function Desk() {
       />
 
       {/* All desk elements with absolute positioning */}
-      <div className="relative h-full w-full">
+      {/* onDragStartCapture here is the *native* HTML drag: links and images
+          would otherwise start a browser drag and swallow the pointer gesture. */}
+      <div ref={constraintsRef} className="desk-surface relative h-full w-full" onDragStartCapture={(e) => e.preventDefault()}>
         
         {/* CENTER: Intro Note - main focal point */}
-        <motion.div 
-          className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="pointer-events-auto">
-            <IntroNote 
-              name={deskData.intro.name} 
-              tagline={deskData.intro.tagline} 
-            />
-          </div>
-        </motion.div>
+        <DeskItem id="intro" className="inset-0 flex items-center justify-center pointer-events-none" z={30} duration={0.6}>
+          <IntroNote 
+            name={deskData.intro.name} 
+            tagline={deskData.intro.tagline} 
+          />
+        </DeskItem>
 
         {/* TOP LEFT: Field Notes Book */}
-        <motion.div 
-          className="absolute left-[6%] top-[8%] z-20 scale-[1.25]"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <DeskItem id="field-notes" className="left-[6%] top-[8%]" z={20} scale={1.25} from={{ x: -20 }} delay={0.1}>
           <FieldNotesBook />
-        </motion.div>
+        </DeskItem>
 
         {/* TOP RIGHT: Atlas Portal */}
-        <motion.div 
-          className="absolute right-[6%] top-[8%] z-20"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-        >
+        <DeskItem id="atlas" className="right-[6%] top-[8%]" z={20} from={{ y: -20 }} delay={0.15} duration={0.6}>
           <AtlasPortal />
-        </motion.div>
+        </DeskItem>
 
         {/* LEFT: Featured Project Card - angled for bulletin board feel */}
-        <motion.div 
-          className="absolute left-[3%] top-[50%] -translate-y-1/2 z-10"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <DeskItem id="featured" className="left-[3%] top-[50%] -translate-y-1/2" z={10} from={{ x: -30 }} delay={0.2}>
           <FeaturedProjectCard 
             title={deskData.featuredProject.title}
             description={deskData.featuredProject.description}
             slug={deskData.featuredProject.slug}
           />
-        </motion.div>
+        </DeskItem>
 
         {/* TOP LEFT MIDDLE: Company Passport - between field notes and name */}
-        <motion.div 
-          className="absolute left-[24%] top-[17%] z-15"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-        >
+        <DeskItem id="passport" className="left-[24%] top-[17%]" z={15} from={{ y: -20 }} delay={0.25}>
           <CompanyCluster companies={deskData.companies} />
-        </motion.div>
+        </DeskItem>
 
         {/* BOTTOM LEFT: Accent Polaroid - moved more right */}
-        <motion.div 
-          className="absolute left-[17%] bottom-[5%] z-20 scale-[0.8]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <DeskItem id="polaroid" className="left-[17%] bottom-[5%]" z={20} scale={0.8} from={{ y: 20 }} delay={0.3}>
           <AccentPolaroid />
-        </motion.div>
+        </DeskItem>
 
         {/* BOTTOM RIGHT: Resume Document */}
-        <motion.div 
-          className="absolute right-[11%] bottom-[10%] z-20 scale-[1.2]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-        >
+        <DeskItem id="resume" className="right-[11%] bottom-[10%]" z={20} scale={1.2} from={{ y: 20 }} delay={0.35}>
           <ResumeDocument />
-        </motion.div>
+        </DeskItem>
 
         {/* RIGHT SIDE: Vinyl Sleeve (Music) - below name on right */}
-        <motion.div
-          className="absolute right-[24%] top-[37%] z-15"
-          style={{ marginLeft: "-34px" }}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
+        <DeskItem id="record" className="right-[24%] top-[37%]" style={{ marginLeft: "-34px" }} z={15} from={{ x: 20 }} delay={0.4}>
           <CassetteTape />
-        </motion.div>
+        </DeskItem>
 
         {/* RIGHT SIDE LOWER: Polaroid Stack (Gallery) */}
-        <motion.div 
-          className="absolute right-[6%] top-[39%] z-15"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-        >
+        <DeskItem id="gallery" className="right-[6%] top-[39%]" z={15} from={{ x: 20 }} delay={0.45}>
           <FilmStrip />
-        </motion.div>
+        </DeskItem>
 
         {/* About Me Token - bottom center */}
-        <motion.div 
-          className="absolute left-[32.5%] bottom-[15.5%] z-15"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
+        <DeskItem id="about" className="left-[32.5%] bottom-[15.5%]" z={15} from={{ y: 20 }} delay={0.5}>
           <AboutMeToken />
-        </motion.div>
+        </DeskItem>
 
         {/* Vintage Radio — Current Listens */}
-        <motion.div
-          className="absolute right-[30%] bottom-[11%] z-15 scale-[0.9]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.55 }}
-        >
+        <DeskItem id="radio" className="right-[30%] bottom-[11%]" z={15} scale={0.9} from={{ y: 20 }} delay={0.55}>
           <VintageRadio />
-        </motion.div>
+        </DeskItem>
 
         {/* Awards & Skills Token — top center */}
-        <motion.div
-          className="absolute left-[46%] top-[9%] z-20"
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <DeskItem id="awards" className="left-[46%] top-[9%]" z={20} from={{ y: -15 }} delay={0.2}>
           <AwardsSkillsToken />
-        </motion.div>
+        </DeskItem>
 
         {/* Fountain Pen — top center gap */}
         <motion.div
@@ -216,6 +165,9 @@ export function Desk() {
 
         {/* Decorative elements */}
         <DeskDecorations />
+
+        {/* Drag hint / tidy-up */}
+        <DeskArrangeControls />
 
       </div>
 

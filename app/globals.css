@@ -243,3 +243,6 @@ html {
   .intro-fade { animation: none; opacity: var(--intro-fade-to, 1); }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
+
+/* Rearrangeable desk: objects are dragged with pointer events, never as native link/image drags */
+.desk-surface a, .desk-surface img { -webkit-user-drag: none; user-select: none; }
