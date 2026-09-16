@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Caveat, Special_Elite } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { MotionConfig } from 'framer-motion'
 import { AtlasTransition } from '@/components/atlas-transition'
 import { SpotifyProvider } from '@/contexts/spotify'
 import { CorkProvider } from '@/contexts/cork'
@@ -81,15 +82,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        {/* The record sleeve streams clips from Spotify's CDN; warm the connection early. */}
+        <link rel="preconnect" href="https://p.scdn.co" crossOrigin="anonymous" />
+      </head>
       <body className={`${cormorant.variable} ${caveat.variable} ${specialElite.variable} font-serif antialiased`}>
-        <SpotifyProvider>
-          <CorkProvider>
-            <ClickSounds />
-            <AtlasTransition>
-              {children}
-            </AtlasTransition>
-          </CorkProvider>
-        </SpotifyProvider>
+        {/* reducedMotion="user": every Framer Motion transform/layout animation
+            collapses to an instant change for visitors with reduced motion on. */}
+        <MotionConfig reducedMotion="user">
+          <SpotifyProvider>
+            <CorkProvider>
+              <ClickSounds />
+              <AtlasTransition>
+                {children}
+              </AtlasTransition>
+            </CorkProvider>
+          </SpotifyProvider>
+        </MotionConfig>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

@@ -186,7 +186,7 @@ export function ProjectsNotebook() {
 
   return (
     <div className="min-h-screen bg-paper-dark">
-      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 opacity-30" style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px" }} />
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 opacity-30" style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px" }} />
 
       <div className="relative z-10 mx-auto max-w-6xl px-3 pb-16 pt-8 md:px-6 md:pt-12">
         <div className="mb-6 flex items-center justify-between px-2">
@@ -205,7 +205,7 @@ export function ProjectsNotebook() {
           <div className="relative grid grid-cols-1 overflow-hidden rounded-sm bg-paper-light lg:grid-cols-2" style={{ perspective: 1800 }}>
             {/* Gutter */}
             <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 z-20 hidden w-10 -translate-x-1/2 lg:block" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(44,36,22,0.10) 40%, rgba(44,36,22,0.16) 50%, rgba(44,36,22,0.10) 60%, transparent 100%)" }} />
-            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px", mixBlendMode: "multiply" }} />
+            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px", mixBlendMode: "multiply" }} />
 
             {/* Left page */}
             <div className="relative min-h-[420px] border-b border-sepia/15 lg:border-b-0">

@@ -15,7 +15,7 @@ export function WorkDetailPage({ work }: WorkDetailPageProps) {
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none z-0"
         style={{
-          backgroundImage: `url('/textures/paper-texture.jpg')`,
+          backgroundImage: `url('/textures/paper-texture.webp')`,
           backgroundSize: '300px'
         }}
       />
@@ -49,7 +49,7 @@ export function WorkDetailPage({ work }: WorkDetailPageProps) {
           <div 
             className="absolute inset-0 opacity-20 rounded-sm pointer-events-none"
             style={{
-              backgroundImage: `url('/textures/paper-texture.jpg')`,
+              backgroundImage: `url('/textures/paper-texture.webp')`,
               backgroundSize: '200px',
               mixBlendMode: 'multiply'
             }}

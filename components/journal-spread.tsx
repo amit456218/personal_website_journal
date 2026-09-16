@@ -63,7 +63,7 @@ export function JournalSpread({ entry }: JournalSpreadProps) {
             <div 
               className="absolute inset-0 pointer-events-none opacity-30"
               style={{
-                backgroundImage: "url('/textures/paper-texture.jpg')",
+                backgroundImage: "url('/textures/paper-texture.webp')",
                 backgroundSize: "300px",
                 backgroundRepeat: "repeat"
               }}
@@ -186,7 +186,7 @@ export function JournalSpread({ entry }: JournalSpreadProps) {
             <div 
               className="absolute inset-0 pointer-events-none opacity-30"
               style={{
-                backgroundImage: "url('/textures/paper-texture.jpg')",
+                backgroundImage: "url('/textures/paper-texture.webp')",
                 backgroundSize: "300px",
                 backgroundRepeat: "repeat"
               }}
@@ -196,7 +196,7 @@ export function JournalSpread({ entry }: JournalSpreadProps) {
             <div 
               className="absolute top-20 right-20 w-24 h-24 opacity-[0.06] pointer-events-none"
               style={{
-                backgroundImage: "url('/textures/coffee-stain.jpg')",
+                backgroundImage: "url('/textures/coffee-stain.webp')",
                 backgroundSize: "cover"
               }}
             />

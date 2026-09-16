@@ -158,7 +158,7 @@ export function AlmaMaterPage() {
             <div
               className="absolute inset-0 pointer-events-none opacity-30"
               style={{
-                backgroundImage: "url('/textures/paper-texture.jpg')",
+                backgroundImage: "url('/textures/paper-texture.webp')",
                 backgroundSize: "300px",
                 backgroundRepeat: "repeat",
               }}
@@ -318,7 +318,7 @@ export function AlmaMaterPage() {
             <div
               className="absolute inset-0 pointer-events-none opacity-30"
               style={{
-                backgroundImage: "url('/textures/paper-texture.jpg')",
+                backgroundImage: "url('/textures/paper-texture.webp')",
                 backgroundSize: "300px",
                 backgroundRepeat: "repeat",
               }}
@@ -339,7 +339,7 @@ export function AlmaMaterPage() {
             <div
               className="absolute top-16 right-12 w-28 h-28 opacity-[0.07] pointer-events-none"
               style={{
-                backgroundImage: "url('/textures/coffee-stain.jpg')",
+                backgroundImage: "url('/textures/coffee-stain.webp')",
                 backgroundSize: "cover",
               }}
             />

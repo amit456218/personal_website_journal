@@ -31,7 +31,7 @@ export function IntroCard() {
         <div 
           className="absolute -bottom-4 -right-4 w-16 h-16 opacity-[0.08] pointer-events-none"
           style={{
-            backgroundImage: "url('/textures/coffee-stain.jpg')",
+            backgroundImage: "url('/textures/coffee-stain.webp')",
             backgroundSize: "cover"
           }}
         />

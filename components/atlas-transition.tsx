@@ -110,7 +110,7 @@ export function AtlasTransition({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 0.4 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               style={{
-                backgroundImage: "url('/textures/paper-texture.jpg')",
+                backgroundImage: "url('/textures/paper-texture.webp')",
                 backgroundSize: "400px",
                 mixBlendMode: "multiply",
                 pointerEvents: "none"

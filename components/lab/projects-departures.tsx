@@ -85,7 +85,7 @@ function BoardingPass({ project, index }: { project: Project; index: number }) {
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-20"
-          style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "220px", mixBlendMode: "multiply" }}
+          style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "220px", mixBlendMode: "multiply" }}
         />
 
         {/* Main portion */}
@@ -186,7 +186,7 @@ export function ProjectsDepartures() {
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-0 opacity-30"
-        style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px" }}
+        style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px" }}
       />
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-10 md:px-8 md:pt-14">

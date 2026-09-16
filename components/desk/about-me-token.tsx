@@ -49,7 +49,7 @@ export function AboutMeToken() {
           <div 
             className="absolute inset-0 opacity-40"
             style={{
-              backgroundImage: "url('/textures/paper-texture.jpg')",
+              backgroundImage: "url('/textures/paper-texture.webp')",
               backgroundSize: "150px",
               mixBlendMode: "multiply"
             }}

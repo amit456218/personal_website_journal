@@ -28,7 +28,7 @@ export function ProjectDetailPage({ project, number, prev, next }: ProjectDetail
       <div
         aria-hidden
         className="fixed inset-0 opacity-30 pointer-events-none z-0"
-        style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px" }}
+        style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px" }}
       />
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 py-12">
@@ -55,7 +55,7 @@ export function ProjectDetailPage({ project, number, prev, next }: ProjectDetail
           <div
             aria-hidden
             className="absolute inset-0 opacity-20 rounded-sm pointer-events-none"
-            style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "200px", mixBlendMode: "multiply" }}
+            style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "200px", mixBlendMode: "multiply" }}
           />
           <div aria-hidden className="absolute inset-4 border border-sepia/15 rounded-sm pointer-events-none" />
 

@@ -12,7 +12,7 @@ export function WorkPage() {
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none z-0"
         style={{
-          backgroundImage: `url('/textures/paper-texture.jpg')`,
+          backgroundImage: `url('/textures/paper-texture.webp')`,
           backgroundSize: '300px'
         }}
       />

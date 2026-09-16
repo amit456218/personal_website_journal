@@ -114,7 +114,7 @@ export function AwardsPage() {
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-multiply"
         style={{
-          backgroundImage: "url('/textures/paper-texture.jpg')",
+          backgroundImage: "url('/textures/paper-texture.webp')",
           backgroundSize: "420px",
         }}
       />

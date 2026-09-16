@@ -10,7 +10,7 @@ export function AboutPage() {
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          backgroundImage: "url('/textures/paper-texture.jpg')",
+          backgroundImage: "url('/textures/paper-texture.webp')",
           backgroundSize: "400px",
           opacity: 0.3,
           mixBlendMode: "multiply"

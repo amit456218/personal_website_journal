@@ -37,7 +37,7 @@ function Pin({ color = "#c0392b", shine = "#e74c3c", className = "" }: { color?:
 }
 
 function Grain({ opacity = 0.18 }: { opacity?: number }) {
-  return <div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "180px", mixBlendMode: "multiply", opacity }} />
+  return <div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "180px", mixBlendMode: "multiply", opacity }} />
 }
 
 /* ---------- Exhibits: one physical object per project ---------- */
@@ -339,7 +339,7 @@ export function ProjectsBoard() {
   const isMobile = useIsMobile()
   return (
     <div className="min-h-screen bg-paper-dark">
-      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 opacity-30" style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px" }} />
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 opacity-30" style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px" }} />
       <div className="relative z-10 mx-auto max-w-6xl px-3 pb-16 pt-8 md:px-6 md:pt-12">
         <div className="mb-6 flex items-end justify-between px-2">
           <div>

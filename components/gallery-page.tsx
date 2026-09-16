@@ -10,7 +10,7 @@ export function GalleryPage() {
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          backgroundImage: "url('/textures/paper-texture.jpg')",
+          backgroundImage: "url('/textures/paper-texture.webp')",
           backgroundSize: "600px",
           opacity: 0.4,
           mixBlendMode: "multiply"

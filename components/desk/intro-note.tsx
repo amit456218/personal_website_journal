@@ -36,31 +36,14 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
           </filter>
         </defs>
       </svg>
-    <motion.div
-      className="relative"
+    {/* The entrance runs as a CSS animation, not a JS one: it starts on first
+        paint instead of waiting for hydration, which is what was holding the
+        largest contentful paint back by several seconds on phones. */}
+    <div
+      className="intro-uncrumple relative"
       style={{
-        transformPerspective: 800,
         filter: "url(#intro-crumple)",
         willChange: "transform, opacity",
-      }}
-      initial={{
-        opacity: 0,
-        scale: 0.08,
-        rotate: 45,
-        rotateX: 75,
-        rotateY: -50,
-      }}
-      animate={{
-        opacity: [0, 0.6, 1, 1, 1],
-        scale: [0.08, 0.4, 0.85, 1.06, 1.03],
-        rotate: [45, -22, 8, -3, -1.5],
-        rotateX: [75, 30, -10, 3, 0],
-        rotateY: [-50, 22, -8, 2, 0],
-      }}
-      transition={{
-        duration: 1.1,
-        times: [0, 0.25, 0.55, 0.85, 1],
-        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {/* Shadow layer */}
@@ -131,7 +114,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
         <div 
           className="absolute inset-0 pointer-events-none opacity-25"
           style={{
-            backgroundImage: "url('/textures/paper-texture.jpg')",
+            backgroundImage: "url('/textures/paper-texture.webp')",
             backgroundSize: "200px",
             mixBlendMode: "multiply"
           }}
@@ -154,14 +137,9 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
         {/* Content */}
         <div className="relative z-10">
           {/* Small decorative date */}
-          <motion.span 
-            className="font-handwriting text-xs text-sepia/50 block mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
+          <span className="intro-fade font-handwriting text-xs text-sepia/50 block mb-2" style={{ animationDelay: "0.5s" }}>
             April 2026
-          </motion.span>
+          </span>
           
           <h1 className="font-serif text-2xl md:text-3xl text-ink tracking-tight leading-tight">
             {name}
@@ -174,16 +152,11 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
           </p>
           
           {/* Decorative flourish */}
-          <motion.div 
-            className="mt-4 flex items-center gap-2 opacity-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            transition={{ delay: 0.7 }}
-          >
+          <div className="intro-fade mt-4 flex items-center gap-2" style={{ animationDelay: "0.7s", ["--intro-fade-to" as string]: 0.4 }}>
             <div className="w-2 h-2 rounded-full bg-sepia/50" />
             <div className="w-8 h-[1px] bg-sepia/40" />
             <div className="w-1.5 h-1.5 rounded-full bg-sepia/40" />
-          </motion.div>
+          </div>
         </div>
         
         {/* Decorative tape strips - moved to sides to not overlap paperclip */}
@@ -204,7 +177,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
           }}
         />
       </div>
-    </motion.div>
+    </div>
     </>
   )
 }

@@ -21,7 +21,7 @@ export function PassportStamp({ work, index }: PassportStampProps) {
         {/* Page texture */}
         <div className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
-            backgroundImage: `url('/textures/paper-texture.jpg')`,
+            backgroundImage: `url('/textures/paper-texture.webp')`,
             backgroundSize: '200px'
           }}
         />

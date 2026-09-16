@@ -41,7 +41,7 @@ export function ArchiveCard({ work, index }: ArchiveCardProps) {
         <div 
           className="absolute inset-0 opacity-20 rounded-sm pointer-events-none"
           style={{
-            backgroundImage: `url('/textures/paper-texture.jpg')`,
+            backgroundImage: `url('/textures/paper-texture.webp')`,
             backgroundSize: '150px',
             mixBlendMode: 'multiply'
           }}

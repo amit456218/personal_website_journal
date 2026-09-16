@@ -15,7 +15,7 @@ function PaperGrain({ size = 200 }: { size?: number }) {
       aria-hidden
       className="absolute inset-0 opacity-20 rounded-sm pointer-events-none"
       style={{
-        backgroundImage: "url('/textures/paper-texture.jpg')",
+        backgroundImage: "url('/textures/paper-texture.webp')",
         backgroundSize: `${size}px`,
         mixBlendMode: "multiply",
       }}
@@ -212,7 +212,7 @@ export function ProjectsPage() {
       <div
         aria-hidden
         className="fixed inset-0 opacity-30 pointer-events-none z-0"
-        style={{ backgroundImage: "url('/textures/paper-texture.jpg')", backgroundSize: "300px" }}
+        style={{ backgroundImage: "url('/textures/paper-texture.webp')", backgroundSize: "300px" }}
       />
 
       <div className="relative z-10">

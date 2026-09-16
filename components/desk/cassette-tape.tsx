@@ -44,7 +44,7 @@ export function CassetteTape() {
           <div
             className="absolute inset-0 opacity-40"
             style={{
-              backgroundImage: "url('/textures/paper-texture.jpg')",
+              backgroundImage: "url('/textures/paper-texture.webp')",
               backgroundSize: "200px",
               mixBlendMode: "multiply"
             }}

@@ -183,7 +183,9 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === "undefined") return
     const audio = new Audio()
-    audio.preload = "auto"
+    // "none" until the first play: with "auto" the home page pulled a full
+    // 300 KB preview clip on load for every visitor, most of whom never press play.
+    audio.preload = "none"
     audio.volume = 0.7
     audioRef.current = audio
 
@@ -269,6 +271,7 @@ export function SpotifyProvider({ children }: { children: React.ReactNode }) {
     if (!audio.src) audio.src = tracks[currentIndex]?.preview_url ?? ""
     if (audio.paused) {
       shouldPlayRef.current = true
+      audio.preload = "auto" // from here on, prefetch the next clip so track changes are instant
       audio.play().catch(() => { shouldPlayRef.current = false; setIsPlaying(false) })
     } else {
       shouldPlayRef.current = false
