@@ -24,6 +24,7 @@ import { TelegramObject } from "./desk/telegram-object"
 import { deskData } from "@/lib/desk-data"
 import { DeskArrangeProvider, DeskArrangeControls, DeskItem, useDeskArrange } from "./desk/desk-arrange"
 import { DeskLighting, PullChain, WeatherNote, useDeskLighting } from "./desk/desk-lighting"
+import { Desk3DBoard, FrameSides } from "./desk/desk-3d"
 
 export function Desk() {
   return (
@@ -40,15 +41,18 @@ function DeskBoard() {
   const light = useDeskLighting()
 
   return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: cork.bgColor }}>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: "#1a1108", perspective: 1600, perspectiveOrigin: "50% 42%" }}>
+      <Desk3DBoard style={{ background: cork.bgColor }}>
       {/* Cork bulletin board base */}
       <div
+        data-desk-bg
         className="absolute inset-0 pointer-events-none"
         style={{ background: cork.base }}
       />
 
       {/* Cork speckle texture */}
       <div
+        data-desk-bg
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: cork.speckle,
@@ -56,6 +60,9 @@ function DeskBoard() {
           opacity: 0.85,
         }}
       />
+
+      {/* The shadow box's wooden walls */}
+      <FrameSides />
 
       {/* Soft wooden frame edge — hidden on mobile (frame is rendered at viewport level by ScaleToFit) */}
       <div
@@ -73,10 +80,10 @@ function DeskBoard() {
       {/* All desk elements with absolute positioning */}
       {/* onDragStartCapture here is the *native* HTML drag: links and images
           would otherwise start a browser drag and swallow the pointer gesture. */}
-      <div ref={constraintsRef} className="desk-surface relative h-full w-full" onDragStartCapture={(e) => e.preventDefault()}>
+      <div ref={constraintsRef} data-desk-bg className="desk-surface relative h-full w-full" style={{ transformStyle: "preserve-3d" }} onDragStartCapture={(e) => e.preventDefault()}>
         
         {/* CENTER: Intro Note - main focal point */}
-        <DeskItem id="intro" className="inset-0 flex items-center justify-center pointer-events-none" z={30} duration={0.6}>
+        <DeskItem id="intro" depth={10} className="inset-0 flex items-center justify-center pointer-events-none" z={30} duration={0.6}>
           <IntroNote 
             name={deskData.intro.name} 
             tagline={deskData.intro.tagline} 
@@ -84,17 +91,17 @@ function DeskBoard() {
         </DeskItem>
 
         {/* TOP LEFT: Field Notes Book */}
-        <DeskItem id="field-notes" className="left-[6%] top-[8%]" z={20} scale={1.25} from={{ x: -20 }} delay={0.1}>
+        <DeskItem id="field-notes" depth={26} className="left-[6%] top-[8%]" z={20} scale={1.25} from={{ x: -20 }} delay={0.1}>
           <FieldNotesBook />
         </DeskItem>
 
         {/* TOP RIGHT: Atlas Portal */}
-        <DeskItem id="atlas" className="right-[6%] top-[8%]" z={20} from={{ y: -20 }} delay={0.15} duration={0.6}>
+        <DeskItem id="atlas" depth={8} className="right-[6%] top-[8%]" z={20} from={{ y: -20 }} delay={0.15} duration={0.6}>
           <AtlasPortal />
         </DeskItem>
 
         {/* LEFT: Featured Project Card - angled for bulletin board feel */}
-        <DeskItem id="featured" className="left-[3%] top-[50%] -translate-y-1/2" z={10} from={{ x: -30 }} delay={0.2}>
+        <DeskItem id="featured" depth={6} className="left-[3%] top-[50%] -translate-y-1/2" z={10} from={{ x: -30 }} delay={0.2}>
           <FeaturedProjectCard 
             title={deskData.featuredProject.title}
             description={deskData.featuredProject.description}
@@ -103,52 +110,52 @@ function DeskBoard() {
         </DeskItem>
 
         {/* TOP LEFT MIDDLE: Company Passport - between field notes and name */}
-        <DeskItem id="passport" className="left-[24%] top-[17%]" z={15} from={{ y: -20 }} delay={0.25}>
+        <DeskItem id="passport" depth={30} className="left-[24%] top-[17%]" z={15} from={{ y: -20 }} delay={0.25}>
           <CompanyCluster companies={deskData.companies} />
         </DeskItem>
 
         {/* BOTTOM LEFT: Accent Polaroid - moved more right */}
-        <DeskItem id="polaroid" className="left-[17%] bottom-[5%]" z={20} scale={0.8} from={{ y: 20 }} delay={0.3}>
+        <DeskItem id="polaroid" depth={9} className="left-[17%] bottom-[5%]" z={20} scale={0.8} from={{ y: 20 }} delay={0.3}>
           <AccentPolaroid />
         </DeskItem>
 
         {/* BOTTOM RIGHT: Resume Document */}
-        <DeskItem id="resume" className="right-[11%] bottom-[10%]" z={20} scale={1.2} from={{ y: 20 }} delay={0.35}>
+        <DeskItem id="resume" depth={7} className="right-[11%] bottom-[10%]" z={20} scale={1.2} from={{ y: 20 }} delay={0.35}>
           <ResumeDocument />
         </DeskItem>
 
         {/* RIGHT SIDE: Vinyl Sleeve (Music) - below name on right */}
-        <DeskItem id="record" className="right-[24%] top-[37%]" style={{ marginLeft: "-34px" }} z={15} from={{ x: 20 }} delay={0.4}>
+        <DeskItem id="record" depth={18} className="right-[24%] top-[37%]" style={{ marginLeft: "-34px" }} z={15} from={{ x: 20 }} delay={0.4}>
           <CassetteTape />
         </DeskItem>
 
         {/* RIGHT SIDE LOWER: Polaroid Stack (Gallery) */}
-        <DeskItem id="gallery" className="right-[6%] top-[39%]" z={15} from={{ x: 20 }} delay={0.45}>
+        <DeskItem id="gallery" depth={12} className="right-[6%] top-[39%]" z={15} from={{ x: 20 }} delay={0.45}>
           <FilmStrip />
         </DeskItem>
 
         {/* About Me Token - bottom center */}
-        <DeskItem id="about" className="left-[32.5%] bottom-[15.5%]" z={15} from={{ y: 20 }} delay={0.5}>
+        <DeskItem id="about" depth={8} className="left-[32.5%] bottom-[15.5%]" z={15} from={{ y: 20 }} delay={0.5}>
           <AboutMeToken />
         </DeskItem>
 
         {/* Vintage Radio — Current Listens */}
-        <DeskItem id="radio" className="right-[30%] bottom-[11%]" z={15} scale={0.9} from={{ y: 20 }} delay={0.55}>
+        <DeskItem id="radio" depth={34} className="right-[30%] bottom-[11%]" z={15} scale={0.9} from={{ y: 20 }} delay={0.55}>
           <VintageRadio />
         </DeskItem>
 
         {/* Awards & Skills Token — top center */}
-        <DeskItem id="awards" className="left-[46%] top-[9%]" z={20} from={{ y: -15 }} delay={0.2}>
+        <DeskItem id="awards" depth={14} className="left-[46%] top-[9%]" z={20} from={{ y: -15 }} delay={0.2}>
           <AwardsSkillsToken />
         </DeskItem>
 
         {/* Telegram — latest dispatch from GitHub */}
-        <DeskItem id="telegram" className="left-[52%] top-[5%]" z={12} from={{ y: -10 }} delay={0.75}>
+        <DeskItem id="telegram" depth={5} className="left-[52%] top-[5%]" z={12} from={{ y: -10 }} delay={0.75}>
           <TelegramObject />
         </DeskItem>
 
         {/* Postcard — write me */}
-        <DeskItem id="postcard" className="right-[30%] top-[7%]" z={12} from={{ y: -10 }} delay={0.7}>
+        <DeskItem id="postcard" depth={5} className="right-[30%] top-[7%]" z={12} from={{ y: -10 }} delay={0.7}>
           <PostcardObject />
         </DeskItem>
 
@@ -180,19 +187,18 @@ function DeskBoard() {
         {/* Decorative elements */}
         <DeskDecorations />
 
-        {/* Drag hint / tidy-up */}
-        <DeskArrangeControls />
-
-        {/* Lighting: follows the visitor's sun; the chain overrides it */}
-        {light.ready && (
-          <>
-            <DeskLighting phase={light.phase} lampOn={light.lampOn} overcast={light.overcast} />
-            <PullChain lampOn={light.lampOn} onPull={light.toggleLamp} label={light.manual ? undefined : light.phase} />
-            <WeatherNote weather={light.weather} />
-          </>
-        )}
-
       </div>
+      </Desk3DBoard>
+
+      {/* Flat layers over the board: hint, lighting, chain. They don't tilt with it. */}
+      <DeskArrangeControls />
+      {light.ready && (
+        <>
+          <DeskLighting phase={light.phase} lampOn={light.lampOn} overcast={light.overcast} />
+          <PullChain lampOn={light.lampOn} onPull={light.toggleLamp} label={light.manual ? undefined : light.phase} />
+          <WeatherNote weather={light.weather} />
+        </>
+      )}
 
       {/* Atmospheric vignette */}
       <div 

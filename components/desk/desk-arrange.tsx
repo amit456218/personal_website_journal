@@ -1,7 +1,8 @@
 "use client"
 
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
-import { animate, motion, useMotionValue } from "framer-motion"
+import { createContext, useCallback, useContext, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { animate, motion, useMotionValue, useMotionTemplate, useTransform } from "framer-motion"
+import { useDesk3D } from "./desk-3d"
 
 /**
  * Rearrangeable desk.
@@ -31,6 +32,7 @@ interface ArrangeContextValue {
 }
 
 const noop = () => {}
+const subscribeNoop = () => () => {}
 const ArrangeContext = createContext<ArrangeContextValue>({
   constraintsRef: { current: null },
   register: () => noop,
@@ -114,6 +116,8 @@ interface DeskItemProps {
   style?: React.CSSProperties
   /** Resting stacking order; a drag lifts the item above everything. */
   z?: number
+  /** How far the object sits above the cork, in px, in the 3D desk. */
+  depth?: number
   scale?: number
   /** Entrance offset, matching the old per-item motion.div initial values. */
   from?: { x?: number; y?: number }
@@ -122,11 +126,26 @@ interface DeskItemProps {
   children: React.ReactNode
 }
 
-export function DeskItem({ id, className = "", style, z = 15, scale = 1, from = {}, delay = 0, duration = 0.5, children }: DeskItemProps) {
+export function DeskItem({ id, className = "", style, z = 15, depth = 6, scale = 1, from = {}, delay = 0, duration = 0.5, children }: DeskItemProps) {
   const ctx = useContext(ArrangeContext)
+  const d3 = useDesk3D()
+  // The contact shadow is computed from motion values, so it only renders on
+  // the client: server markup for it would never match to the last decimal.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const zIndex = useMotionValue(z)
+  const lift = useMotionValue(0)
+  // Height above the cork: resting depth, plus stacking order, plus hover/drag lift.
+  const height = useTransform([zIndex, lift], ([zi, l]) => depth + (Number(zi) - 10) * 0.6 + Number(l))
+  // Contact shadow on the cork, thrown by a lamp up and to the right, moving with the tilt.
+  const shadowX = useTransform([height, d3.rotY], ([h, ry]) => -Number(h) * 0.32 + Number(ry) * 0.9)
+  const shadowY = useTransform([height, d3.rotX], ([h, rx]) => Number(h) * 0.42 - Number(rx) * 0.9)
+  const shadowBlur = useTransform(height, (h) => 2 + h * 0.28)
+  const shadowAlpha = useTransform(height, (h) => Math.min(0.42, 0.16 + h * 0.006))
+  const shadowZ = useTransform(height, (h) => -h)
+  const shadowFilter = useMotionTemplate`blur(${shadowBlur}px)`
+  const shadowBg = useMotionTemplate`rgba(30, 20, 8, ${shadowAlpha})`
   const draggedRef = useRef(false)
   const restoredRef = useRef(false)
 
@@ -155,7 +174,25 @@ export function DeskItem({ id, className = "", style, z = 15, scale = 1, from = 
   )
 
   return (
-    <motion.div ref={attach} className={`absolute ${className}`} style={{ ...style, zIndex }}>
+    <motion.div
+      ref={attach}
+      data-desk-item
+      className={`absolute ${className}`}
+      style={{ ...style, zIndex, z: d3.enabled ? height : 0, transformStyle: "preserve-3d" }}
+      onHoverStart={() => { if (d3.enabled && !draggedRef.current) animate(lift, 14, { type: "spring", stiffness: 300, damping: 22 }) }}
+      onHoverEnd={() => { if (!draggedRef.current) animate(lift, 0, { type: "spring", stiffness: 200, damping: 24 }) }}
+    >
+      {/* Contact shadow, laid on the cork under the object */}
+      {d3.enabled && mounted && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-sm"
+          style={{ x: shadowX, y: shadowY, z: shadowZ, scale, filter: shadowFilter, background: shadowBg }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration, delay: delay + 0.1 }}
+        />
+      )}
       {/* Entrance layer: the same choreography the items had before. */}
       <motion.div
         initial={{ opacity: 0, x: from.x ?? 0, y: from.y ?? 0 }}
@@ -171,10 +208,11 @@ export function DeskItem({ id, className = "", style, z = 15, scale = 1, from = 
           dragTransition={{ power: 0.15, timeConstant: 180, bounceStiffness: 500, bounceDamping: 40 }}
           style={{ x, y, touchAction: "none" }}
           className="relative cursor-grab active:cursor-grabbing pointer-events-auto"
-          whileDrag={{ scale: 1.04, rotate: 0.6, filter: "drop-shadow(0 18px 18px rgba(30, 20, 8, 0.28))" }}
+          whileDrag={{ scale: 1.04, rotate: 0.6 }}
           onDragStart={() => {
             draggedRef.current = true
             zIndex.set(ctx.nextZ())
+            animate(lift, 26, { type: "spring", stiffness: 300, damping: 20 })
           }}
           onDragEnd={() => {
             // Let the momentum settle, then remember where it came to rest.
@@ -183,11 +221,20 @@ export function DeskItem({ id, className = "", style, z = 15, scale = 1, from = 
               ctx.markMoved()
             }, 650)
             setTimeout(() => { draggedRef.current = false }, 0)
+            animate(lift, 0, { type: "spring", stiffness: 200, damping: 24 })
           }}
           onClickCapture={(e) => {
             if (draggedRef.current) {
               e.preventDefault()
               e.stopPropagation()
+              return
+            }
+            // Fly into the object before following its link (plain left clicks only).
+            const a = (e.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null
+            const href = a?.getAttribute("href")
+            if (a && href && href.startsWith("/") && d3.enabled && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+              e.preventDefault()
+              d3.flyTo(a.getBoundingClientRect(), href)
             }
           }}
         >
@@ -222,7 +269,7 @@ export function DeskArrangeControls() {
           animate={{ opacity: [0, 0, 0.9, 0.9, 0] }}
           transition={{ duration: 9, times: [0, 0.3, 0.4, 0.85, 1], delay: 1.5 }}
         >
-          psst &mdash; everything on this desk can be picked up and moved
+          psst &mdash; everything here can be picked up and moved, and dragging the cork looks around
         </motion.p>
       )}
     </div>
