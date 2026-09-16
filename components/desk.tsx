@@ -19,6 +19,7 @@ import { FountainPen } from "./desk/fountain-pen"
 import { PressedBotanical } from "./desk/pressed-botanical"
 import { StickyNote } from "./desk/sticky-note"
 import { VintageKey } from "./desk/vintage-key"
+import { PostcardObject } from "./desk/postcard-object"
 import { deskData } from "@/lib/desk-data"
 import { DeskArrangeProvider, DeskArrangeControls, DeskItem, useDeskArrange } from "./desk/desk-arrange"
 import { DeskLighting, PullChain, WeatherNote, useDeskLighting } from "./desk/desk-lighting"
@@ -138,6 +139,11 @@ function DeskBoard() {
         {/* Awards & Skills Token — top center */}
         <DeskItem id="awards" className="left-[46%] top-[9%]" z={20} from={{ y: -15 }} delay={0.2}>
           <AwardsSkillsToken />
+        </DeskItem>
+
+        {/* Postcard — write me */}
+        <DeskItem id="postcard" className="right-[30%] top-[7%]" z={12} from={{ y: -10 }} delay={0.7}>
+          <PostcardObject />
         </DeskItem>
 
         {/* Fountain Pen — top center gap */}

@@ -130,47 +130,6 @@ export function DeskDecorations() {
         </div>
       </motion.div>
 
-      {/* Vintage postcard corner - top right area */}
-      <motion.div
-        className="absolute right-[30%] top-[7%] z-5 pointer-events-none"
-        initial={{ opacity: 0, rotate: 15 }}
-        animate={{ opacity: 1, rotate: 12 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-      >
-        <div
-          className="w-32 h-22 rounded-sm relative overflow-hidden"
-          style={{
-            background: "linear-gradient(145deg, #f5ede0 0%, #e0d4c0 100%)",
-            boxShadow: "3px 3px 8px rgba(0,0,0,0.14)",
-            height: "5.5rem"
-          }}
-        >
-          {/* Postcard lines */}
-          <div className="absolute right-3 top-3 bottom-3 w-14">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="w-full h-px bg-sepia/20 mb-3" />
-            ))}
-          </div>
-          {/* Stamp area hint */}
-          <div className="absolute right-2 top-2 w-7 h-9 border border-dashed border-sepia/30 rounded-[1px]" />
-          {/* "POST CARD" text */}
-          <div className="absolute left-2 top-2 font-typewriter text-[8px] text-sepia/40 tracking-wider">
-            POST CARD
-          </div>
-          {/* Small green tree illustration */}
-          <svg className="absolute left-2 bottom-2 w-11 h-14" viewBox="0 0 30 40" opacity="0.6">
-            {/* Trunk */}
-            <rect x="13" y="30" width="4" height="8" rx="0.5" fill="#4a3018" />
-            {/* Tree layers */}
-            <polygon points="15,4 6,18 24,18" fill="#0e2a0a" />
-            <polygon points="15,10 4,24 26,24" fill="#081e06" />
-            <polygon points="15,17 3,32 27,32" fill="#041404" />
-          </svg>
-          {/* Dividing line */}
-          <div className="absolute left-1/2 top-2 bottom-2 w-px bg-sepia/20" />
-        </div>
-      </motion.div>
-
       {/* Compass/navigation element - under center post-it */}
       <motion.div
         className="absolute left-[49%] top-[76%] -translate-x-1/2 z-5 pointer-events-none"

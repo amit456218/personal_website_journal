@@ -15,6 +15,7 @@ import { VintageRadio } from "./desk/vintage-radio"
 import { AboutMeToken } from "./desk/about-me-token"
 import { AwardsSkillsToken } from "./desk/awards-skills-token"
 import { deskData } from "@/lib/desk-data"
+import { PostcardObject } from "./desk/postcard-object"
 
 interface ItemProps {
   delay?: number
@@ -123,6 +124,10 @@ export function MobileDesk() {
 
         <Item delay={0.55}>
           <AccentPolaroid />
+        </Item>
+
+        <Item delay={0.6}>
+          <PostcardObject />
         </Item>
       </div>
     </>
