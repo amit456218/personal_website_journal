@@ -6,6 +6,7 @@ import { AtlasTransition } from '@/components/atlas-transition'
 import { SpotifyProvider } from '@/contexts/spotify'
 import { CorkProvider } from '@/contexts/cork'
 import { ClickSounds } from '@/components/click-sounds'
+import { CardCatalog } from '@/components/card-catalog'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({ 
@@ -93,6 +94,7 @@ export default function RootLayout({
           <SpotifyProvider>
             <CorkProvider>
               <ClickSounds />
+              <CardCatalog />
               <AtlasTransition>
                 {children}
               </AtlasTransition>
