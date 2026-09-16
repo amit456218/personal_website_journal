@@ -255,3 +255,11 @@ html {
   85%  { opacity: 0.7; }
   100% { opacity: 0; transform: translate(var(--drift, 10px), 46px); }
 }
+
+/* Telegram ticker tape on the desk */
+@keyframes telegram-tape {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.telegram-tape { animation: telegram-tape 22s linear infinite; }
+.group:hover .telegram-tape { animation-play-state: paused; }
