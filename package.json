@@ -25,6 +25,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "16.2.0",
+    "opentype.js": "^2.0.0",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
     "tw-animate-css": "1.3.3",

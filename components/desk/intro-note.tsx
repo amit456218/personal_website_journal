@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { HandwrittenTagline } from "./handwritten-tagline"
 
 interface IntroNoteProps {
   name: string
@@ -147,9 +148,7 @@ export function IntroNote({ name, tagline }: IntroNoteProps) {
           
           <div className="w-10 h-[2px] bg-brass/60 my-3" />
           
-          <p className="font-handwriting text-lg md:text-xl text-sepia leading-snug">
-            {tagline}
-          </p>
+          <HandwrittenTagline text={tagline} className="font-handwriting text-lg md:text-xl text-sepia leading-snug" />
           
           {/* Decorative flourish */}
           <div className="intro-fade mt-4 flex items-center gap-2" style={{ animationDelay: "0.7s", ["--intro-fade-to" as string]: 0.4 }}>

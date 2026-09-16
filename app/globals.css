@@ -263,3 +263,19 @@ html {
 }
 .telegram-tape { animation: telegram-tape 22s linear infinite; }
 .group:hover .telegram-tape { animation-play-state: paused; }
+
+/* Handwritten tagline: each glyph is traced, then filled, on its own delay.
+   CSS rather than JS so a throttled tab catches up instead of dropping letters. */
+.hw-glyph {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill-opacity: 0;
+  stroke-opacity: 0.9;
+  animation:
+    hw-stroke var(--dur, 0.24s) ease-in-out var(--d, 0s) forwards,
+    hw-fill 0.14s linear calc(var(--d, 0s) + var(--dur, 0.24s) * 0.65) forwards,
+    hw-ink 0.25s linear calc(var(--d, 0s) + var(--dur, 0.24s)) forwards;
+}
+@keyframes hw-stroke { to { stroke-dashoffset: 0; } }
+@keyframes hw-fill   { to { fill-opacity: 1; } }
+@keyframes hw-ink    { to { stroke-opacity: 0.35; } }
