@@ -21,6 +21,7 @@ import { StickyNote } from "./desk/sticky-note"
 import { VintageKey } from "./desk/vintage-key"
 import { deskData } from "@/lib/desk-data"
 import { DeskArrangeProvider, DeskArrangeControls, DeskItem, useDeskArrange } from "./desk/desk-arrange"
+import { DeskLighting, PullChain, WeatherNote, useDeskLighting } from "./desk/desk-lighting"
 
 export function Desk() {
   return (
@@ -34,6 +35,7 @@ function DeskBoard() {
   const cork = useCork()
   const frame = useFrame()
   const { constraintsRef } = useDeskArrange()
+  const light = useDeskLighting()
 
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: cork.bgColor }}>
@@ -168,6 +170,15 @@ function DeskBoard() {
 
         {/* Drag hint / tidy-up */}
         <DeskArrangeControls />
+
+        {/* Lighting: follows the visitor's sun; the chain overrides it */}
+        {light.ready && (
+          <>
+            <DeskLighting phase={light.phase} lampOn={light.lampOn} overcast={light.overcast} />
+            <PullChain lampOn={light.lampOn} onPull={light.toggleLamp} label={light.manual ? undefined : light.phase} />
+            <WeatherNote weather={light.weather} />
+          </>
+        )}
 
       </div>
 
