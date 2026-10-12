@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next'
-import { workExperiences } from '@/lib/work-data'
 import { journalEntries } from '@/lib/journal-data'
 import { projects } from '@/lib/projects-data'
 
@@ -22,12 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === '' ? 1 : 0.8,
   }))
 
-  const workRoutes = workExperiences.map((w) => ({
-    url: `${SITE_URL}/work/${w.id}`,
-    changeFrequency: 'yearly' as const,
-    priority: 0.6,
-  }))
-
   const projectRoutes = projects.map((p) => ({
     url: `${SITE_URL}/projects/${p.slug}`,
     changeFrequency: 'monthly' as const,
@@ -40,5 +33,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  return [...staticRoutes, ...workRoutes, ...projectRoutes, ...journalRoutes]
+  return [...staticRoutes, ...projectRoutes, ...journalRoutes]
 }

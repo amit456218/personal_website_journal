@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { workExperiences } from "@/lib/work-data"
-import { ArchiveCard } from "./work/archive-card"
 
 export function WorkPage() {
   return (
@@ -51,9 +49,8 @@ export function WorkPage() {
                 </div>
               </div>
               
-              <p className="font-serif text-lg text-sepia/70 max-w-2xl leading-relaxed">
-                A curated collection of professional journeys. Each destination represents 
-                a chapter of growth, challenges overcome, and stories worth telling.
+              <p className="font-handwriting text-xl text-sepia/70">
+                Roles, companies and the stories behind them
               </p>
             </motion.div>
             
@@ -69,30 +66,34 @@ export function WorkPage() {
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-brass">
                   <path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/>
                 </svg>
-                <span className="font-handwriting text-sm text-brass">{workExperiences.length} entries</span>
+                <span className="font-handwriting text-sm text-brass">being rewritten</span>
               </div>
               <div className="flex-1 h-px bg-gradient-to-l from-transparent via-sepia/30 to-sepia/30" />
             </motion.div>
           </div>
         </header>
         
-        {/* Work entries - grid of archive cards */}
+        {/* Coming soon note */}
         <main className="px-6 md:px-12 pb-16">
-          <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {workExperiences.map((work, index) => (
-                <ArchiveCard key={work.id} work={work} index={index} />
-              ))}
-            </div>
+          <div className="max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-paper-light p-8 rounded-sm border border-border text-center"
+              style={{ boxShadow: "4px 4px 12px rgba(44, 36, 22, 0.15)" }}
+            >
+              <span className="font-typewriter text-xs text-sepia/50 uppercase tracking-wider">Coming Soon</span>
+              <p className="font-serif text-lg text-ink/80 leading-relaxed mt-3">
+                This archive is being updated. Check back soon.
+              </p>
+            </motion.div>
           </div>
         </main>
         
         {/* Footer */}
         <footer className="border-t border-sepia/20 py-8 px-6 md:px-12">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <p className="font-typewriter text-xs text-sepia/50">
-              Last updated: April 2026
-            </p>
+          <div className="max-w-4xl mx-auto flex items-center justify-end">
             <div className="flex items-center gap-4">
               <Link href="/atlas" className="font-typewriter text-xs text-sepia/60 hover:text-sepia transition-colors">
                 View Atlas
