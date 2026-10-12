@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion"
 import { usePathname, useRouter } from "next/navigation"
 import { useSpotify } from "@/contexts/spotify"
 import { projects } from "@/lib/projects-data"
-import { journalEntries } from "@/lib/journal-data"
 
 /**
  * The card catalog: ⌘K (or "/") pulls a drawer out of the wall. Type, and
@@ -111,14 +110,6 @@ export function CardCatalog() {
       keywords: `${p.kind} ${p.stack.join(" ")} ${p.year}`,
       run: () => go(`/projects/${p.slug}`),
     }))
-    const trips: Item[] = journalEntries.map((e) => ({
-      id: `trip:${e.id}`,
-      kind: "trip",
-      title: e.title,
-      subtitle: `${e.location}, ${e.country}`,
-      keywords: `${e.date} travel trip journal`,
-      run: () => go(`/journal/${e.id}`),
-    }))
     const st: Item[] = stations.map((s, i) => ({
       id: `station:${s.id}`,
       kind: "station",
@@ -135,7 +126,7 @@ export function CardCatalog() {
       keywords: "song track play music",
       run: () => { playTrack(i); go("/music") },
     }))
-    return [...pages, ...proj, ...trips, ...st, ...tr]
+    return [...pages, ...proj, ...st, ...tr]
   }, [go, tracks, playTrack, tune, stations])
 
   const results = useMemo(() => {
