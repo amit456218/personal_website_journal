@@ -23,73 +23,61 @@ export const awardsData: {
 
   awards: [
     {
-      year: "2024",
-      title: "Dean's List, Honors with Distinction",
-      issuer: "University of Illinois Urbana-Champaign",
-      description:
-        "Awarded across consecutive semesters for sustained academic excellence in computer science and design coursework.",
+      year: "2026",
+      title: "1st Place",
+      issuer: "Illinois Trading Competition",
     },
     {
-      year: "2024",
-      title: "Best Student Project — HCI Capstone",
-      issuer: "Department of Computer Science, UIUC",
+      year: "H.S.",
+      title: "USACO Gold",
+      issuer: "USA Computing Olympiad",
       description:
-        "For a research-driven interaction design that turned a year of fieldwork into a working prototype.",
+        "Self-taught, about four hours a day for months on top of school. Gold problems can't be brute-forced and give no partial credit, so most of that time went into failed contests and working back through the problems I couldn't solve until I'd learned the missing technique.",
     },
     {
-      year: "2023",
-      title: "Hackillinois — Top 10 Finalist",
-      issuer: "Hackillinois Organizing Committee",
-      description:
-        "Built a calm-tech interface for first-time travelers; selected from 600+ submissions.",
-    },
-    {
-      year: "2022",
-      title: "Outstanding Junior Designer",
-      issuer: "Impekable",
-      description:
-        "Recognized for craft, ownership, and the quiet kind of leadership that ships.",
+      year: "H.S.",
+      title: "AIME Qualifier (2x) with Distinction",
+      issuer: "Mathematical Association of America",
     },
   ],
 
   skills: [
     {
-      heading: "Design",
-      items: [
-        "Product Design",
-        "Interaction",
-        "Typography",
-        "Brand Systems",
-        "Prototyping",
-        "Motion",
-      ],
-    },
-    {
-      heading: "Engineering",
-      items: [
-        "TypeScript",
-        "React / Next.js",
-        "Framer Motion",
-        "Tailwind",
-        "Node",
-        "WebGL",
-        "Python",
-      ],
-    },
-    {
-      heading: "Tools",
-      items: [
-        "Figma",
-        "Rhino",
-        "Blender",
-        "Webflow",
-        "After Effects",
-        "Photoshop",
-      ],
-    },
-    {
       heading: "Languages",
-      items: ["English", "Hindi", "French (conversational)"],
+      items: ["Python", "C++", "C", "Java", "TypeScript", "SQL", "Bash"],
+    },
+    {
+      heading: "Systems",
+      items: [
+        "Concurrency",
+        "Memory Management",
+        "TCP / epoll Networking",
+        "JVM & Heap Profiling",
+        "Metal GPU Kernels",
+        "RTOS & Device Drivers",
+      ],
+    },
+    {
+      heading: "ML & AI",
+      items: [
+        "PyTorch",
+        "TensorFlow / Keras",
+        "XGBoost",
+        "Hugging Face",
+        "LangGraph",
+        "RAG & Vector Search",
+      ],
+    },
+    {
+      heading: "Web & Cloud",
+      items: [
+        "React / Next.js",
+        "FastAPI",
+        "PostgreSQL",
+        "Google Cloud",
+        "AWS",
+        "Docker & Kubernetes",
+      ],
     },
   ],
 }
