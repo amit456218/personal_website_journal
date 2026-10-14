@@ -199,7 +199,7 @@ export function AlmaMaterPage() {
                   className="font-typewriter text-xs tracking-[0.25em] uppercase"
                   style={{ color: ILLINI_ORANGE }}
                 >
-                  Aug 2021 — May 2025
+                  Fall 2024 — May 2028 (expected)
                 </p>
                 <p className="font-typewriter text-xs text-sepia/60 mt-0.5 tracking-widest">
                   Urbana-Champaign, Illinois
@@ -213,7 +213,7 @@ export function AlmaMaterPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Four Years<br />on the Prairie
+                Class of 2028,<br />on the Prairie
               </motion.h1>
 
               {/* Subtitle */}
@@ -223,7 +223,7 @@ export function AlmaMaterPage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
-                B.S. Computer Science + Design — University of Illinois
+                B.S. Mathematics &amp; Computer Science — University of Illinois Urbana-Champaign
               </motion.p>
 
               {/* Animated underline */}
@@ -253,22 +253,23 @@ export function AlmaMaterPage() {
                 className="space-y-5"
               >
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed first-letter:text-4xl first-letter:font-serif first-letter:font-bold first-letter:mr-1 first-letter:float-left first-letter:leading-none">
-                  The Quad in October is a particular kind of beautiful — orange leaves over
-                  green grass, Altgeld Hall&apos;s limestone tower at the edge of your sight, the
-                  smell of autumn threading through Champaign&apos;s flat air. Four years of that
-                  view taught me to pay attention.
+                  I came to Urbana-Champaign in the fall of 2024 to study Mathematics and
+                  Computer Science, and I&apos;m on track to finish in May 2028. The math keeps
+                  me honest about proofs and probability; the CS side is where I get to build.
                 </p>
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed">
-                  I came in knowing how to write code. Illinois taught me how to think — in
-                  systems, in tradeoffs, in the long arc of a design decision made at 2 AM in
-                  Grainger. The CS curriculum is relentless, and the design courses quietly
-                  rewire how you see every interface you&apos;ll ever touch.
+                  The courses that stuck are the ones that make you write the thing yourself.
+                  In CS 341 Systems Programming I built a memory allocator from scratch, with
+                  boundary tags, splitting and free-list coalescing, and it scored 100/100 and
+                  ranked first on the class leaderboard. The same semester meant an epoll file
+                  server, a parallel make with cycle detection, a CPU scheduler, and a
+                  two-level page table with a TLB. CS 357 Numerical Methods was the other half:
+                  PageRank by power iteration, eigenvalue methods, topology optimization.
                 </p>
                 <p className="font-serif text-base md:text-lg text-foreground leading-relaxed">
-                  Between lectures and project sprints, there were Illini basketball runs to
-                  State Farm Center, late-night diner booths on Green Street, and the kind of
-                  friendships that only form when everyone around you is equally exhausted and
-                  equally hungry to build something. I&apos;d do it again without hesitation.
+                  Outside lectures I&apos;m a member of Quant @ Illinois, BuildIllinois and
+                  Project Code, and in 2026 I took first place at the Illinois Trading
+                  Competition.
                 </p>
               </motion.div>
 
@@ -276,9 +277,9 @@ export function AlmaMaterPage() {
               <div className="mt-10 space-y-5">
                 {[
                   "Go Illini! 🔸🔷",
-                  "CS 374 changed everything",
-                  "2 AM Grainger runs",
-                  "Dean's List — 3× ✓",
+                  "malloc: 100/100, rank #1 ✓",
+                  "Advanced Algorithms · Probability · Statistics",
+                  "1st, Illinois Trading Competition '26",
                 ].map((note, i) => (
                   <motion.div
                     key={i}
@@ -369,42 +370,42 @@ export function AlmaMaterPage() {
                     <BlockISeal className="w-32 h-32" />
                   </div>
                   <p className="font-handwriting text-base text-sepia/80 text-center mt-2">
-                    home for four years
+                    home since fall 2024
                   </p>
                 </div>
               </motion.div>
 
               {/* Stamps row */}
               <div className="flex flex-wrap gap-4 justify-center">
-                <Stamp text={"UIUC\n2021–2025"} type="rectangle" color="blue" rotation={-6} index={0} />
-                <Stamp text={"CS +\nDESIGN"} type="round" color="red" rotation={5} index={1} />
-                <Stamp text={"GRADUATED\nMAY 2025"} type="rectangle" color="green" rotation={-3} index={2} />
-                <Stamp text={"DEAN'S\nLIST"} type="round" color="blue" rotation={8} index={3} />
+                <Stamp text={"UIUC\n2024–2028"} type="rectangle" color="blue" rotation={-6} index={0} />
+                <Stamp text={"MATH\n+ CS"} type="round" color="red" rotation={5} index={1} />
+                <Stamp text={"CLASS OF\n2028"} type="rectangle" color="green" rotation={-3} index={2} />
+                <Stamp text={"QUANT @\nILLINOIS"} type="round" color="blue" rotation={8} index={3} />
               </div>
 
               {/* Ticket stubs */}
               <div className="space-y-4 max-w-xs mx-auto">
                 <UIUCTicket
-                  title="GRADUATION CEREMONY"
-                  subtitle="State Farm Center · Champaign, IL"
-                  date="May 10, 2025"
-                  detail="Row G · Seat 14"
+                  title="ILLINOIS TRADING COMPETITION"
+                  subtitle="First place"
+                  date="2026"
+                  detail="Winner"
                   rotation={-2}
                   index={0}
                 />
                 <UIUCTicket
-                  title="ILLINI BASKETBALL"
-                  subtitle="Fighting Illini vs. Michigan State"
-                  date="Feb 2024"
-                  detail="Section 119 · Standing"
+                  title="CS 341 · MALLOC MP"
+                  subtitle="Systems Programming"
+                  date="100 / 100"
+                  detail="Leaderboard #1"
                   rotation={2}
                   index={1}
                 />
                 <UIUCTicket
-                  title="ENGINEERING OPEN HOUSE"
-                  subtitle="UIUC College of Engineering"
-                  date="Mar 2023"
-                  detail="Project Exhibitor"
+                  title="CAMPUS CLUBS"
+                  subtitle="Quant @ Illinois · BuildIllinois · Project Code"
+                  date="2024 –"
+                  detail="Member"
                   rotation={-1}
                   index={2}
                 />
@@ -426,13 +427,13 @@ export function AlmaMaterPage() {
                       className="font-typewriter text-[9px] tracking-widest"
                       style={{ color: ILLINI_BLUE }}
                     >
-                      POSTMARKED
+                      CLASS OF
                     </p>
                     <p
                       className="font-typewriter text-base font-bold"
                       style={{ color: ILLINI_BLUE }}
                     >
-                      MAY 2025
+                      MAY 2028
                     </p>
                     <p
                       className="font-typewriter text-[8px] tracking-wider"
